@@ -10,6 +10,7 @@
   transition: 0.19s;
   cursor: pointer;
   outline: none;
+  display: block;
 }
 
 .buttonNormal:hover {
@@ -38,5 +39,11 @@
 @media (min-width: 1024px) and (orientation: landscape) {
   .button {
     font-size: 21px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .button {
+    font-size: 22px;
   }
 }

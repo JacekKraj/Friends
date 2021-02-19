@@ -10,6 +10,7 @@ const Button = (props) => {
       disabled={props.disabled}
       onClick={props.onClick}
       className={classnames(props.className, classes.button, props.transparent ? classes.buttonTransparent : classes.buttonNormal)}
+      data-test={props.testData}
     >
       {props.children}
     </button>

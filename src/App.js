@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import AuthenticationMainPage from "./authentication/authenticationMainPage/AuthenticationMainPage";
+import AuthenticationMainPage from "./components/authentication/authenticationMainPage/AuthenticationMainPage";
 
 const App = () => {
   let routes = (
