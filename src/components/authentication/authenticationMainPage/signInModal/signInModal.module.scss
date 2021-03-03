@@ -1,0 +1,139 @@
+.modal {
+  position: fixed;
+  z-index: 11;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 90vh;
+  background-color: #fff;
+  padding: 6%;
+  overflow-y: auto;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 25px;
+  margin: 12% 0 7%;
+}
+
+.input {
+  margin: 2% 0;
+  width: 100%;
+}
+
+.button {
+  width: 80%;
+  margin: 12% auto;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .modal {
+    width: 80%;
+    height: 85vh;
+  }
+
+  .title {
+    font-size: 42px;
+    margin: 9% 0 6%;
+  }
+
+  .input {
+    margin: 1% 0;
+  }
+
+  .button {
+    width: 55%;
+    margin: 9% auto;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .modal {
+    width: 87%;
+    height: 85vh;
+
+    padding: 5% 8%;
+  }
+
+  .title {
+    font-size: 26px;
+    margin: 7% 0 4%;
+  }
+
+  .input {
+    margin: 1% 0;
+    width: 90%;
+  }
+
+  .button {
+    margin: 7% 0 0;
+    width: 55%;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .modal {
+    width: 82%;
+    height: 80vh;
+  }
+
+  .title {
+    font-size: 29px;
+    margin: 5% 0 4%;
+  }
+
+  .input {
+    width: 85%;
+  }
+
+  .button {
+    width: 45%;
+    padding: 2.5% 0%;
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .modal {
+    width: 65%;
+    height: 80vh;
+    padding: 4% 5%;
+  }
+
+  .title {
+    font-size: 34px;
+    margin: 6% 0 4%;
+  }
+
+  .input {
+    width: 80%;
+  }
+
+  .button {
+    width: 40%;
+    padding: 2% 0;
+  }
+}
+
+@media (min-width: 1300px) {
+  .modal {
+    width: 60%;
+    padding: 3% 5%;
+  }
+
+  .title {
+    font-size: 37px;
+    margin: 4% 0 3%;
+  }
+
+  .input {
+    width: 73%;
+    margin: 0.8% 0;
+  }
+
+  .button {
+    width: 38%;
+    margin-top: 6%;
+    padding: 1.5% 0;
+  }
+}
