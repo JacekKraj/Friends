@@ -2,12 +2,10 @@ import React from "react";
 import { Formik, Form } from "formik";
 
 import classes from "./signInModal.module.scss";
-import Backdrop from "./../../../UI/backdrop/Backdrop";
 import Button from "./../../../UI/button/Button";
 import Logo from "./../../../UI/logo/Logo";
 import MyFormikInput from "./../../../../utilities/myFormikInput/MyFormikInput";
 import Input from "./../../../UI/input/Input";
-import MyFormikSelect from "./../../../../utilities/myFormikSelect/MyFormikSelect";
 
 const SignInModal = (props) => {
   let content = props.show && (
@@ -18,7 +16,12 @@ const SignInModal = (props) => {
         </div>
         <h3 className={classes.title}>Log in to Friends</h3>
         <div className={classes.formContainer}>
-          <Formik initialValues={{ email: "", password: "" }} onClick={() => {}}>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values) => {
+              props.handleSubmit(values);
+            }}
+          >
             {() => {
               return (
                 <Form>

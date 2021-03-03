@@ -1,18 +1,30 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
+import { Provider } from "react-redux";
 
 import { findByTestAttr } from "./../../../utilities/tests/testsHelperFunctions";
 import AuthenticationMainPage from "./AuthenticationMainPage";
+import { storeFactory } from "./../../../utilities/tests/testsHelperFunctions";
 
+const setup = () => {
+  const store = storeFactory();
+  return mount(
+    <Provider store={store}>
+      <AuthenticationMainPage />
+    </Provider>
+  );
+};
 describe("backdrop and modals visibility", () => {
   let wrapper, signInButton, signUpButton;
-  const setup = () => {
-    return mount(<AuthenticationMainPage />);
-  };
+
   beforeEach(() => {
     wrapper = setup();
     signUpButton = findByTestAttr(wrapper, "sign-up-button");
     signInButton = findByTestAttr(wrapper, "sign-in-button");
+  });
+
+  afterEach(() => {
+    wrapper.unmount();
   });
   test("shows backdrop and modal after sign up button click", () => {
     signUpButton.simulate("click");
