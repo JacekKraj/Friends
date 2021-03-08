@@ -1,0 +1,36 @@
+.bigScreenNavBarComponent {
+  padding: 8% 5%;
+  height: 100vh;
+  overflow: auto;
+}
+
+.logo {
+  width: 5vw;
+  height: 5vw;
+  font-size: 30px;
+  margin-left: 3%;
+}
+
+@media (min-width: 1150px) and (orientation: landscape) {
+  .bigScreenNavBarComponent {
+    padding: 8% 6%;
+  }
+
+  .logo {
+    width: 4.2vw;
+    height: 4.2vw;
+    font-size: 29px;
+  }
+}
+
+@media (min-width: 1320px) and (orientation: landscape) {
+  .bigScreenNavBarComponent {
+    padding: 7% 3%;
+  }
+
+  .logo {
+    width: 3.2vw;
+    height: 3.2vw;
+    font-size: 29px;
+  }
+}
