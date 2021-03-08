@@ -3,6 +3,9 @@ import * as actionTypes from "./../actions/actionsTypes";
 const initialState = {
   authenticated: false,
   loading: false,
+  userModifiedEmail: "",
+  userName: "",
+  userSurname: "",
 };
 const authenticationReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -26,6 +29,10 @@ const authenticationReducer = (state = initialState, action) => {
         ...state,
         authenticated: false,
         loading: false,
+        fireUser: null,
+        userModifiedEmail: "",
+        userName: "",
+        userSurname: "",
       };
     case actionTypes.AUTHENTICATION_START:
       return {

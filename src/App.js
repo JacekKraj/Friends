@@ -1,14 +1,20 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 
 import * as actions from "./actions/index";
 import fire from "./firebaseConfig";
 import AuthenticationMainPage from "./components/authentication/authenticationMainPage/AuthenticationMainPage";
-import { successToast } from "./utilities/toasts/toasts";
+import { failToast, successToast } from "./utilities/toasts/toasts";
+import MainPage from "./components/mainPage/MainPage";
+import Spinner from "./components/UI/spinner/Spinner";
+import { modifyEmail } from "./utilities/helperFunctions/modifyEmail";
 
 const App = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [extraPaths, setExtraPaths] = useState([]);
+
   toast.configure();
 
   React.useEffect(() => {
@@ -16,36 +22,72 @@ const App = (props) => {
       if (authUser) {
         if (fire.auth().currentUser.emailVerified) {
           const fireUser = fire.auth().currentUser;
-          props.onAuthenticateEnd(fireUser);
+          const modifiedEmail = modifyEmail(fireUser.email);
+          fire
+            .database()
+            .ref(`users/${modifiedEmail}`)
+            .get()
+            .then((snapshot) => {
+              setLoading(false);
+              props.onAuthenticateEnd(fireUser);
+              props.onSetDefaultUserData({ ...snapshot.val() });
+
+              setExtraPaths((currState) => [...currState, snapshot.val().name]);
+            })
+            .catch(() => {
+              setLoading(false);
+              props.onLogout();
+              failToast("Something went wrong. Try again later.");
+            });
         } else {
           successToast("Verification email has been sent to your address. Verify to sing in.");
           props.onLogout();
+          setLoading(false);
         }
       } else {
         props.onLogout();
+        setLoading(false);
       }
     });
   }, []);
-  let routes = (
+
+  let routes = props.isAuthenticated ? (
+    <Switch>
+      <Route path="/" exact render={() => <MainPage />} />
+      {extraPaths.map((el) => {
+        return (
+          <Route
+            path={`/${el.replace(" ", "%20")}`}
+            exact
+            key={el}
+            render={() => {
+              <AuthenticationMainPage />;
+            }}
+          />
+        );
+      })}
+    </Switch>
+  ) : (
     <Switch>
       <Route path="/" exact render={() => <AuthenticationMainPage />} />
     </Switch>
   );
 
-  routes = props.authenticated ? "asd" : routes;
+  routes = loading ? <Spinner /> : routes;
 
   return <div>{routes}</div>;
 };
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.auth.authenticated,
+    isAuthenticated: state.auth.authenticated,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuthenticateEnd: () => dispatch(actions.authenticationEnd()),
+    onSetDefaultUserData: (data) => dispatch(actions.setDefaultUserData(data)),
+    onAuthenticateEnd: (fireUser) => dispatch(actions.authenticationEnd(fireUser)),
     onLogout: () => dispatch(actions.logout()),
   };
 };

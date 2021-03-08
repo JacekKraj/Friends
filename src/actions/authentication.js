@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionsTypes";
 import fire from "./../firebaseConfig";
 
-import { successToast, failToast } from "./../utilities/toasts/toasts";
+import { failToast } from "./../utilities/toasts/toasts";
 import { modifyEmail } from "./../utilities/helperFunctions/modifyEmail";
 
 export const registerStart = () => {
@@ -22,7 +22,7 @@ export const registerFail = () => {
   };
 };
 
-export const register = (email, password, hideModalHandler, name, surname) => {
+export const register = (email, password, hideModalHandler, name, surname, birthdayDate) => {
   return (dispatch) => {
     dispatch(registerStart());
     const modifiedEmail = modifyEmail(email);
@@ -31,8 +31,8 @@ export const register = (email, password, hideModalHandler, name, surname) => {
       .ref(`users/${modifiedEmail}`)
       .set({
         email,
-        name,
-        surname,
+        name: `${name} ${surname}`,
+        birthdayDate,
       })
       .then(() => {
         fire
@@ -63,7 +63,7 @@ export const register = (email, password, hideModalHandler, name, surname) => {
   };
 };
 
-const authenticationStart = () => {
+export const authenticationStart = () => {
   return {
     type: actionTypes.AUTHENTICATION_START,
   };
@@ -76,7 +76,7 @@ export const authenticationEnd = (fireUser) => {
   };
 };
 
-const authenticationFail = () => {
+export const authenticationFail = () => {
   return {
     type: actionTypes.AUTHENTICATION_FAIL,
   };
