@@ -14,7 +14,7 @@ const userDataReducer = (state = initialState, action) => {
       return {
         ...state,
         email: action.data.email,
-        modifiedEmail: action.data.modifiedEmail,
+        modifiedEmail: action.modifiedEmail,
         name: action.data.name,
         dateOfBirth: action.data.birthdayDate,
       };

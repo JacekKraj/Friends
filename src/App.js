@@ -30,8 +30,7 @@ const App = (props) => {
             .then((snapshot) => {
               setLoading(false);
               props.onAuthenticateEnd(fireUser);
-              props.onSetDefaultUserData({ ...snapshot.val() });
-
+              props.onSetDefaultUserData({ ...snapshot.val() }, modifiedEmail);
               setExtraPaths((currState) => [...currState, snapshot.val().name]);
             })
             .catch(() => {
@@ -86,7 +85,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetDefaultUserData: (data) => dispatch(actions.setDefaultUserData(data)),
+    onSetDefaultUserData: (data, modifiedEmail) => dispatch(actions.setDefaultUserData(data, modifiedEmail)),
     onAuthenticateEnd: (fireUser) => dispatch(actions.authenticationEnd(fireUser)),
     onLogout: () => dispatch(actions.logout()),
   };

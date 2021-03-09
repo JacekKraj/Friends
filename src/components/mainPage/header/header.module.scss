@@ -5,7 +5,7 @@
   width: 100%;
   height: 10vh;
   padding: 0 5%;
-  border-bottom: 1px solid #777;
+  border-bottom: 1px solid #888;
 }
 
 .headerLeftSide {
@@ -40,13 +40,16 @@
 
 @media (min-width: 600px) and (orientation: landscape) {
   .headerComponent {
-    height: 17vh;
+    height: 14vh;
+  }
+  .sectionName {
+    margin-top: 2px;
   }
 }
 
 @media (min-width: 800px) and (orientation: landscape) {
   .headerComponent {
-    height: 16vh;
+    height: 14vh;
     padding: 0 4%;
   }
   .sectionName {
@@ -57,7 +60,7 @@
 
 @media (min-width: 1000px) and (orientation: landscape) {
   .headerComponent {
-    height: 12%;
+    height: 10%;
   }
 
   .sectionName {
@@ -74,6 +77,6 @@
 
 @media (min-width: 1300px) {
   .headerComponent {
-    height: 10%;
+    height: 9%;
   }
 }

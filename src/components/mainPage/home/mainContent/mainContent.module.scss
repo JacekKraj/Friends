@@ -2,11 +2,37 @@
   min-height: 100vh;
 }
 
+.mainContentComponent main {
+  padding: 5%;
+  height: 70%;
+}
+
+@media (min-width: 550px) and (orientation: portrait) {
+  .mainContentComponent main {
+    padding: 4% 8%;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .mainContentComponent main {
+    padding: 3% 10%;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .mainContentComponent main {
+    padding: 2.5% 10%;
+  }
+}
+
 @media (min-width: 1000px) and (orientation: landscape) {
   .mainContentComponent {
-    border-left: 1px solid #777;
-    border-right: 1px solid #777;
-    flex-grow: 1;
-    // width: 55%;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    flex-basis: 50%;
+  }
+
+  .mainContentComponent main {
+    padding: 3%;
   }
 }

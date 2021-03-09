@@ -11,3 +11,5 @@ export {
 } from "./authentication";
 
 export { setDefaultUserData } from "./userData";
+
+export { addPost } from "./posts";

@@ -7,3 +7,6 @@ export const AUTHENTICATION_FAIL = "AUTHENTICATION_FAIL";
 export const LOG_OUT = "LOG_OUT";
 
 export const SET_DEFAULT_USER_DATA = "SET_DEFAULT_USER_DATA";
+
+export const ADD_POST = "ADD_POST";
+export const SET_LOADING = "SET_LOADING";

@@ -9,17 +9,15 @@ import thunk from "redux-thunk";
 import App from "./App";
 import authenticationReducer from "./reducers/authenticationReducer";
 import userDataReducer from "./reducers/userDataReducer";
+import postsReducer from "./reducers/postsReducer";
 
 const rootReducer = combineReducers({
   auth: authenticationReducer,
   userData: userDataReducer,
+  posts: postsReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
-
-// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-
-// const store = createStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
