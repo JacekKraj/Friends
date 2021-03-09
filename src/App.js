@@ -7,7 +7,7 @@ import * as actions from "./actions/index";
 import fire from "./firebaseConfig";
 import AuthenticationMainPage from "./components/authentication/authenticationMainPage/AuthenticationMainPage";
 import { failToast, successToast } from "./utilities/toasts/toasts";
-import MainPage from "./components/mainPage/MainPage";
+import Home from "./components/mainPage/home/Home";
 import Spinner from "./components/UI/spinner/Spinner";
 import { modifyEmail } from "./utilities/helperFunctions/modifyEmail";
 
@@ -53,7 +53,7 @@ const App = (props) => {
 
   let routes = props.isAuthenticated ? (
     <Switch>
-      <Route path="/" exact render={() => <MainPage />} />
+      <Route path="/" exact render={() => <Home />} />
       {extraPaths.map((el) => {
         return (
           <Route

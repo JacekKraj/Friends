@@ -3,29 +3,11 @@
   background-color: rgb(245, 245, 245);
 }
 
-.bigScreenNavBarContainer {
-  display: none;
-}
-
 @media (min-width: 1000px) and (orientation: landscape) {
-  .smallScreenNavBarContainer {
-    display: none;
-  }
-  .bigScreenNavBarContainer {
-    display: block;
-    flex-basis: 25%;
-  }
-
   .mainPageComponent {
     width: 100%;
     height: 100vh;
     display: flex;
-  }
-
-  .mainContentContainer {
-    flex-basis: 75%;
-    height: 100vh;
-    background-color: green;
   }
 }
 
@@ -36,12 +18,6 @@
 }
 
 @media (min-width: 1320px) and (orientation: landscape) {
-  .bigScreenNavBarContainer {
-    flex-basis: 20%;
-  }
-  .mainContentContainer {
-    flex-basis: 80%;
-  }
   .mainPageComponent {
     padding: 0 10%;
   }

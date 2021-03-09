@@ -1,0 +1,12 @@
+.mainContentComponent {
+  min-height: 100vh;
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .mainContentComponent {
+    border-left: 1px solid #777;
+    border-right: 1px solid #777;
+    flex-grow: 1;
+    // width: 55%;
+  }
+}

@@ -1,12 +1,13 @@
-.smallScreenNavBarComponent {
+.smallScreenNavComponent {
   position: fixed;
   top: 0;
   left: 0;
-  right: 25%;
   height: 100vh;
   background-color: #fff;
   z-index: 11;
   overflow: auto;
+  width: 0%;
+  animation: showModal 0.25s both;
 }
 
 .logoContainer {
@@ -23,6 +24,16 @@
   height: 6.5vh;
 }
 
+@keyframes showModal {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 75%;
+  }
+}
+
 @media (min-width: 411px) and (orientation: portrait) {
   .logo {
     font-size: 27px;
@@ -30,10 +41,6 @@
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
-  .smallScreenNavBarComponent {
-    right: 35%;
-  }
-
   .logo {
     width: 6.5vh;
     height: 6.5vh;
@@ -42,6 +49,16 @@
 
   .logoContainer {
     border-bottom: 2px solid #ddd;
+  }
+
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 65%;
+    }
   }
 }
 
@@ -58,14 +75,21 @@
 }
 
 @media (min-width: 800px) and (orientation: landscape) {
-  .smallScreenNavBarComponent {
-    right: 30%;
-  }
   .logoContainer {
     padding: 3% 5% 3% 4%;
   }
 
   .logo {
     font-size: 25px;
+  }
+
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 70%;
+    }
   }
 }

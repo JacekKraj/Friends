@@ -1,4 +1,4 @@
-.bigScreenNavBarComponent {
+.bigScreenNavComponent {
   padding: 8% 5%;
   height: 100vh;
   overflow: auto;
@@ -12,7 +12,7 @@
 }
 
 @media (min-width: 1150px) and (orientation: landscape) {
-  .bigScreenNavBarComponent {
+  .bigScreenNavComponent {
     padding: 8% 6%;
   }
 
@@ -24,7 +24,7 @@
 }
 
 @media (min-width: 1320px) and (orientation: landscape) {
-  .bigScreenNavBarComponent {
+  .bigScreenNavComponent {
     padding: 7% 3%;
   }
 

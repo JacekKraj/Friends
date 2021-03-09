@@ -3,10 +3,10 @@ import classnames from "classnames";
 import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 
 import CloseIcon from "@material-ui/icons/Close";
-import classes from "./smallScreenNavBar.module.scss";
-import Backdrop from "./../../../UI/backdrop/Backdrop";
-import NavBar from "./../NavBar";
-import Logo from "./../../../UI/logo/Logo";
+import classes from "./smallScreenNav.module.scss";
+import Backdrop from "../../../UI/backdrop/Backdrop";
+import NavBar from "../navBar/NavBar";
+import Logo from "../../../UI/logo/Logo";
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -50,18 +50,21 @@ const useStyles = makeStyles(() => ({
 
 const SmallScreenNavBar = (props) => {
   const iconStyle = useStyles();
-  return (
-    <React.Fragment>
-      {!props.show && <Backdrop />}
-      <div className={classnames(classes.smallScreenNavBarComponent, props.show && classes.navBarShown)}>
+
+  const content = props.show ? (
+    <div data-test="small-screen-nav-bar-component">
+      <Backdrop onClick={() => props.setShow(false)} />
+      <div className={classes.smallScreenNavComponent}>
         <div className={classes.logoContainer}>
           <Logo className={classes.logo} />
-          <CloseIcon className={iconStyle.icon} />
+          <CloseIcon className={iconStyle.icon} onClick={() => props.setShow(false)} />
         </div>
         <NavBar />
       </div>
-    </React.Fragment>
-  );
+    </div>
+  ) : null;
+
+  return content;
 };
 
 export default SmallScreenNavBar;

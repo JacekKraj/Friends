@@ -9,9 +9,9 @@ import PersonIcon from "@material-ui/icons/Person";
 import PeopleIcon from "@material-ui/icons/People";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import classes from "./navBar.module.scss";
-import defaultUserImage from "./../../../assets/images/defaultUserImage.png";
+import defaultUserImage from "./../../../../assets/images/defaultUserImage.png";
 import NavItem from "./navItem/NavItem";
-import * as actions from "./../../../actions/index";
+import * as actions from "./../../../../actions/index";
 
 const theme = createMuiTheme({
   breakpoints: {
