@@ -3,14 +3,15 @@ import fire from "./../firebaseConfig";
 import * as actionTypes from "./actionsTypes";
 import { failToast } from "./../utilities/toasts/toasts";
 
-const setLoading = (loading) => {
+export const setLoading = (loading) => {
   return {
     type: actionTypes.SET_LOADING,
     loading,
   };
 };
 
-const createPost = (text, img, creationTime) => {
+const createUserPost = (text, img, creationTime, clearPostAfterSuccess) => {
+  clearPostAfterSuccess();
   return {
     type: actionTypes.ADD_POST,
     text,
@@ -19,16 +20,23 @@ const createPost = (text, img, creationTime) => {
   };
 };
 
-export const addPost = (text, img = null, user, userPosts, creationTime) => {
+export const addUserPost = (text, img = null, user, userPosts, creationTime, clearPostAfterSuccess) => {
   return (dispatch) => {
     dispatch(setLoading(true));
+    const index = userPosts.length;
     fire
       .database()
       .ref(`users/${user}/posts`)
-      .set([...userPosts, { text, img, creationTime }])
+      .set([...userPosts, { text, creationTime, index }])
       .then(() => {
-        dispatch(setLoading(false));
-        dispatch(createPost(text, img, creationTime));
+        fire
+          .storage()
+          .ref(`users/${user}/posts/${index}`)
+          .put(img)
+          .then(() => {
+            dispatch(setLoading(false));
+            dispatch(createUserPost(text, img, creationTime, clearPostAfterSuccess));
+          });
       })
       .catch((error) => {
         dispatch(setLoading(false));

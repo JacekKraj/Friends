@@ -4,8 +4,9 @@
   background-color: #fff;
   -webkit-box-shadow: 0px 2px 8px 1px #ddd;
   box-shadow: 0px 2px 8px 1px #ddd;
-  padding: 2.5% 2.5% 2%;
+  padding: 2.5% 2.5% 1.5%;
   border-radius: 10px;
+  position: relative;
 }
 
 .textarea {
@@ -37,13 +38,7 @@
 }
 
 .addFileButton {
-  border-radius: 50%;
-  background-color: #0eb611;
-  width: 25px;
-  height: 25px;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .photoPreviewContainer {
@@ -60,15 +55,35 @@
   border: 1px solid #bbb;
 }
 
+.spinnerContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.fileInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.spinnerWhite {
+  border-color: white;
+  border-left-color: #aaa;
+}
+
 @media (min-width: 550px) and (orientation: portrait) {
   .textarea {
     font-size: 26px;
     height: 18vh;
-  }
-
-  .addFileButton {
-    width: 40px;
-    height: 40px;
   }
 
   .button {
@@ -81,9 +96,13 @@
   .textarea {
     height: 18vh;
   }
-  .addFileButton {
-    width: 26px;
-    height: 26px;
+  .button {
+    font-size: 16px;
+    padding: 0.5% 7%;
+  }
+
+  .addPostModulBottomBar {
+    margin-top: 1.2%;
   }
 }
 
@@ -96,11 +115,6 @@
     font-size: 18px;
   }
 
-  .addFileButton {
-    width: 30px;
-    height: 30px;
-  }
-
   .button {
     padding: 0 6%;
   }
@@ -109,19 +123,17 @@
     border-radius: 10px;
   }
   .addPostModulBottomBar {
-    margin-top: 1.5%;
+    margin-top: 1%;
   }
 }
 
 @media (min-width: 1000px) and (orientation: landscape) {
+  .addPostModulBottomBar {
+    margin-top: 1.5%;
+  }
   .textarea {
     height: 9vh;
     padding: 1.5%;
-  }
-
-  .addFileButton {
-    width: 30px;
-    height: 30px;
   }
 
   .button {
@@ -138,8 +150,7 @@
     font-size: 16px;
   }
 
-  .addFileButton {
-    width: 27px;
-    height: 27px;
+  .addPostModulBottomBar {
+    margin-top: 1%;
   }
 }
