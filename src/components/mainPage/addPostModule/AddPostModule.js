@@ -151,7 +151,8 @@ export const UnconnectedAddPostModule = (props) => {
           event.preventDefault();
           const date = new Date();
           const creationTime = date.getTime();
-          props.handleSubmit({ text: state.text, img: state.images[0], creationTime, clearPostAfterSuccess });
+          const image = state.images[0] ? state.images[0] : { preview: null };
+          props.handleSubmit({ text: state.text, img: image, creationTime }, clearPostAfterSuccess);
         }}
       >
         <textarea
@@ -195,7 +196,7 @@ export const UnconnectedAddPostModule = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.posts.loading,
+    isLoading: state.posts.newPostLoading,
   };
 };
 

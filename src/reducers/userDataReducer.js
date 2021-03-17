@@ -5,7 +5,7 @@ const initialState = {
   modifiedEmail: "",
   name: "",
   dateOfBirth: {},
-  profileIamge: null,
+  profileImage: null,
 };
 
 const userDataReducer = (state = initialState, action) => {

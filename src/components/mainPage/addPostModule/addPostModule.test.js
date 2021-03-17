@@ -34,14 +34,14 @@ describe("spinner", () => {
   });
   test("shows spinner after dispatch setLoading(true)", () => {
     wrapper = setup();
-    store.dispatch(actions.setLoading(true));
+    store.dispatch(actions.setNewPostLoading(true));
     wrapper.setProps();
     const spinner = findByTestAttr(wrapper, "component-spinner");
     expect(spinner.exists()).toBe(true);
   });
   test("hides spinner after dispatch setLoading(false)", () => {
     wrapper = setup({ posts: { loading: true } });
-    store.dispatch(actions.setLoading(false));
+    store.dispatch(actions.setNewPostLoading(false));
     wrapper.setProps();
     const spinner = findByTestAttr(wrapper, "component-spinner");
     expect(spinner.exists()).toBe(false);

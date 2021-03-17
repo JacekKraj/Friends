@@ -9,7 +9,7 @@ import SideNav from "./../sideNav/SideNav";
 const Home = () => {
   const [showNav, setShowNav] = useState(false);
   return (
-    <div className={classes.mainPageComponent}>
+    <div className={classes.homeComponent}>
       <SideNav show={showNav} setShow={setShowNav} />
       <MainContent setShowNav={setShowNav} />
       <DiscoverBar />

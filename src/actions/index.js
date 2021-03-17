@@ -12,4 +12,4 @@ export {
 
 export { setDefaultUserData } from "./userData";
 
-export { addUserPost, setLoading } from "./posts";
+export { addUserPost, setNewPostLoading, getUsersPosts, setGetPostsLoading, removePost } from "./posts";

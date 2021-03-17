@@ -60,7 +60,7 @@
 
 @media (min-width: 1000px) and (orientation: landscape) {
   .headerComponent {
-    height: 10%;
+    height: 10vh;
   }
 
   .sectionName {
@@ -71,12 +71,12 @@
 
 @media (min-width: 1200px) {
   .headerComponent {
-    height: 11%;
+    height: 11vh;
   }
 }
 
 @media (min-width: 1300px) {
   .headerComponent {
-    height: 9%;
+    height: 10vh;
   }
 }

@@ -1,0 +1,36 @@
+.postEditionModalOptionComponent {
+  font-size: 14px;
+  padding: 7px 0;
+  cursor: pointer;
+}
+
+.postEditionModalOptionComponent:hover {
+  color: #555;
+}
+
+@media (min-width: 411px) and (orientation: portrait) {
+  .postEditionModalOptionComponent {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .postEditionModalOptionComponent {
+    font-size: 20px;
+    padding: 10px 0;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .postEditionModalOptionComponent {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+}
+
+@media (min-width: 1150px) and (orientation: landscape) {
+  .postEditionModalOptionComponent {
+    font-size: 17px;
+    padding: 7px 0;
+  }
+}
