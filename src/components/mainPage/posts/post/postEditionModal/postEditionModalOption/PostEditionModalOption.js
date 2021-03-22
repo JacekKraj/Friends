@@ -4,9 +4,9 @@ import classes from "./postEditionModalOption.module.scss";
 
 const PostEditionModalOption = (props) => {
   return (
-    <p className={classes.postEditionModalOptionComponent} onClick={props.onClick}>
+    <button type="button" className={classes.postEditionModalOptionComponent} onClick={props.onClick} data-test={props.testAttr}>
       {props.text}
-    </p>
+    </button>
   );
 };
 

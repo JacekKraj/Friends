@@ -10,7 +10,7 @@ export const setNewPostLoading = (loading) => {
   };
 };
 
-const createUserPost = (post, tpc) => {
+export const createUserPost = (post, tpc) => {
   return {
     type: actionTypes.ADD_USER_POST,
     post: {

@@ -6,8 +6,10 @@ import Header from "./../../header/Header";
 import AddPostModule from "../../addPostModule/AddPostModule";
 import * as actions from "./../../../../actions/index";
 import Posts from "./../../posts/Posts";
+import { createArrayOfPosts } from "./../../../../utilities/helperFunctions/createArrayOfPosts";
 
 const MainContent = (props) => {
+  const [posts, setPosts] = React.useState([]);
   const handleNewPostSubmit = (values, clearPost) => {
     const post = {
       ...values,
@@ -29,12 +31,17 @@ const MainContent = (props) => {
     props.onGetUsersPosts(props.userModifiedEmail);
   }, [props.userModifiedEmail]);
 
+  React.useEffect(() => {
+    const allUsersPosts = createArrayOfPosts(props.usersPosts);
+    setPosts(allUsersPosts);
+  }, [props.usersPosts]);
+
   return (
     <div className={classes.mainContentComponent}>
       <Header navOnClick={() => props.setShowNav(true)} sectionName="Home" />
       <main>
         <AddPostModule handleSubmit={handleNewPostSubmit} />
-        <Posts posts={props.usersPosts[props.userModifiedEmail]?.posts} />
+        <Posts posts={posts} />
       </main>
     </div>
   );

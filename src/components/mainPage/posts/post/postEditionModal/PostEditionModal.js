@@ -5,8 +5,8 @@ import PostEditionModalOption from "./postEditionModalOption/PostEditionModalOpt
 
 const PostEditionModal = (props) => {
   return (
-    <div className={classes.postEditionModalComponent}>
-      <PostEditionModalOption text="Remove" onClick={props.handleDelete} />
+    <div className={classes.postEditionModalComponent} data-test="component-post-edition-modal">
+      <PostEditionModalOption text="Remove" testAttr="remove-btn" onClick={props.handleDelete} />
       <PostEditionModalOption text="Edit" />
     </div>
   );

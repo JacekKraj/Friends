@@ -82,7 +82,7 @@ describe("AddPostModule form submit", () => {
     createUseReducerMock(images);
     return mount(<UnconnectedAddPostModule {...defaultProps} />);
   };
-  test("class onSubmit function with correct arguments", () => {
+  test("calls onSubmit function ", () => {
     const mockHandleSubmit = jest.fn();
     wrapper = setup([], { handleSubmit: mockHandleSubmit });
     const form = wrapper.find("form");

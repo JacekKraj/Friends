@@ -2,6 +2,10 @@
   font-size: 14px;
   padding: 7px 0;
   cursor: pointer;
+  display: block;
+  border: none;
+  background-color: transparent;
+  outline: none;
 }
 
 .postEditionModalOptionComponent:hover {

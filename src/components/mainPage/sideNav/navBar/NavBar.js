@@ -6,7 +6,7 @@ import classnames from "classnames";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FlagIcon from "@material-ui/icons/Flag";
 import PersonIcon from "@material-ui/icons/Person";
-import PeopleIcon from "@material-ui/icons/People";
+import ChatIcon from "@material-ui/icons/Chat";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import classes from "./navBar.module.scss";
 import defaultUserImage from "./../../../../assets/images/defaultUserImage.png";
@@ -78,8 +78,7 @@ const NavBar = (props) => {
 
       <NavItem link={`/${props.userName}`} icon={<PersonIcon className={iconStyle.icon} />} description="Profile" />
       <NavItem link="/friends" icon={<EmojiPeopleRoundedIcon className={iconStyle.icon} />} description="Friends" />
-      <NavItem link="/groups" icon={<PeopleIcon className={iconStyle.icon} />} description="Groups" />
-      <NavItem link="/pages" icon={<FlagIcon className={iconStyle.icon} />} description="Pages" />
+      <NavItem link="/chat" icon={<ChatIcon className={iconStyle.icon} />} description="Chat" />
       <NavItem
         link="/"
         onClick={props.onLogout}

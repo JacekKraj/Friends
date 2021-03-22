@@ -61,7 +61,9 @@ const Post = (props) => {
   const [showEditionModal, setShowEditionModal] = React.useState(false);
   const iconStyle = useStyles();
   const date = new Date(props.post.creationTime);
-  const creationTime = `${date.getDate()} ${date.getMonth()} ${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}`;
+  let minutes = date.getMinutes();
+  minutes = minutes < 10 ? `0${minutes}` : minutes;
+  const creationTime = `${date.getDate()} ${date.getMonth()} ${date.getFullYear()} | ${date.getHours()}:${minutes}`;
   const postEditionModal = React.useRef();
 
   const handleOutsideClick = (event) => {
@@ -78,7 +80,7 @@ const Post = (props) => {
   }, []);
 
   return (
-    <div className={classes.postComponent}>
+    <div className={classes.postComponent} data-test="post-component">
       <div className={classes.postHeader}>
         <NavLink to={`${props.author.name}`}>
           <div className={classes.author}>
@@ -93,6 +95,7 @@ const Post = (props) => {
           <div className={classes.postEditionModalContainer} ref={postEditionModal}>
             <MoreHorizIcon
               className={iconStyle.icon}
+              data-test="post-edition-icon"
               onClick={() => {
                 setShowEditionModal(!showEditionModal);
               }}
@@ -109,7 +112,7 @@ const Post = (props) => {
       </div>
       <div className={classes.mainPostPart}>
         <p className={classes.text}>{props.post.text}</p>
-        {props.post.url && <img src={props.post.url} className={classes.postImage} alt="post picture" />}
+        {props.post.url && <img src={props.post.url} className={classes.postImage} data-test="post-image" alt="post picture" />}
       </div>
     </div>
   );
