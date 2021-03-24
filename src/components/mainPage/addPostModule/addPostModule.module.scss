@@ -1,0 +1,156 @@
+.addPostModuleComponent {
+  width: 100%;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 2px 8px 1px #ddd;
+  box-shadow: 0px 2px 8px 1px #ddd;
+  padding: 2.5% 2.5% 1.5%;
+  border-radius: 10px;
+  position: relative;
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  height: 11vh;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  border: 2px solid #ddd;
+  padding: 2%;
+  color: #777;
+  resize: none;
+}
+
+::placeholder {
+  color: #777;
+}
+
+.addPostModulBottomBar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+
+.button {
+  font-size: 14px;
+  padding: 0.5% 9%;
+}
+
+.addFileButton {
+  display: flex;
+}
+
+.photoPreviewContainer {
+  margin: 2% 0;
+  max-height: 40vh;
+  overflow: auto;
+  position: relative;
+}
+
+.photoPreview {
+  display: block;
+  max-width: 100%;
+  border-radius: 5px;
+  border: 1px solid #bbb;
+}
+
+.spinnerContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.fileInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.spinnerWhite {
+  border-color: white;
+  border-left-color: #aaa;
+}
+
+@media (min-width: 550px) and (orientation: portrait) {
+  .textarea {
+    font-size: 26px;
+    height: 18vh;
+  }
+
+  .button {
+    font-size: 22px;
+    padding: 0.5% 7%;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .textarea {
+    height: 18vh;
+  }
+  .button {
+    font-size: 16px;
+    padding: 0.5% 7%;
+  }
+
+  .addPostModulBottomBar {
+    margin-top: 1.2%;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .addPostModuleComponent {
+    padding: 2% 2% 1.5%;
+  }
+  .textarea {
+    padding: 1%;
+    font-size: 18px;
+  }
+
+  .button {
+    padding: 0 6%;
+  }
+  .photoPreviewContainer {
+    margin: 1.5% 0;
+    border-radius: 10px;
+  }
+  .addPostModulBottomBar {
+    margin-top: 1%;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .addPostModulBottomBar {
+    margin-top: 1.5%;
+  }
+  .textarea {
+    height: 9vh;
+    padding: 1.5%;
+  }
+
+  .button {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1150px) and (orientation: landscape) {
+  .textarea {
+    font-size: 17px;
+    padding: 1%;
+  }
+  .button {
+    font-size: 16px;
+  }
+
+  .addPostModulBottomBar {
+    margin-top: 1%;
+  }
+}

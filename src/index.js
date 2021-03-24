@@ -2,22 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import App from "./App";
-import authenticationReducer from "./reducers/authenticationReducer";
-
-const rootReducer = combineReducers({
-  auth: authenticationReducer,
-});
+import rootReducer from "./reducers/combinedReducers";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
-
-// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-
-// const store = createStoreWithMiddleware(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>

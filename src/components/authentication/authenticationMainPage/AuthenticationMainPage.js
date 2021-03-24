@@ -29,7 +29,11 @@ const AuthenticationMainPage = (props) => {
             const userAgeVerified = verifyUserAge(values.day, values.month, values.year);
             if (userAgeVerified) {
               if (values.name && values.surname) {
-                props.onRegister(values.email.trim(), values.password.trim(), hideModalHandler, values.name.trim(), values.surname.trim());
+                props.onRegister(values.email.trim(), values.password.trim(), hideModalHandler, values.name.trim(), values.surname.trim(), {
+                  day: values.day,
+                  month: values.month,
+                  year: values.year,
+                });
               } else {
                 failToast("You haven't passed name or surname.");
               }
@@ -89,7 +93,8 @@ const AuthenticationMainPage = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRegister: (email, password, hideModalHandler, name, surname) => dispatch(actions.register(email, password, hideModalHandler, name, surname)),
+    onRegister: (email, password, hideModalHandler, name, surname, birthdayDate) =>
+      dispatch(actions.register(email, password, hideModalHandler, name, surname, birthdayDate)),
     onAuthenticate: (email, password) => dispatch(actions.authenticate(email, password)),
   };
 };

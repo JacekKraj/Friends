@@ -1,0 +1,19 @@
+.discoverChatComponent {
+  flex-grow: 1;
+}
+
+.chat {
+  margin-top: 5%;
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .chat {
+    margin-top: 4%;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .chat {
+    margin-top: 0%;
+  }
+}

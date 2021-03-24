@@ -1,0 +1,16 @@
+.bigScreenNavContainer {
+  display: none;
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .discoverBarComponent {
+    flex-basis: 25%;
+  }
+  .bigScreenNavContainer {
+    display: block;
+  }
+
+  .smallScreenNavContainer {
+    display: none;
+  }
+}

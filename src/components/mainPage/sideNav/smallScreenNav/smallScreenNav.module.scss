@@ -1,0 +1,95 @@
+.smallScreenNavComponent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 11;
+  overflow: auto;
+  width: 0%;
+  animation: showModal 0.25s both;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5% 8% 5% 6%;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 23px;
+  width: 6.5vh;
+  height: 6.5vh;
+}
+
+@keyframes showModal {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 75%;
+  }
+}
+
+@media (min-width: 411px) and (orientation: portrait) {
+  .logo {
+    font-size: 27px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .logo {
+    width: 6.5vh;
+    height: 6.5vh;
+    font-size: 38px;
+  }
+
+  .logoContainer {
+    border-bottom: 2px solid #ddd;
+  }
+
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 65%;
+    }
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .logoContainer {
+    padding: 3% 6% 3% 5%;
+  }
+
+  .logo {
+    width: 10.5vh;
+    height: 10.5vh;
+    font-size: 23px;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .logoContainer {
+    padding: 3% 5% 3% 4%;
+  }
+
+  .logo {
+    font-size: 25px;
+  }
+
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 70%;
+    }
+  }
+}

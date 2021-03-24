@@ -1,0 +1,15 @@
+.discoverFriendsComponent {
+  margin-bottom: 5%;
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .discoverFriendsComponent {
+    margin-bottom: 4%;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .discoverFriendsComponent {
+    margin-bottom: 10%;
+  }
+}
