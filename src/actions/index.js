@@ -12,4 +12,6 @@ export {
 
 export { setDefaultUserData } from "./userData";
 
-export { addUserPost, createUserPost, setNewPostLoading, getUsersPosts, setGetPostsLoading, removePost } from "./posts";
+export { addUserPost, createUserPost, setNewPostLoading, getUsersPosts, setGetPostsLoading, removePost, clearPosts } from "./posts";
+
+export { setShowNav, setShowDiscoverBar } from "./nav";

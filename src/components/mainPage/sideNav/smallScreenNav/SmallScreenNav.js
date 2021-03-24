@@ -1,5 +1,5 @@
 import React from "react";
-import classnames from "classnames";
+import { connect } from "react-redux";
 import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -7,6 +7,7 @@ import classes from "./smallScreenNav.module.scss";
 import Backdrop from "../../../UI/backdrop/Backdrop";
 import NavBar from "../navBar/NavBar";
 import Logo from "../../../UI/logo/Logo";
+import * as actions from "./../../../../actions/index";
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -51,13 +52,13 @@ const useStyles = makeStyles(() => ({
 const SmallScreenNavBar = (props) => {
   const iconStyle = useStyles();
 
-  const content = props.show ? (
+  const content = props.showNav ? (
     <div data-test="small-screen-nav-bar-component">
-      <Backdrop onClick={() => props.setShow(false)} />
+      <Backdrop onClick={() => props.onSetShowNav(false)} />
       <div className={classes.smallScreenNavComponent}>
         <div className={classes.logoContainer}>
           <Logo className={classes.logo} />
-          <CloseIcon className={iconStyle.icon} onClick={() => props.setShow(false)} />
+          <CloseIcon className={iconStyle.icon} onClick={() => props.onSetShowNav(false)} />
         </div>
         <NavBar />
       </div>
@@ -67,4 +68,16 @@ const SmallScreenNavBar = (props) => {
   return content;
 };
 
-export default SmallScreenNavBar;
+const mapStateToProps = (state) => {
+  return {
+    showNav: state.nav.showNav,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SmallScreenNavBar);

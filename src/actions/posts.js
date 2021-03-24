@@ -29,7 +29,7 @@ export const addUserPost = (post, author, clearPost, totalPostsCreated) => {
   return (dispatch) => {
     dispatch(setNewPostLoading(true));
     const newPost = {
-      post: { text: post.text, url: post.url, creationTime: post.creationTime, index: totalPostsCreated, type: post.type, name: post.name },
+      post: { text: post.text, url: post.url, creationTime: post.creationTime, index: totalPostsCreated },
       author: { modifiedEmail: author.modifiedEmail, name: author.name },
     };
     const updates = {};
@@ -66,11 +66,11 @@ export const setGetPostsLoading = (loading) => {
   };
 };
 
-const getPostURL = (path, el) => {
+const getPostURL = (el) => {
   return new Promise((resolve) => {
     fire
       .storage()
-      .ref(`${path}/posts/${el.post.index}`)
+      .ref(`users/${el.author.modifiedEmail}/posts/${el.post.index}`)
       .getDownloadURL()
       .then((url) => {
         resolve({ ...el, post: { ...el.post, url } });
@@ -109,7 +109,7 @@ export const getUsersPosts = (modifiedEmail) => {
                 posts = Array.from(Object.values(snapshot.val().posts));
               }
             }
-            Promise.all(posts.map((el) => getPostURL(`users/${modifiedEmail}`, el)))
+            Promise.all(posts.map((el) => getPostURL(el)))
               .then((results) => {
                 let resultsModified = {};
                 results.forEach((el) => {
@@ -134,20 +134,26 @@ export const getUsersPosts = (modifiedEmail) => {
   };
 };
 
-export const removePost = (type, name, index) => {
+export const removePost = (index, user) => {
   return (dispatch) => {
     const updates = {};
-    updates[`${type}/${name}/posts/posts/${index}`] = null;
+    updates[`users/${user}/posts/posts/${index}`] = null;
     fire
       .database()
       .ref()
       .update(updates)
       .then(() => {
-        fire.storage().ref(`${type}/${name}/posts/${index}`).delete();
+        fire.storage().ref(`users/${user}/posts/${index}`).delete();
       })
       .catch((error) => {
         failToast(error.message);
       });
-    dispatch({ type: actionTypes.REMOVE_POST, postType: `${type}Posts`, name, index });
+    dispatch({ type: actionTypes.REMOVE_POST, user, index });
+  };
+};
+
+export const clearPosts = () => {
+  return {
+    type: actionTypes.CLEAR_POSTS,
   };
 };

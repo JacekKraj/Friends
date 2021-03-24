@@ -21,6 +21,8 @@ const App = (props) => {
     fire.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
         if (fire.auth().currentUser.emailVerified) {
+          props.onClearPosts();
+          props.onSetDefaultUserData({}, null);
           const fireUser = fire.auth().currentUser;
           const modifiedEmail = modifyEmail(fireUser.email);
           fire
@@ -88,6 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     onSetDefaultUserData: (data, modifiedEmail) => dispatch(actions.setDefaultUserData(data, modifiedEmail)),
     onAuthenticateEnd: (fireUser) => dispatch(actions.authenticationEnd(fireUser)),
     onLogout: () => dispatch(actions.logout()),
+    onClearPosts: () => dispatch(actions.clearPosts()),
   };
 };
 

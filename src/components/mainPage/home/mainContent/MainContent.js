@@ -14,7 +14,6 @@ const MainContent = (props) => {
     const post = {
       ...values,
       url: values.img.preview,
-      type: "users",
       name: props.userModifiedEmail,
     };
     const totalPostsCreated =
@@ -38,7 +37,13 @@ const MainContent = (props) => {
 
   return (
     <div className={classes.mainContentComponent}>
-      <Header navOnClick={() => props.setShowNav(true)} sectionName="Home" />
+      <Header
+        navOnClick={() => props.setShowNav(true)}
+        discoverBarOnClick={() => {
+          props.setShowDiscoverBar(true);
+        }}
+        sectionName="Home"
+      />
       <main>
         <AddPostModule handleSubmit={handleNewPostSubmit} />
         <Posts posts={posts} />

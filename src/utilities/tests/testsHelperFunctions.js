@@ -1,9 +1,7 @@
-import { combineReducers, createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import authenticationReducer from "./../../reducers/authenticationReducer";
-import userDataReducer from "./../../reducers/userDataReducer";
-import postsReducer from "./../../reducers/postsReducer";
+import rootReducer from "./../../reducers/combinedReducers";
 
 export const findByTestAttr = (wrapper, val) => {
   return wrapper.find(`[data-test='${val}']`);
@@ -16,12 +14,6 @@ export const formikFindByInputName = (wrapper, name) => {
 export const formikFindBySelectName = (wrapper, name) => {
   return wrapper.find(`select[name='${name}']`);
 };
-
-const rootReducer = combineReducers({
-  auth: authenticationReducer,
-  userData: userDataReducer,
-  posts: postsReducer,
-});
 
 export const storeFactory = (initialState = {}) => {
   return createStore(rootReducer, initialState, applyMiddleware(thunk));

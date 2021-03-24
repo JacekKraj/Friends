@@ -2,20 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import App from "./App";
-import authenticationReducer from "./reducers/authenticationReducer";
-import userDataReducer from "./reducers/userDataReducer";
-import postsReducer from "./reducers/postsReducer";
-
-const rootReducer = combineReducers({
-  auth: authenticationReducer,
-  userData: userDataReducer,
-  posts: postsReducer,
-});
+import rootReducer from "./reducers/combinedReducers";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

@@ -30,6 +30,8 @@
     border-left: 1px solid #888;
     border-right: 1px solid #888;
     flex-basis: 50%;
+    height: 100vh;
+    overflow-y: auto;
   }
 
   .mainContentComponent main {

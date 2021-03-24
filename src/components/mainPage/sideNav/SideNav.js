@@ -8,7 +8,7 @@ const SideNav = (props) => {
   return (
     <React.Fragment>
       <div className={classes.smallScreenNavContainer}>
-        <SmallScreenNav show={props.show} setShow={props.setShow} />
+        <SmallScreenNav />
       </div>
       <div className={classes.bigScreenNavContainer}>
         <BigScreenNav />

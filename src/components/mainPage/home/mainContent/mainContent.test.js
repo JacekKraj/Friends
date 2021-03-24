@@ -27,7 +27,7 @@ test("add post after dispatching createUserPost action creator", () => {
   });
   const newPost = {
     author: { name: "name", modifiedEmail: "jacekkrajewski12wppl" },
-    post: { creationTime: 1615988637142, index: 1, name: "jacekkrajewski12wppl", text: "text", type: "users" },
+    post: { creationTime: 1615988637142, index: 1, name: "jacekkrajewski12wppl", text: "text" },
   };
   store.dispatch(actions.createUserPost(newPost, 1));
   wrapper.setProps();
@@ -43,7 +43,7 @@ test("removes post after clicking remove button", () => {
           posts: {
             1: {
               author: { name: "name", modifiedEmail: "jacekkrajewski12wppl" },
-              post: { creationTime: 1615988637142, index: 1, name: "jacekkrajewski12wppl", text: "text", type: "users" },
+              post: { creationTime: 1615988637142, index: 1, name: "jacekkrajewski12wppl", text: "text" },
             },
           },
           totalPostsCreated: 1,

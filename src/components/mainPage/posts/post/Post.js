@@ -103,7 +103,7 @@ const Post = (props) => {
             {showEditionModal && (
               <PostEditionModal
                 handleDelete={() => {
-                  props.onRemovePost(props.post.type, props.post.name, props.post.index);
+                  props.onRemovePost(props.post.index, props.author.modifiedEmail);
                 }}
               />
             )}
@@ -120,7 +120,7 @@ const Post = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRemovePost: (type, name, id) => dispatch(actions.removePost(type, name, id)),
+    onRemovePost: (id, user) => dispatch(actions.removePost(id, user)),
   };
 };
 

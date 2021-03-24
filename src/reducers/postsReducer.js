@@ -36,17 +36,22 @@ const postsReducer = (state = initialState, action) => {
         getPostsLoading: action.loading,
       };
     case actionTypes.REMOVE_POST:
-      const newPosts = { ...state[action.postType][action.name].posts };
+      const newPosts = { ...state.usersPosts[action.user].posts };
       delete newPosts[action.index];
       return {
         ...state,
-        [action.postType]: {
-          ...state[action.postType],
-          [action.name]: {
-            ...state[action.postType][action.name],
+        usersPosts: {
+          ...state.usersPosts,
+          [action.user]: {
+            ...state.usersPosts[action.user],
             posts: { ...newPosts },
           },
         },
+      };
+    case actionTypes.CLEAR_POSTS:
+      return {
+        ...state,
+        usersPosts: {},
       };
     default:
       return state;
