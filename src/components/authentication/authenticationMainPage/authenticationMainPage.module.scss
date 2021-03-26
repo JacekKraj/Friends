@@ -141,8 +141,52 @@
   }
 
   .logoContainer {
-    padding-top: 13%;
-    margin-bottom: 19%;
+    padding-top: 10%;
+    margin-bottom: 6%;
+  }
+
+  .logo {
+    width: 9vh;
+    height: 9vh;
+    font-size: 29px;
+  }
+
+  .hedalinesContainer > h1 {
+    font-size: 36px;
+  }
+
+  .hedalinesContainer > h4 {
+    margin-top: 3%;
+    font-size: 29px;
+  }
+
+  .buttonsContainer {
+    margin: 7% auto 0;
+  }
+
+  .button {
+    width: 80%;
+  }
+
+  .graphicsContainer {
+    width: 55%;
+    display: flex;
+    align-items: center;
+  }
+
+  .graphicsContainer > img {
+    width: 100%;
+  }
+}
+
+@media (min-width: 950px) and (orientation: landscape) {
+  .infoContainer {
+    width: 45%;
+  }
+
+  .logoContainer {
+    padding-top: 15%;
+    margin-bottom: 18%;
   }
 
   .logo {
@@ -157,11 +201,11 @@
 
   .hedalinesContainer > h4 {
     margin-top: 3%;
-    font-size: 31px;
+    font-size: 34px;
   }
 
   .buttonsContainer {
-    margin: 11% auto 0;
+    margin: 15% auto 0;
   }
 
   .button {

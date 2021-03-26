@@ -28,6 +28,9 @@ const MainContent = (props) => {
 
   React.useEffect(() => {
     props.onGetUsersPosts(props.userModifiedEmail);
+    props.followedUsersEmails.forEach((el) => {
+      props.onGetUsersPosts(el);
+    });
   }, [props.userModifiedEmail]);
 
   React.useEffect(() => {
@@ -65,6 +68,7 @@ const mapStateToProps = (state) => {
     usersPosts: state.posts.usersPosts,
     userName: state.userData.name,
     userProfileImage: state.userData.profileImage,
+    followedUsersEmails: state.userData.followedUsersEmails,
   };
 };
 

@@ -14,6 +14,7 @@ export const SET_GET_POSTS_LOADING = "SET_GET_POSTS_LOADING";
 export const GET_USERS_POSTS = "GET_USERS_POSTS";
 export const REMOVE_POST = "REMOVE_POST";
 export const CLEAR_POSTS = "CLEAR_POSTS";
+export const FOLLOW_USER = "FOLLOW_USER";
 
 export const SET_SHOW_NAV = "SET_SHOW_NAV";
 export const SET_SHOW_DISCOVER_BAR = "SET_SHOW_DISCOVER_BAR";

@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: space-between;
   margin: 5% 0;
+  // transition: 0.1s;
 }
 
 .user {
@@ -25,6 +26,20 @@
 .button {
   font-size: 14px;
   padding: 1.5% 7%;
+}
+
+.hiddenUser {
+  animation: hideUser 0.15s both;
+}
+
+@keyframes hideUser {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
