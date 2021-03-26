@@ -6,7 +6,7 @@ import classes from "./chatUser.module.scss";
 
 const ChatUser = (props) => {
   return (
-    <div className={classes.chatUserComponent}>
+    <div className={classes.chatUserComponent} data-test="chat-user-component">
       <NavLink to={`/${props.modifiedEmail}`}>
         <img className={classes.image} src={props.profileImage ? props.profileImage : defaultUserImage} />
         <p className={classes.name}>{props.name}</p>

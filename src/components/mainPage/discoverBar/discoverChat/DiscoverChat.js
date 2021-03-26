@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import classes from "./discoverChat.module.scss";
 import SectionTitle from "./../sectionTitile/SectionTitle";
@@ -9,15 +10,24 @@ const DiscoverChat = (props) => {
     <div className={classes.discoverChatComponent}>
       <SectionTitle title="Chat" />
       <div className={classes.chat}>
-        <ChatUser name="Jan Kowalski" modifiedEmail="jacekkrajewski12wppl" profileImage={null} />
-        <ChatUser name="Stanisław Wyspiański" modifiedEmail="jacekkrajewski12wppl" />
-        <ChatUser name="Jan Kowalski" modifiedEmail="jacekkrajewski12wppl" />
-        <ChatUser name="Jan Kowalski" modifiedEmail="jacekkrajewski12wppl" />
-        <ChatUser name="Jan Kowalski" modifiedEmail="jacekkrajewski12wppl" />
-        <ChatUser name="Jan Kowalski" modifiedEmail="jacekkrajewski12wppl" />
+        {props.followedUsers.length ? (
+          props.followedUsers.map((el) => {
+            return <ChatUser name={el.name} modifiedEmail={el.modifiedEmail} key={el.modifiedEmail} />;
+          })
+        ) : (
+          <p data-test="no-users-info" className={classes.info}>
+            Follow other users to start chatting with them.
+          </p>
+        )}
       </div>
     </div>
   );
 };
 
-export default DiscoverChat;
+const mapStateToProps = (state) => {
+  return {
+    followedUsers: state.userData.followedUsers,
+  };
+};
+
+export default connect(mapStateToProps)(DiscoverChat);

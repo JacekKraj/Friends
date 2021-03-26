@@ -27,15 +27,15 @@ const App = (props) => {
           const modifiedEmail = modifyEmail(fireUser.email);
           fire
             .database()
-            .ref(`users/${modifiedEmail}`)
+            .ref(`users`)
             .get()
             .then((snapshot) => {
               setLoading(false);
               props.onAuthenticateEnd(fireUser);
               props.onSetDefaultUserData({ ...snapshot.val() }, modifiedEmail);
-              setExtraPaths((currState) => [...currState, snapshot.val().name]);
+              setExtraPaths((currState) => [...currState, snapshot.val()[modifiedEmail].name]);
             })
-            .catch(() => {
+            .catch((error) => {
               setLoading(false);
               props.onLogout();
               failToast("Something went wrong. Try again later.");

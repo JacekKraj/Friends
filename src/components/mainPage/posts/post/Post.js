@@ -67,8 +67,10 @@ const Post = (props) => {
   const postEditionModal = React.useRef();
 
   const handleOutsideClick = (event) => {
-    if (!postEditionModal.current.contains(event.target)) {
-      setShowEditionModal(false);
+    if (postEditionModal.current) {
+      if (!postEditionModal.current.contains(event.target)) {
+        setShowEditionModal(false);
+      }
     }
   };
 

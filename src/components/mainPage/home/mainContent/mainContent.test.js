@@ -51,7 +51,7 @@ test("removes post after clicking remove button", () => {
       },
       getPostsLoading: false,
     },
-    userData: { modifiedEmail: "jacekkrajewski12wppl" },
+    userData: { modifiedEmail: "jacekkrajewski12wppl", followedUsersEmails: [] },
   });
   store.dispatch(actions.setGetPostsLoading(false));
   wrapper.setProps();

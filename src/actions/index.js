@@ -10,7 +10,7 @@ export {
   registerEnd,
 } from "./authentication";
 
-export { setDefaultUserData } from "./userData";
+export { setDefaultUserData, followUser } from "./userData";
 
 export { addUserPost, createUserPost, setNewPostLoading, getUsersPosts, setGetPostsLoading, removePost, clearPosts } from "./posts";
 
