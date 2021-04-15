@@ -50,11 +50,11 @@ export const SignUpModal = (props) => {
                       className={classes.input}
                     />
                   </div>
-                  <h3 className={classes.dateOfBirthTitle}>Your name</h3>
+                  <h3 className={classes.birthdayDateTitle}>Your name</h3>
                   <MyFormikInput as={Input} required={true} name="name" type="text" placeholder="Name" className={classes.input} />
                   <MyFormikInput as={Input} required={true} name="surname" type="text" placeholder="Surname" className={classes.input} />
-                  <h3 className={classes.dateOfBirthTitle}>Date of birth</h3>
-                  <p className={classes.dateOfBirthInfo}>This information will let us know if you have reached appropriate age to use our site.</p>
+                  <h3 className={classes.birthdayDateTitle}>Date of birth</h3>
+                  <p className={classes.birthdayDateInfo}>This information will let us know if you have reached appropriate age to use our site.</p>
                   <div className={classes.birthSelectsContainer}>
                     <MyFormikSelect type="day" name="day" />
                     <MyFormikSelect type="month" className={classes.selectStreched} name="month" />

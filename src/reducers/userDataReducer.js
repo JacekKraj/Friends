@@ -1,56 +1,54 @@
 import * as actionTypes from "./../actions/actionsTypes";
 
 const initialState = {
-  email: "",
-  modifiedEmail: "",
-  name: "",
-  dateOfBirth: {},
-  profileImage: null,
+  currentUser: {
+    modifiedEmail: "",
+    name: "",
+    birthdayDate: {},
+    profileImage: null,
+    followedUsersEmails: [],
+  },
   unfollowedUsers: [],
   followedUsers: [],
-  followedUsersEmails: [],
 };
 
 const userDataReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_DEFAULT_USER_DATA:
-      const currentUser = action.data[action.modifiedEmail];
-      const followedUsersEmails = action.data[action.modifiedEmail]?.followedUsers ? action.data[action.modifiedEmail]?.followedUsers : [];
+    case actionTypes.SET_USER_DATA:
+      const currentUser = { ...action.data[action.modifiedEmail], modifiedEmail: action.modifiedEmail };
+      delete currentUser.posts;
+      currentUser.followedUsersEmails = currentUser.followedUsersEmails ? currentUser.followedUsersEmails : [];
       const unfollowedUsersEmails = Object.keys(action.data).filter((el) => {
-        return el !== action.modifiedEmail && !followedUsersEmails.includes(el);
+        return el !== action.modifiedEmail && !currentUser?.followedUsersEmails.includes(el);
       });
       const unfollowedUsers = unfollowedUsersEmails.map((el) => {
-        return { modifiedEmail: el, name: action.data[el].name, birthdayDate: action.data[el].birthdayDate };
+        const user = action.data[el];
+        delete user.posts;
+        return { modifiedEmail: el, ...user };
       });
-      const followedUsers = followedUsersEmails.map((el) => {
-        return { modifiedEmail: el, name: action.data[el].name, birthdayDate: action.data[el].birthdayDate };
+      const followedUsers = currentUser?.followedUsersEmails.map((el) => {
+        const user = action.data[el];
+        delete user.posts;
+        return { modifiedEmail: el, ...user };
       });
       return {
         ...state,
+        currentUser,
         unfollowedUsers,
-        email: currentUser?.email,
-        modifiedEmail: action.modifiedEmail,
-        name: currentUser?.name,
-        dateOfBirth: currentUser?.birthdayDate,
         followedUsers,
-        followedUsersEmails,
       };
-    case actionTypes.FOLLOW_USER:
-      const followedUserData = {
-        birthdayDate: action.userToFollowData.birthdayDate,
-        name: action.userToFollowData.name,
-        modifiedEmail: action.userToFollow,
-      };
-      const oldUnfollowedUserIndex = state.unfollowedUsers.findIndex((el) => {
-        return el.modifiedEmail === action.userToFollow;
-      });
-      const newUnfollowedUsers = [...state.unfollowedUsers];
-      newUnfollowedUsers.splice(oldUnfollowedUserIndex, 1);
+    case actionTypes.SET_FOLLOWED_USERS:
+      const users = [...state[action.usersToReduce]];
+      const userIndex = users.findIndex((el) => el.modifiedEmail === action.user);
+      const user = users.splice(userIndex, 1);
       return {
         ...state,
-        followedUsersEmails: [...state.followedUsersEmails, action.userToFollow],
-        followedUsers: [...state.followedUsers, followedUserData],
-        unfollowedUsers: newUnfollowedUsers,
+        [action.usersToReduce]: users,
+        currentUser: {
+          ...state.currentUser,
+          followedUsersEmails: action.newFollowedUsersEmails,
+        },
+        [action.usersToIncrease]: [...state[action.usersToIncrease], ...user],
       };
     default:
       return state;

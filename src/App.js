@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React, { useState, Suspense } from "react";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 
@@ -7,22 +7,24 @@ import * as actions from "./actions/index";
 import fire from "./firebaseConfig";
 import AuthenticationMainPage from "./components/authentication/authenticationMainPage/AuthenticationMainPage";
 import { failToast, successToast } from "./utilities/toasts/toasts";
-import Home from "./components/mainPage/home/Home";
+import Home from "./components/home/Home";
 import Spinner from "./components/UI/spinner/Spinner";
 import { modifyEmail } from "./utilities/helperFunctions/modifyEmail";
 
 const App = (props) => {
   const [loading, setLoading] = useState(true);
-  const [extraPaths, setExtraPaths] = useState([]);
+  const location = useLocation();
 
   toast.configure();
+
+  const UserProfile = React.lazy(() => {
+    return import("./components/userProfile/UserProfile");
+  });
 
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
         if (fire.auth().currentUser.emailVerified) {
-          props.onClearPosts();
-          props.onSetDefaultUserData({}, null);
           const fireUser = fire.auth().currentUser;
           const modifiedEmail = modifyEmail(fireUser.email);
           fire
@@ -32,8 +34,7 @@ const App = (props) => {
             .then((snapshot) => {
               setLoading(false);
               props.onAuthenticateEnd(fireUser);
-              props.onSetDefaultUserData({ ...snapshot.val() }, modifiedEmail);
-              setExtraPaths((currState) => [...currState, snapshot.val()[modifiedEmail].name]);
+              props.onSetUserData({ ...snapshot.val() }, modifiedEmail);
             })
             .catch((error) => {
               setLoading(false);
@@ -47,26 +48,31 @@ const App = (props) => {
         }
       } else {
         props.onLogout();
+        props.onClearPosts();
+        props.onSetUserData({}, null);
         setLoading(false);
       }
     });
   }, []);
 
+  // props.onLogout();
+
+  React.useEffect(() => {
+    props.onSetShowNav(false);
+    props.onSetShowDiscoverBar(false);
+    props.onSetGetPostsLoading(true);
+  }, [location.pathname, location.search]);
+
   let routes = props.isAuthenticated ? (
     <Switch>
       <Route path="/" exact render={() => <Home />} />
-      {extraPaths.map((el) => {
-        return (
-          <Route
-            path={`/${el.replace(" ", "%20")}`}
-            exact
-            key={el}
-            render={() => {
-              <AuthenticationMainPage />;
-            }}
-          />
-        );
-      })}
+      <Route
+        path={`/users`}
+        exact
+        render={() => {
+          return <UserProfile />;
+        }}
+      />
     </Switch>
   ) : (
     <Switch>
@@ -76,7 +82,11 @@ const App = (props) => {
 
   routes = loading ? <Spinner /> : routes;
 
-  return <div>{routes}</div>;
+  return (
+    <div>
+      <Suspense fallback={<div></div>}>{routes}</Suspense>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {
@@ -87,10 +97,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetDefaultUserData: (data, modifiedEmail) => dispatch(actions.setDefaultUserData(data, modifiedEmail)),
+    onSetUserData: (data, modifiedEmail) => dispatch(actions.setUserData(data, modifiedEmail)),
     onAuthenticateEnd: (fireUser) => dispatch(actions.authenticationEnd(fireUser)),
     onLogout: () => dispatch(actions.logout()),
     onClearPosts: () => dispatch(actions.clearPosts()),
+    onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
+    onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
+    onSetGetPostsLoading: (loading) => dispatch(actions.setGetPostsLoading(loading)),
   };
 };
 

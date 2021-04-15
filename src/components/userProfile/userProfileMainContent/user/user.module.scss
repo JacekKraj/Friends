@@ -1,0 +1,195 @@
+.userInfoComponent {
+  position: relative;
+  border-bottom: 1px solid #888;
+  background-color: rgb(233, 233, 233);
+  padding: 4% 5%;
+  min-height: 20vh;
+}
+
+.infoTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1%;
+}
+
+.image {
+  width: 30%;
+  border: 3px solid #fff;
+  background-color: #bbb;
+  border-radius: 5px;
+}
+.button {
+  align-self: flex-start;
+  font-size: 15px;
+  padding: 1vh 2vh;
+}
+
+.name {
+  color: #333;
+  font-size: 21px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 2%;
+}
+
+.description {
+  font-size: 14px;
+  color: #555;
+  margin: 3% 0 4%;
+}
+
+.moreInfoContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 411px) and (orientation: portrait) {
+  .userInfoComponent {
+    padding: 4% 5% 2%;
+    min-height: 30vh;
+  }
+
+  .infoTop {
+    margin-bottom: 1%;
+  }
+
+  .image {
+    width: 40%;
+  }
+  .button {
+    font-size: 16px;
+  }
+
+  .name {
+    font-size: 26px;
+  }
+
+  .description {
+    font-size: 16px;
+    margin: 4% 0;
+  }
+
+  .moreInfoContainer {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 550px) and (orientation: portrait) {
+  .userInfoComponent {
+    padding: 4% 4% 2%;
+  }
+
+  .image {
+    width: 30%;
+  }
+
+  .button {
+    font-size: 24px;
+  }
+
+  .name {
+    font-size: 36px;
+  }
+
+  .description {
+    margin: 3% 0 4%;
+    font-size: 23px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .userInfoComponent {
+    padding: 2% 3%;
+    min-height: 50vh;
+  }
+
+  .infoTop {
+    margin-bottom: 0.5%;
+  }
+
+  .image {
+    width: 25%;
+  }
+  .button {
+    font-size: 17px;
+    padding: 2vh 3vh;
+  }
+
+  .name {
+    font-size: 25px;
+    margin-bottom: 1%;
+  }
+
+  .description {
+    font-size: 15px;
+    margin: 2% 0;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .userInfoComponent {
+    padding: 2.5% 12% 1.5%;
+  }
+
+  .image {
+    width: 23%;
+  }
+
+  .name {
+    font-size: 23px;
+  }
+
+  .description {
+    margin: 3% 0 2%;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .userInfoComponent {
+    padding: 3% 3% 2.5%;
+    min-height: 20vh;
+  }
+
+  .image {
+    width: 25%;
+  }
+  .button {
+    font-size: 16px;
+    padding: 1vh 2vh;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 15px;
+    margin: 3% 0;
+  }
+}
+
+@media (min-width: 1250px) and (orientation: landscape) {
+  .userInfoComponent {
+    padding: 3% 3% 2%;
+    min-height: 20vh;
+  }
+
+  .image {
+    width: 28%;
+  }
+  .button {
+    font-size: 17px;
+    padding: 1.1vh 2vh;
+  }
+
+  .name {
+    font-size: 24px;
+    margin-bottom: 2%;
+  }
+
+  .description {
+    font-size: 16px;
+    margin: 3% 0;
+  }
+}

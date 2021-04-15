@@ -1,8 +1,10 @@
-export const createArrayOfPosts = (usersPosts) => {
+export const createArrayOfPosts = (usersPosts, users) => {
   let allUsersPosts = [];
   for (let user in usersPosts) {
-    const posts = Array.from(Object.values(usersPosts[user].posts));
-    allUsersPosts = [...allUsersPosts, ...posts];
+    if (users.includes(user)) {
+      const posts = Array.from(Object.values(usersPosts[user].posts));
+      allUsersPosts = [...allUsersPosts, ...posts];
+    }
   }
 
   const compareCreationTime = (a, b) => {

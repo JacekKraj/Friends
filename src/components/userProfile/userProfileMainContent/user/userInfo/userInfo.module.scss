@@ -1,0 +1,32 @@
+.userInfoComponent {
+  display: flex;
+  align-items: center;
+  margin: 1% 8% 1% 0;
+}
+
+.text {
+  margin-left: 3%;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+@media (min-width: 411px) and (orientation: portrait) {
+  .text {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 550px) and (orientation: portrait) {
+  .userInfoComponent {
+    margin: 1% 6% 1% 0;
+  }
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .userInfoComponent {
+    margin: 1% 5% 1% 0;
+  }
+}
