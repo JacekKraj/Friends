@@ -24,18 +24,18 @@ afterEach(() => {
 });
 
 test("doesn't show auto complete when input is empty", () => {
-  const noMatchingUsersInfo = findByTestAttr(wrapper, "no-matching-users-info");
+  const noMatchingUsersInfo = findByTestAttr(wrapper, "no-users-info");
   expect(noMatchingUsersInfo.exists()).toBe(true);
 });
 
 test("shows users in autocomplete when they match while typing in input", () => {
   input.simulate("change", { target: { value: "test" } });
-  const userName = findByTestAttr(wrapper, "user-name");
+  const userName = findByTestAttr(wrapper, "user-name").first();
   expect(userName.text()).toEqual("Test Test");
 });
 
 test("doesn't show users in autocomplete when they don't match while typing in input", () => {
   input.simulate("change", { target: { value: "tet" } });
-  const noMatchingUsersInfo = findByTestAttr(wrapper, "no-matching-users-info");
+  const noMatchingUsersInfo = findByTestAttr(wrapper, "no-users-info");
   expect(noMatchingUsersInfo.text()).toEqual("There are no matching users for this keyword.");
 });

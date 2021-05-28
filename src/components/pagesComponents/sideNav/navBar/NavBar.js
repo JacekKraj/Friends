@@ -8,19 +8,18 @@ import PersonIcon from "@material-ui/icons/Person";
 import ChatIcon from "@material-ui/icons/Chat";
 import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import classes from "./navBar.module.scss";
-import defaultUserImage from "./../../../../assets/images/defaultUserImage.png";
 import NavItem from "./navItem/NavItem";
 import * as actions from "./../../../../actions/index";
 
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 600,
-      mdlg: 800,
-      lg: 1000,
-      xl: 1150,
+      0: 0,
+      400: 400,
+      600: 600,
+      768: 768,
+      800: 800,
+      1000: 1000,
     },
   },
 });
@@ -28,38 +27,28 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() => ({
   icon: {
     color: "#ffa500",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 30,
       height: 30,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("400")]: {
       width: 33,
       height: 33,
     },
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("768")]: {
       width: 50,
       height: 50,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
-      width: 31,
-      height: 31,
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
+      width: 33,
+      height: 33,
     },
 
-    [`${theme.breakpoints.up("mdlg")} and (orientation:landscape)`]: {
-      width: 35,
-      height: 35,
-    },
-
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
       width: 39,
       height: 39,
-    },
-
-    [`${theme.breakpoints.up("xl")} and (orientation:landscape)`]: {
-      width: 42,
-      height: 42,
     },
   },
 }));
@@ -70,7 +59,7 @@ const NavBar = (props) => {
     <div className={classes.navBarComponent}>
       <div className={classes.user}>
         <div className={classes.profileImageContainer}>
-          <img className={classes.profileImage} src={props.userImage ? props.userImage : defaultUserImage} alt="User profile image" />
+          <img className={classes.profileImage} src={props.currUserProfileImage} alt="User profile image" />
         </div>
         <p className={classes.userName}>{props.currUserName}</p>
       </div>
@@ -90,7 +79,7 @@ const NavBar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    userImage: state.userData.currentUser.profileImage,
+    currUserProfileImage: state.userData.currentUser.profileImage,
     currUserName: state.userData.currentUser.name,
     currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
   };

@@ -34,12 +34,14 @@ const App = (props) => {
             .then((snapshot) => {
               setLoading(false);
               props.onAuthenticateEnd(fireUser);
+
               props.onSetUserData({ ...snapshot.val() }, modifiedEmail);
             })
             .catch((error) => {
               setLoading(false);
               props.onLogout();
               failToast("Something went wrong. Try again later.");
+              failToast(error.message);
             });
         } else {
           successToast("Verification email has been sent to your address. Verify to sing in.");
@@ -54,8 +56,6 @@ const App = (props) => {
       }
     });
   }, []);
-
-  // props.onLogout();
 
   React.useEffect(() => {
     props.onSetShowNav(false);

@@ -33,7 +33,13 @@ const UserProfile = (props) => {
       }
     }
     setUserData({ ...user, type });
-  }, [props.currUserModifiedEmail, props.followedUsers.length, props.unfollowedUsers.length]);
+  }, [
+    props.currUserModifiedEmail,
+    props.followedUsers.length,
+    props.unfollowedUsers.length,
+    props.currentUser.profileImage,
+    JSON.stringify(props.currentUser.personalInfo),
+  ]);
 
   return (
     <WholePageWrapper>

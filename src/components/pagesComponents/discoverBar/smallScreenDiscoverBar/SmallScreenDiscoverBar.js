@@ -11,10 +11,10 @@ import SearchInput from "./../../searchInput/SearchInput";
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 600,
-      lg: 800,
+      0: 0,
+      400: 400,
+      600: 600,
+      768: 768,
     },
   },
 });
@@ -22,33 +22,28 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() => ({
   icon: {
     color: "#ffa500",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 40,
       height: 40,
       marginLeft: -5,
       marginRight: 5,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("400")]: {
       width: 42,
       height: 42,
     },
 
-    [theme.breakpoints.up("md")]: {
-      width: 65,
-      height: 65,
+    [theme.breakpoints.up("768")]: {
+      width: 55,
+      height: 55,
       marginLeft: -10,
       marginRight: 10,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
       width: 38,
       height: 38,
       marginLeft: -10,
-    },
-
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
-      width: 42,
-      height: 42,
     },
   },
 }));

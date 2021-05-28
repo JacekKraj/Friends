@@ -10,7 +10,7 @@ export {
   registerEnd,
 } from "./authentication";
 
-export { setUserData, followUser, unfollowUser, setFollowedUsers } from "./userData";
+export { setUserData, followUser, unfollowUser, setFollowedUsers, setUserProfileImage, setPersonalInfo } from "./userData";
 
 export { addUserPost, createUserPost, setNewPostLoading, getUsersPosts, setGetPostsLoading, removePost, clearPosts } from "./posts";
 

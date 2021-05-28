@@ -1,12 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import classnames from "classnames";
 import { connect } from "react-redux";
 
 import * as actions from "./../../../../../actions/index";
-import defaultUserImage from "./../../../../../assets/images/defaultUserImage.png";
 import classes from "./friend.module.scss";
 import Button from "./../../../../UI/button/Button";
+import User from "./../../user/User";
 
 const Friend = (props) => {
   const [extraClass, setExtraClass] = React.useState("");
@@ -16,10 +15,7 @@ const Friend = (props) => {
   };
   return (
     <div className={classnames(classes.friendComponent, extraClass)} data-test="friend-component">
-      <NavLink to={`/users?user=${props.modifiedEmail}`} className={classes.user}>
-        <img src={props.profileImage || defaultUserImage} className={classes.profileImage} alt="user profile image" />
-        <p>{props.name}</p>
-      </NavLink>
+      <User link={`/users?user=${props.modifiedEmail}`} profileImage={props.profileImage} name={props.name} />
       <Button className={classes.button} transparent={true} onClick={handleButtonClick}>
         follow
       </Button>

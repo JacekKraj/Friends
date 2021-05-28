@@ -6,8 +6,25 @@ import Post from "./post/Post";
 import Spinner from "./../../UI/spinner/Spinner";
 
 const Posts = (props) => {
+  const getAuthorProfileImage = (author) => {
+    let profileImage = null;
+    props.followedUsers.forEach((user) => {
+      if (user.modifiedEmail === author.modifiedEmail) {
+        profileImage = user.profileImage;
+        return;
+      }
+    });
+    !profileImage &&
+      props.unfollowedUsers.forEach((user) => {
+        profileImage = user.modifiedEmail === author.modifiedEmail && user.profileImage;
+      });
+    profileImage = profileImage || props.currentUserProfileImage;
+    return profileImage;
+  };
+
   const posts = props.posts.map((el) => {
-    return <Post {...el} key={el.post.creationTime} />;
+    const profileImage = getAuthorProfileImage(el.author);
+    return <Post {...el} profileImage={profileImage} key={el.post.creationTime} />;
   });
 
   return (
@@ -25,6 +42,9 @@ const Posts = (props) => {
 const mapStateToProps = (state) => {
   return {
     isLoading: state.posts.getPostsLoading,
+    followedUsers: state.userData.followedUsers,
+    unfollowedUsers: state.userData.unfollowedUsers,
+    currentUserProfileImage: state.userData.currentUser.profileImage,
   };
 };
 

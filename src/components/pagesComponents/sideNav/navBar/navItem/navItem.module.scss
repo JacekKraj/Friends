@@ -1,7 +1,7 @@
 .navItemComponent {
   display: flex;
   align-items: center;
-  padding: 4% 3%;
+  padding: 0.45em;
   border-radius: 30px;
   cursor: pointer;
 }
@@ -11,7 +11,6 @@
 }
 
 .iconContainer {
-  margin-right: 5%;
   display: flex;
   align-items: center;
 }
@@ -21,19 +20,23 @@
 }
 
 .description {
-  font-size: 16px;
+  margin-left: 0.6em;
+  font-size: 17px;
   color: #555;
 }
 
-@media (min-width: 411px) and (orientation: portrait) {
+@media (min-width: 400px) and (orientation: portrait) {
   .description {
     font-size: 19px;
   }
 }
 
-@media (min-width: 600px) and (orientation: portrait) {
+@media (min-width: 768px) and (orientation: portrait) {
   .description {
     font-size: 29px;
+  }
+  .navItemComponent {
+    padding: 0.8em 0.45em;
   }
 }
 
@@ -41,27 +44,10 @@
   .navItemComponent {
     display: flex;
     align-items: center;
-    padding: 2% 3%;
+    padding: 0.5em;
+
     border-radius: 30px;
     cursor: pointer;
-  }
-
-  .iconContainer {
-    margin-right: 3%;
-  }
-
-  .description {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 800px) and (orientation: landscape) {
-  .navItemComponent {
-    padding: 2.5%;
-  }
-
-  .iconContainer {
-    margin-right: 2%;
   }
 
   .description {
@@ -71,34 +57,12 @@
 
 @media (min-width: 1000px) and (orientation: landscape) {
   .navItemComponent {
-    padding: 4.5% 3%;
-  }
-
-  .iconContainer {
-    margin-right: 3%;
+    padding: 0.55em 0.3em;
   }
 
   .description {
+    margin-left: 0.4em;
+
     font-size: 20px;
-  }
-}
-
-@media (min-width: 1150px) and (orientation: landscape) {
-  .navItemComponent {
-    padding: 4.5% 3%;
-  }
-
-  .iconContainer {
-    margin-right: 3%;
-  }
-
-  .description {
-    font-size: 19px;
-  }
-}
-
-@media (min-width: 1320px) and (orientation: landscape) {
-  .navItemComponent {
-    padding: 5% 3%;
   }
 }

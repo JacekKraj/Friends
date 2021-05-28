@@ -13,10 +13,10 @@ import * as actions from "./../../../../actions/index";
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 600,
-      lg: 800,
+      0: 0,
+      400: 400,
+      600: 600,
+      768: 768,
     },
   },
 });
@@ -24,28 +24,23 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() => ({
   icon: {
     color: "#ffa500",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 40,
       height: 40,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("400")]: {
       width: 44,
       height: 44,
     },
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("768")]: {
       width: 65,
       height: 65,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
       width: 38,
       height: 38,
-    },
-
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
-      width: 42,
-      height: 42,
     },
   },
 }));

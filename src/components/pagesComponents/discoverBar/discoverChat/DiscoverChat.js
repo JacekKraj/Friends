@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import classes from "./discoverChat.module.scss";
 import SectionTitle from "./../sectionTitile/SectionTitle";
 import ChatUser from "./chatUser/ChatUser";
+import NoUsersInfo from "./../noUsersInfo/NoUsersInfo";
 
 const DiscoverChat = (props) => {
   return (
@@ -12,12 +13,10 @@ const DiscoverChat = (props) => {
       <div className={classes.chat}>
         {props.followedUsers.length ? (
           props.followedUsers.map((el) => {
-            return <ChatUser name={el.name} modifiedEmail={el.modifiedEmail} key={el.modifiedEmail} />;
+            return <ChatUser name={el.name} modifiedEmail={el.modifiedEmail} key={el.modifiedEmail} profileImage={el.profileImage} />;
           })
         ) : (
-          <p data-test="no-users-info" className={classes.info}>
-            Follow other users to start chatting with them.
-          </p>
+          <NoUsersInfo>Follow other users to start chatting with them.</NoUsersInfo>
         )}
       </div>
     </div>

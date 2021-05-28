@@ -6,18 +6,17 @@ import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 import * as actions from "./../../../../actions/index";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import classes from "./post.module.scss";
-import defaultProfileImage from "./../../../../assets/images/defaultUserImage.png";
 import PostEditionModal from "./postEditionModal/PostEditionModal";
 
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 600,
-      mdlg: 800,
-      lg: 1000,
-      xl: 1150,
+      0: 0,
+      400: 400,
+      600: 600,
+      768: 768,
+      800: 800,
+      1000: 1000,
     },
   },
 });
@@ -26,31 +25,31 @@ const useStyles = makeStyles(() => ({
   icon: {
     color: "#ffa500",
     cursor: "pointer",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 26,
       height: 26,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("400")]: {
       width: 33,
       height: 33,
     },
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("768")]: {
       width: 50,
       height: 50,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
       width: 31,
       height: 31,
     },
 
-    [`${theme.breakpoints.up("mdlg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("800")} and (orientation:landscape)`]: {
       width: 35,
       height: 35,
     },
 
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
       width: 39,
       height: 39,
     },
@@ -86,7 +85,7 @@ const Post = (props) => {
       <div className={classes.postHeader}>
         <NavLink to={`/users?user=${props.author.modifiedEmail}`}>
           <div className={classes.author}>
-            <img src={props.author.profileImage || defaultProfileImage} className={classes.profileImage} alt="post author profile image" />
+            <img src={props.profileImage} className={classes.profileImage} alt="post author profile image" />
             <div>
               <p className={classes.authorName}>{props.author.name}</p>
               <p className={classes.postCreationTime}>{creationTime}</p>

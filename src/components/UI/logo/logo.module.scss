@@ -6,9 +6,9 @@
   background-color: #ffa500;
   color: white;
   font-weight: bold;
-  width: 9vh;
-  height: 9vh;
-  font-size: 29px;
+  width: 1.65em;
+  height: 1.65em;
+  font-size: 27px;
 }
 
 .logo p {
@@ -16,45 +16,32 @@
   font-family: "Gloria Hallelujah";
 }
 
-@media (min-width: 600px) and (orientation: portrait) {
+@media (min-width: 500px) and (orientation: portrait) {
   .logo {
-    font-size: 46px;
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .logo {
+    font-size: 42px;
   }
 }
 
 @media (min-width: 600px) and (orientation: landscape) {
   .logo {
-    width: 13vh;
-    height: 13vh;
-    font-size: 27px;
+    font-size: 25px;
   }
 }
 
-@media (min-width: 755px) and (orientation: landscape) {
+@media (min-width: 700px) and (orientation: landscape) {
   .logo {
-    width: 12vh;
-    height: 12vh;
-    font-size: 29px;
+    font-size: 28px;
   }
 }
 
 @media (min-width: 900px) and (orientation: landscape) {
   .logo {
-    width: 9.5vh;
-    height: 9.5vh;
-    font-size: 36px;
-  }
-}
-
-@media (min-width: 1100px) and (orientation: landscape) {
-  .logo {
-    width: 9vh;
-    height: 9vh;
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .logo {
-    font-size: 32px;
+    font-size: 30px;
   }
 }

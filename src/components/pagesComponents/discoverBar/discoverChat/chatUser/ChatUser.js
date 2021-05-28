@@ -1,16 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 
-import defaultUserImage from "./../../../../../assets/images/defaultUserImage.png";
 import classes from "./chatUser.module.scss";
+import User from "./../../user/User";
 
 const ChatUser = (props) => {
   return (
     <div className={classes.chatUserComponent} data-test="chat-user-component">
-      <NavLink to={`/${props.modifiedEmail}`}>
-        <img className={classes.image} src={props.profileImage ? props.profileImage : defaultUserImage} />
-        <p className={classes.name}>{props.name}</p>
-      </NavLink>
+      <User profileImage={props.profileImage} name={props.name} link={`/${props.modifiedEmail}`} />
       <div className={classes.arrow}>{`>`}</div>
     </div>
   );

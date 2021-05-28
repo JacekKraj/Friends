@@ -2,26 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 4% 0;
-}
-.chatUserComponent > a {
-  color: #555;
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.image {
-  width: 4vh;
-  height: 4vh;
-  background-color: #bbb;
-  border-radius: 50%;
-  margin-right: 3%;
-}
-
-.name {
-  font-size: 15px;
-  white-space: nowrap;
+  margin: 0.8em 0;
 }
 
 .arrow {
@@ -31,20 +12,13 @@
   font-weight: bold;
 }
 
-.chatUserComponent:hover .name {
-  color: black;
-}
 .chatUserComponent:hover .arrow {
   opacity: 1;
 }
 
-@media (min-width: 550px) and (orientation: portrait) {
+@media (min-width: 768px) and (orientation: portrait) {
   .chatUserComponent {
-    margin: 3.5% 0;
-  }
-
-  .name {
-    font-size: 23px;
+    margin: 1.2em 0;
   }
 
   .arrow {
@@ -52,46 +26,8 @@
   }
 }
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .image {
-    width: 7vh;
-    height: 7vh;
-    margin-right: 1.5%;
-  }
-}
-
 @media (min-width: 800px) and (orientation: landscape) {
-  .chatUserComponent {
-    margin: 3% 0;
-  }
-
   .arrow {
     font-size: 20px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .chatUserComponent {
-    margin: 4% 0;
-  }
-
-  .image {
-    width: 4vh;
-    height: 4vh;
-    margin-right: 4%;
-  }
-
-  .name {
-    font-size: 15px;
-  }
-
-  .arrow {
-    font-size: 20px;
-  }
-}
-
-@media (min-width: 1250px) {
-  .name {
-    font-size: 16px;
   }
 }

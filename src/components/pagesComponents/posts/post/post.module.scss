@@ -1,7 +1,7 @@
 .postComponent {
   width: 100%;
-  padding: 3%;
-  margin: 5% 0;
+  padding: 0.5em;
+  margin: 1em 0;
   border: 1px solid #ddd;
   background-color: #fff;
   -webkit-box-shadow: 0px 2px 8px 1px #ddd;
@@ -12,7 +12,7 @@
 .postHeader {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 4%;
+  margin-bottom: 0.8em;
 }
 
 .postHeader a {
@@ -25,17 +25,17 @@
 }
 
 .profileImage {
-  width: 5.5vh;
-  height: 5.5vh;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  margin-right: 2%;
+  margin-right: 0.45em;
   background-color: #bbb;
   overflow: hidden;
 }
 
 .authorName {
   color: #333;
-  margin-bottom: 1%;
+  margin-bottom: 0.08em;
   font-size: 14px;
   cursor: pointer;
   font-size: bold;
@@ -56,7 +56,7 @@
 }
 
 .postImage {
-  margin-top: 3%;
+  margin-top: 0.65em;
   width: 100%;
 }
 
@@ -64,25 +64,30 @@
   position: relative;
 }
 
-@media (min-width: 411px) and (orientation: portrait) {
+@media (min-width: 400px) and (orientation: portrait) {
+  .postCreationTime {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 500px) and (orientation: portrait) {
   .profileImage {
-    width: 5vh;
-    height: 5vh;
+    width: 35px;
+    height: 35px;
   }
 
   .postCreationTime {
     font-size: 10px;
   }
-
-  .postImage {
-    margin-top: 3%;
-  }
 }
 
-@media (min-width: 600px) and (orientation: portrait) {
+@media (min-width: 768px) and (orientation: portrait) {
+  .postComponent {
+    padding: 0.9em;
+  }
   .profileImage {
-    width: 4.5vh;
-    height: 4.5vh;
+    width: 50px;
+    height: 50px;
   }
 
   .authorName {
@@ -92,50 +97,22 @@
     font-size: 13px;
   }
 
-  .postHeader {
-    margin-bottom: 2%;
-  }
-
   .text {
     font-size: 20px;
-  }
-
-  .postImage {
-    margin-top: 2%;
   }
 }
 
 @media (min-width: 600px) and(orientation:landscape) {
-  .postComponent {
-    padding: 2%;
-    margin: 4% 0;
-  }
-
-  .postHeader {
-    margin-bottom: 2%;
-  }
-
   .profileImage {
-    width: 9vh;
-    height: 9vh;
-  }
-
-  .postImage {
-    margin-top: 2%;
+    width: 30px;
+    height: 30px;
   }
 }
 
-@media (min-width: 800px) and(orientation:landscape) {
-  .postComponent {
-    margin: 3% 0;
-  }
+@media (min-width: 700px) and(orientation:landscape) {
   .profileImage {
-    width: 8vh;
-    height: 8vh;
-    margin-right: 1%;
-  }
-  .postHeader {
-    margin-bottom: 1%;
+    width: 33px;
+    height: 33px;
   }
 
   .text {
@@ -144,42 +121,13 @@
 }
 
 @media (min-width: 1000px) and(orientation:landscape) {
-  .postComponent {
-    margin: 3% 0;
-  }
   .profileImage {
-    width: 5vh;
-    height: 5vh;
-    margin-right: 2%;
-  }
-  .postHeader {
-    margin-bottom: 2%;
+    width: 37px;
+    height: 37px;
   }
 
-  .authorName {
-    font-size: 16px;
-  }
-
-  .postCreationTime {
-    font-size: 10px;
-  }
-
-  .text {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1300px) and(orientation:landscape) {
-  .postComponent {
-    margin: 3% 0;
-  }
-  .profileImage {
-    width: 5vh;
-    height: 5vh;
-    margin-right: 1.5%;
-  }
-  .postHeader {
-    margin-bottom: 2%;
+  .postImage {
+    margin-top: 0.7em;
   }
 
   .authorName {

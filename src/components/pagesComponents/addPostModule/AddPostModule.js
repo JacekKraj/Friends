@@ -8,16 +8,17 @@ import classes from "./addPostModule.module.scss";
 import Button from "./../../UI/button/Button";
 import Spinner from "./../../UI/spinner/Spinner";
 import * as actions from "./../../../actions/index";
+import FileInput from "./../fileInput/FileInput";
 
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 600,
-      mdlg: 800,
-      lg: 1000,
-      xl: 1150,
+      0: 0,
+      400: 400,
+      600: 600,
+      768: 768,
+      800: 800,
+      1000: 1000,
     },
   },
 });
@@ -26,28 +27,28 @@ const useStyles = makeStyles(() => ({
   addPhoto: {
     cursor: "pointer",
     color: "#0eb611",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 28,
       height: 28,
       marginBottom: -5,
     },
-    [theme.breakpoints.up("md")]: {
-      width: 48,
-      height: 48,
+    [theme.breakpoints.up("768")]: {
+      width: 35,
+      height: 35,
       marginBottom: -8,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
-      width: 33,
-      height: 33,
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
+      width: 31,
+      height: 31,
     },
 
-    [`${theme.breakpoints.up("mdlg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("800")} and (orientation:landscape)`]: {
       width: 36,
       height: 36,
     },
 
-    [`${theme.breakpoints.up("xl")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
       width: 32,
       height: 32,
       marginTop: -2,
@@ -60,26 +61,26 @@ const useStyles = makeStyles(() => ({
     color: "#333",
     borderRadius: "50%",
     padding: "0.5%",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       top: "1%",
       right: "1%",
       width: 24,
       height: 24,
     },
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("600")]: {
       width: 38,
       height: 38,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
       width: 25,
       height: 25,
       top: "1.5%",
       right: "1%",
     },
 
-    [`${theme.breakpoints.up("mdlg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("800")} and (orientation:landscape)`]: {
       width: 27,
       height: 27,
       padding: "0.3%",
@@ -87,15 +88,9 @@ const useStyles = makeStyles(() => ({
       right: "0.5%",
     },
 
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
       width: 32,
       height: 32,
-    },
-
-    [`${theme.breakpoints.up("xl")} and (orientation:landscape)`]: {
-      width: 28,
-      height: 28,
-      top: "1%",
     },
   },
 }));
@@ -143,7 +138,7 @@ export const UnconnectedAddPostModule = (props) => {
   const handleSubmit = () => {
     const date = new Date();
     const creationTime = date.getTime();
-    const image = state.images[0] ? state.images[0] : { preview: null };
+    const image = state.images[0] || { preview: null };
     const post = {
       creationTime,
       text: state.text,
@@ -191,20 +186,9 @@ export const UnconnectedAddPostModule = (props) => {
           );
         })}
         <div className={classes.addPostModulBottomBar}>
-          <div className={classes.addFileButton}>
-            <input
-              type="file"
-              id="fileInput"
-              className={classes.fileInput}
-              accept="image/png, image/jpeg"
-              onChange={(event) => {
-                handleDrop(event);
-              }}
-            />
-            <label htmlFor="fileInput">
-              <PhotoIcon className={iconStyle.addPhoto} />
-            </label>
-          </div>
+          <FileInput handleDrop={handleDrop}>
+            <PhotoIcon className={iconStyle.addPhoto} />
+          </FileInput>
           <Button className={classes.button}>Post</Button>
         </div>
       </form>

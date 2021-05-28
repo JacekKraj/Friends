@@ -30,6 +30,8 @@ test("add post after dispatching createUserPost action creator", () => {
         modifiedEmail: "jacekkrajewski12wppl",
         followedUsersEmails: [],
       },
+      followedUsers: [],
+      unfollowedUsers: [],
     },
   });
   const newPost = {
@@ -58,7 +60,7 @@ test("removes post after clicking remove button", () => {
       },
       getPostsLoading: false,
     },
-    userData: { currentUser: { modifiedEmail: "jacekkrajewski12wppl", followedUsersEmails: [] } },
+    userData: { currentUser: { modifiedEmail: "jacekkrajewski12wppl", followedUsersEmails: [] }, followedUsers: [], unfollowedUsers: [] },
   });
   store.dispatch(actions.setGetPostsLoading(false));
   wrapper.setProps();

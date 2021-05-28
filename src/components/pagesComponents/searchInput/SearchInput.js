@@ -10,10 +10,9 @@ import AutoComplete from "./autoComplete/AutoComplete";
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 600,
-      lg: 800,
+      0: 0,
+      400: 400,
+      600: 600,
     },
   },
 });
@@ -21,28 +20,18 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() => ({
   icon: {
     color: "#555",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 24,
       height: 24,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("400")]: {
       width: 29,
       height: 29,
     },
 
-    [theme.breakpoints.up("md")]: {
-      width: 45,
-      height: 45,
-    },
-
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
       width: 28,
       height: 28,
-    },
-
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
-      width: 30,
-      height: 30,
     },
   },
 }));

@@ -1,39 +1,47 @@
 import * as actionTypes from "./../actions/actionsTypes";
+import defaultUserImage from "./../assets/images/defaultUserImage.png";
 
 const initialState = {
   currentUser: {
     modifiedEmail: "",
     name: "",
     birthdayDate: {},
-    profileImage: null,
+    profileImage: defaultUserImage,
+    personalInfo: {},
     followedUsersEmails: [],
   },
   unfollowedUsers: [],
   followedUsers: [],
+  updateProfileLoading: false,
 };
 
 const userDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_USER_DATA:
       const currentUser = { ...action.data[action.modifiedEmail], modifiedEmail: action.modifiedEmail };
+      currentUser.profileImage = currentUser.profileImage || defaultUserImage;
+      currentUser.personalInfo = currentUser.personalInfo || {};
       delete currentUser.posts;
-      currentUser.followedUsersEmails = currentUser.followedUsersEmails ? currentUser.followedUsersEmails : [];
+      currentUser.followedUsersEmails = currentUser.followedUsersEmails || [];
       const unfollowedUsersEmails = Object.keys(action.data).filter((el) => {
         return el !== action.modifiedEmail && !currentUser?.followedUsersEmails.includes(el);
       });
       const unfollowedUsers = unfollowedUsersEmails.map((el) => {
         const user = action.data[el];
         delete user.posts;
-        return { modifiedEmail: el, ...user };
+        return { modifiedEmail: el, profileImage: defaultUserImage, ...user };
       });
       const followedUsers = currentUser?.followedUsersEmails.map((el) => {
         const user = action.data[el];
         delete user.posts;
-        return { modifiedEmail: el, ...user };
+        return { modifiedEmail: el, profileImage: defaultUserImage, ...user };
       });
       return {
         ...state,
-        currentUser,
+        currentUser: {
+          ...state.currentUser,
+          ...currentUser,
+        },
         unfollowedUsers,
         followedUsers,
       };
@@ -49,6 +57,29 @@ const userDataReducer = (state = initialState, action) => {
           followedUsersEmails: action.newFollowedUsersEmails,
         },
         [action.usersToIncrease]: [...state[action.usersToIncrease], ...user],
+      };
+    case actionTypes.SET_CURR_USER_PROFILE_IMAGE:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          profileImage: action.image,
+        },
+      };
+    case actionTypes.SET_UPDATE_PROFILE_LOADING:
+      return {
+        ...state,
+        updateProfileLoading: action.loading,
+      };
+    case actionTypes.SET_PERSONAL_INFO:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          personalInfo: {
+            ...action.info,
+          },
+        },
       };
     default:
       return state;

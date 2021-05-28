@@ -7,20 +7,20 @@ import WcIcon from "@material-ui/icons/Wc";
 import HouseIcon from "@material-ui/icons/House";
 import CakeIcon from "@material-ui/icons/Cake";
 import classes from "./user.module.scss";
-import defaultUserImage from "./../../../../assets/images/defaultUserImage.png";
 import Button from "../../../UI/button/Button";
 import UserInfo from "./userInfo/UserInfo";
 import Spinner from "./../../../UI/spinner/Spinner";
+import UpdateProfileModal from "./updateProfileModal/UpadateProfileModal";
 import * as actions from "./../../../../actions/index";
 
 const theme = createMuiTheme({
   breakpoints: {
     values: {
-      xs: 0,
-      sm: 411,
-      md: 550,
-      mdlg: 800,
-      lg: 1000,
+      0: 0,
+      400: 400,
+      550: 550,
+      800: 800,
+      1000: 1000,
     },
   },
 });
@@ -28,31 +28,31 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(() => ({
   icon: {
     color: "#ffa500",
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up("0")]: {
       width: 23,
       height: 23,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("400")]: {
       width: 26,
       height: 26,
     },
 
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("550")]: {
       width: 37,
       height: 37,
     },
 
-    [`${theme.breakpoints.up("md")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("550")} and (orientation:landscape)`]: {
       width: 25,
       height: 25,
     },
 
-    [`${theme.breakpoints.up("mdlg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("800")} and (orientation:landscape)`]: {
       width: 30,
       height: 30,
     },
 
-    [`${theme.breakpoints.up("lg")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
       width: 28,
       height: 28,
     },
@@ -60,6 +60,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const User = (props) => {
+  const [showUpdateModal, setShowUpdateModal] = React.useState(false);
   const style = useStyles();
 
   const displayButton = React.useMemo(() => {
@@ -67,7 +68,10 @@ const User = (props) => {
     let handleClick;
     switch (props.userData.type) {
       case "current":
-        button = { transparent: true, text: "Update profile" };
+        handleClick = () => {
+          setShowUpdateModal(true);
+        };
+        button = { transparent: true, text: "Update profile", handleClick };
         break;
       case "followed":
         handleClick = () => {
@@ -83,7 +87,7 @@ const User = (props) => {
         break;
     }
     return (
-      <Button className={classes.button} data-test="profile-button" onClick={button.handleClick} transparent={button.transparent}>
+      <Button className={classes.button} testData="profile-button" onClick={button.handleClick} transparent={button.transparent}>
         {button.text}
       </Button>
     );
@@ -91,15 +95,23 @@ const User = (props) => {
 
   const content = Object.keys(props.userData).length ? (
     <React.Fragment>
+      {showUpdateModal && (
+        <UpdateProfileModal
+          handleHideModal={() => setShowUpdateModal(false)}
+          modifiedEmail={props.userData.modifiedEmail}
+          profileImage={props.userData.profileImage}
+          personalInfo={props.userData.personalInfo}
+        />
+      )}
       <div className={classes.infoTop}>
-        <img src={props.userData.profileImage || defaultUserImage} alt="user profile image" className={classes.image} />
+        <img src={props.userData.profileImage} alt="user profile image" className={classes.image} />
         {displayButton}
       </div>
       <div className={classes.infoBottom}>
         <p className={classes.name}>{props.userData.name}</p>
-        {props.userData.profileDescription && (
+        {props.userData.personalInfo?.profileDescription && (
           <p data-test="profile-description" className={classes.description}>
-            {props.userData.profileDescription}
+            {props.userData.personalInfo.profileDescription}
           </p>
         )}
         <div className={classes.moreInfoContainer}>
@@ -107,9 +119,9 @@ const User = (props) => {
             icon={<CakeIcon className={style.icon} />}
             text={`${props.userData.birthdayDate.day} ${props.userData.birthdayDate.month} ${props.userData.birthdayDate.year}`}
           />
-          {props.userData.gender && <UserInfo icon={<WcIcon className={style.icon} />} text={props.userData.gender} />}
-          {props.userData.home && <UserInfo icon={<HouseIcon className={style.icon} />} text={props.userData.home} />}
-          {props.userData.job && <UserInfo icon={<WorkIcon className={style.icon} />} text={props.userData.job} />}
+          {props.userData.personalInfo?.gender && <UserInfo icon={<WcIcon className={style.icon} />} text={props.userData.personalInfo.gender} />}
+          {props.userData.personalInfo?.home && <UserInfo icon={<HouseIcon className={style.icon} />} text={props.userData.personalInfo.home} />}
+          {props.userData.personalInfo?.work && <UserInfo icon={<WorkIcon className={style.icon} />} text={props.userData.personalInfo.work} />}
         </div>
       </div>
     </React.Fragment>

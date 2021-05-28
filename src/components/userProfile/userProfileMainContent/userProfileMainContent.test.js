@@ -50,6 +50,8 @@ describe("posts exists initially", () => {
         currentUser: {
           modifiedEmail: "jacekkrajewski12wppl",
         },
+        followedUsers: [],
+        unfollowedUsers: [],
       },
     };
 
@@ -87,6 +89,8 @@ describe("0 posts exists initially", () => {
         currentUser: {
           modifiedEmail: "jacekkrajewski12wppl",
         },
+        followedUsers: [],
+        unfollowedUsers: [],
       },
     };
 
