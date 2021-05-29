@@ -1,0 +1,97 @@
+.navBarComponent {
+  width: 100%;
+  padding: 0.8em 3%;
+  overflow: auto;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  padding: 0.7em 0.5em;
+}
+
+.profileImageContainer {
+  max-width: 38px;
+  max-height: 38px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin-right: 0.7em;
+  overflow: hidden;
+}
+.profileImage {
+  width: 100%;
+}
+
+.userName {
+  font-size: 18px;
+  color: #555;
+}
+
+.signoutIcon {
+  transform: rotate(180deg);
+}
+
+@media (min-width: 400px) and (orientation: portrait) {
+  .userName {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 500px) and (orientation: portrait) {
+  .profileImageContainer {
+    max-width: 40px;
+    max-height: 40px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .profileImageContainer {
+    max-width: 55px;
+    max-height: 55px;
+  }
+
+  .userName {
+    font-size: 31px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .navBarComponent {
+    padding: 0.6em 3%;
+  }
+  .user {
+    padding: 0.8em 0.5em;
+  }
+
+  .profileImageContainer {
+    max-width: 40px;
+    max-height: 40px;
+  }
+
+  .userName {
+    font-size: 18px;
+    color: #555;
+  }
+
+  .signoutIcon {
+    transform: rotate(180deg);
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .user {
+    padding: 0.6em 0.4em 1em;
+  }
+  .navBarComponent {
+    padding: 1.2em 0;
+  }
+
+  .profileImageContainer {
+    max-width: 42px;
+    max-height: 42px;
+  }
+
+  .userName {
+    font-size: 20px;
+  }
+}

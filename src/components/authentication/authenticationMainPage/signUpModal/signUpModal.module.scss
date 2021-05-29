@@ -14,29 +14,29 @@
 .title {
   font-weight: bold;
   font-size: 25px;
-  margin: 12% 0 7%;
+  margin: 1.3em 0 0.8em;
 }
 
 .input {
-  margin: 2% 0;
+  margin: 0.25em 0;
   width: 100%;
 }
 
-.dateOfBirthTitle {
+.birthdayDateTitle {
   font-size: 18px;
-  margin-top: 10%;
+  margin-top: 1.4em;
 }
 
-.dateOfBirthInfo {
+.birthdayDateInfo {
   font-size: 15px;
-  margin-top: 2%;
-  margin-bottom: 6%;
+  margin-top: 0.7em;
+  margin-bottom: 1.2em;
 }
 
 .birthSelectsContainer {
   display: flex;
   align-items: center;
-  margin-bottom: 13%;
+  margin-bottom: 2em;
 }
 
 .selectStreched {
@@ -46,10 +46,11 @@
 
 .button {
   width: 80%;
+  max-width: 220px;
   margin: 0 auto;
 }
 
-@media (min-width: 600px) and (orientation: portrait) {
+@media (min-width: 768px) and (orientation: portrait) {
   .modal {
     width: 80%;
     height: 85vh;
@@ -58,23 +59,18 @@
   .title {
     font-weight: bold;
     font-size: 42px;
-    margin: 9% 0 4%;
   }
 
   .input {
-    margin: 1% 0;
     width: 100%;
   }
 
-  .dateOfBirthTitle {
+  .birthdayDateTitle {
     font-size: 35px;
-    margin-top: 7%;
   }
 
-  .dateOfBirthInfo {
+  .birthdayDateInfo {
     font-size: 22px;
-    margin-top: 2%;
-    margin-bottom: 8%;
   }
 
   .birthSelectsContainer {
@@ -87,6 +83,7 @@
 
   .button {
     width: 65%;
+    max-width: 380px;
     margin: 0 auto;
   }
 }
@@ -95,33 +92,23 @@
   .modal {
     width: 87%;
     height: 85vh;
-
-    padding: 6% 8%;
+    padding: 6%;
   }
 
   .title {
     font-size: 26px;
-    margin: 7% 0 3%;
   }
 
   .input {
-    margin: 1% 0;
     width: 90%;
   }
 
-  .dateOfBirthTitle {
+  .birthdayDateTitle {
     font-size: 24px;
-    margin-top: 7%;
-  }
-
-  .dateOfBirthInfo {
-    margin-top: 2%;
-    margin-bottom: 6%;
   }
 
   .birthSelectsContainer {
     width: 80%;
-    margin-bottom: 8%;
   }
 
   .selectStreched {
@@ -129,8 +116,9 @@
   }
 
   .button {
+    width: 50%;
+    max-width: 280px;
     margin: 0;
-    width: 65%;
   }
 }
 
@@ -138,106 +126,86 @@
   .modal {
     width: 82%;
     height: 80vh;
+    padding: 5%;
   }
 
   .title {
     font-size: 29px;
-    margin: 5% 0 3%;
   }
 
   .input {
     width: 85%;
   }
 
-  .dateOfBirthTitle {
+  .birthdayDateTitle {
     font-size: 27px;
   }
 
-  .dateOfBirthInfo {
-    margin-top: 1.5%;
+  .birthdayDateInfo {
+    font-size: 16px;
   }
 
   .birthSelectsContainer {
     width: 75%;
-    margin-bottom: 8%;
-  }
-
-  .button {
-    width: 45%;
+    margin-bottom: 3em;
   }
 }
 
-@media (min-width: 1024px) and (orientation: landscape) {
+@media (min-width: 1000px) and (orientation: landscape) {
   .modal {
     width: 65%;
     height: 80vh;
-    padding: 4% 5%;
+    padding: 4% 4;
   }
 
   .title {
     font-size: 35px;
-    margin: 5% 0 3%;
   }
 
   .input {
     width: 80%;
   }
 
-  .dateOfBirthTitle {
+  .birthdayDateTitle {
     font-size: 31px;
   }
 
-  .dateOfBirthInfo {
+  .birthdayDateInfo {
     font-size: 19px;
   }
 
   .birthSelectsContainer {
     width: 70%;
-    margin-bottom: 9%;
-  }
-
-  .button {
-    padding: 2.5% 0;
   }
 }
 
 @media (min-width: 1300px) {
   .modal {
     width: 60%;
-    padding: 3% 5%;
+    padding: 3%;
   }
 
   .title {
     font-size: 37px;
-    margin: 4% 0 3%;
   }
 
   .input {
-    margin: 0.8% 0;
-    width: 77%;
+    width: 70%;
   }
 
-  .dateOfBirthTitle {
+  .birthdayDateTitle {
     font-size: 33px;
-    margin-top: 6%;
   }
 
-  .dateOfBirthInfo {
-    margin-top: 2%;
+  .birthdayDateInfo {
     font-size: 19px;
-    margin-bottom: 5%;
   }
 
   .birthSelectsContainer {
     width: 55%;
-    margin-bottom: 7%;
   }
 
   .selectStreched {
     margin: 0 5%;
-  }
-
-  .button {
-    padding: 2% 0;
   }
 }

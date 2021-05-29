@@ -1,23 +1,17 @@
 .component {
   background-color: rgb(245, 245, 245);
-  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.infoContainer {
+  padding: 1em 2em 0;
 }
 
 .logoContainer {
-  margin-left: 10%;
-  padding-top: 5%;
-  margin-bottom: 10%;
-}
-
-.logo {
-  width: 9vh;
-  height: 9vh;
-  font-size: 29px;
-}
-
-.hedalinesContainer {
-  width: 80%;
-  margin: 0 auto;
+  padding-top: 1em;
+  margin-bottom: 2em;
 }
 
 .hedalinesContainer > h1 {
@@ -26,39 +20,64 @@
 
 .hedalinesContainer > h4 {
   font-size: 24px;
-  margin-top: 2%;
+  margin-top: 0.3em;
 }
 
 .buttonsContainer {
-  width: 80%;
-  margin: 10% auto 0%;
+  margin: 1.7em 0 0;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .button {
-  width: 90%;
-  margin: 4% 0;
+  width: 45%;
+  margin: 0.6em 0;
+  max-width: 200px;
 }
 
 .graphicsContainer {
-  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 
 .graphicsContainer > img {
-  width: 90%;
+  width: 80%;
   display: block;
+  margin: 0 auto;
+  max-width: 360px;
+}
+
+.infoContainer,
+.graphicsContainer {
+  width: 360px;
   margin: 0 auto;
 }
 
-@media (min-width: 600px) and (orientation: portrait) {
-  .logoContainer {
-    padding-top: 6%;
-    margin-bottom: 7%;
+@media (min-width: 400px) and (orientation: portrait) {
+  .infoContainer,
+  .graphicsContainer {
+    max-width: unset;
+    width: 400px;
   }
-  .logo {
-    font-size: 46px;
+}
+
+@media (min-width: 500px) and (orientation: portrait) {
+  .infoContainer,
+  .graphicsContainer {
+    width: 500px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .infoContainer,
+  .graphicsContainer {
+    width: 768px;
+  }
+  .infoContainer {
+    padding: 2em 4em 0;
   }
 
   .hedalinesContainer > h1 {
@@ -67,24 +86,14 @@
 
   .hedalinesContainer > h4 {
     font-size: 40px;
-    margin-top: 3%;
-  }
-
-  .buttonsContainer {
-    width: 80%;
-    margin: 9% auto 0%;
-    justify-content: space-between;
-    flex-direction: row;
   }
 
   .button {
-    width: 45%;
+    max-width: 250px;
     margin: 0;
   }
   .graphicsContainer > img {
-    width: 90%;
-
-    margin: -4% auto 0;
+    max-width: 520px;
   }
 }
 
@@ -92,20 +101,21 @@
   .component {
     display: flex;
     flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
   }
   .infoContainer {
-    width: 50%;
+    // width: unset;
+    flex-basis: 46%;
+    padding: 0 1em 0;
+  }
+
+  .hedalinesContainer {
+    width: 100%;
   }
 
   .logoContainer {
-    padding-top: 7%;
-    margin-bottom: 9%;
-  }
-
-  .logo {
-    width: 12vh;
-    height: 12vh;
-    font-size: 25px;
+    padding-top: 0;
   }
 
   .hedalinesContainer > h1 {
@@ -117,82 +127,56 @@
   }
 
   .buttonsContainer {
-    margin: 8% auto 0;
+    align-items: unset;
+    margin: 1.5em 0 0;
+    flex-direction: column;
   }
 
   .button {
-    width: 90%;
+    margin: 0.5em 0;
+    padding: 0.4em 1em !important;
+    font-size: 17px !important;
   }
 
   .graphicsContainer {
-    width: 50%;
-    display: flex;
-    align-items: center;
+    flex-basis: 46%;
+    flex-grow: 0;
+    justify-content: flex-end;
   }
 
   .graphicsContainer > img {
-    width: 100%;
+    width: 80%;
+    margin: unset;
+    max-width: 440px;
   }
 }
 
-@media (min-width: 755px) and (orientation: landscape) {
-  .infoContainer {
-    width: 45%;
-  }
-
-  .logoContainer {
-    padding-top: 10%;
-    margin-bottom: 6%;
-  }
-
-  .logo {
-    width: 9vh;
-    height: 9vh;
-    font-size: 29px;
-  }
-
+@media (min-width: 800px) and (orientation: landscape) {
   .hedalinesContainer > h1 {
     font-size: 36px;
   }
 
-  .hedalinesContainer > h4 {
-    margin-top: 3%;
-    font-size: 29px;
-  }
-
-  .buttonsContainer {
-    margin: 7% auto 0;
-  }
-
   .button {
-    width: 80%;
+    width: 40%;
   }
 
-  .graphicsContainer {
-    width: 55%;
-    display: flex;
-    align-items: center;
-  }
-
-  .graphicsContainer > img {
-    width: 100%;
+  .hedalinesContainer > h4 {
+    margin-top: 0.1em;
+    font-size: 29px;
   }
 }
 
-@media (min-width: 950px) and (orientation: landscape) {
+@media (min-width: 1000px) and (orientation: landscape) {
+  .component {
+    align-items: flex-end;
+    padding-bottom: 13rem;
+  }
   .infoContainer {
-    width: 45%;
+    padding: 0 2em 0;
   }
 
   .logoContainer {
-    padding-top: 15%;
-    margin-bottom: 18%;
-  }
-
-  .logo {
-    width: 9vh;
-    height: 9vh;
-    font-size: 29px;
+    margin-bottom: 3em;
   }
 
   .hedalinesContainer > h1 {
@@ -200,96 +184,22 @@
   }
 
   .hedalinesContainer > h4 {
-    margin-top: 3%;
     font-size: 34px;
+    margin-top: 0.2em;
   }
 
   .buttonsContainer {
-    margin: 15% auto 0;
+    margin: 2.3em 0 0;
   }
 
   .button {
-    width: 80%;
-  }
-
-  .graphicsContainer {
-    width: 55%;
-    display: flex;
-    align-items: center;
-  }
-
-  .graphicsContainer > img {
-    width: 100%;
+    font-size: 21px !important;
+    margin: 0.6em 0;
   }
 }
 
-@media (min-width: 1100px) and (orientation: landscape) {
-  .infoContainer {
-    width: 52%;
-  }
-
-  .logoContainer {
-    padding-top: 8%;
-    margin-bottom: 17%;
-  }
-
-  .logo {
-    width: 9vh;
-    height: 9vh;
-  }
-
+@media (min-width: 1300px) and (orientation: landscape) {
   .hedalinesContainer > h1 {
     font-size: 52px;
-  }
-
-  .buttonsContainer {
-    margin: 7% 0 0 0;
-  }
-
-  .button {
-    width: 70%;
-  }
-
-  .graphicsContainer {
-    width: 48%;
-  }
-}
-
-@media (min-width: 1200px) and (orientation: landscape) {
-  .logoContainer {
-    padding-top: 6%;
-    margin-bottom: 15%;
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .infoContainer {
-    width: 50%;
-  }
-
-  .logo {
-    font-size: 32px;
-  }
-
-  .logoContainer {
-    padding-top: 5%;
-    margin-bottom: 9%;
-  }
-
-  .hedalinesContainer > h1 {
-    font-size: 52px;
-  }
-
-  .buttonsContainer {
-    margin: 6% 0 0 -10%;
-  }
-
-  .button {
-    width: 50%;
-  }
-
-  .graphicsContainer {
-    padding-left: 8%;
-    width: 47%;
   }
 }

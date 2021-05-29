@@ -1,0 +1,17 @@
+.info {
+  margin: 0.5em 0;
+  color: #333;
+  font-size: 14px;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .info {
+    font-size: 23px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .info {
+    font-size: 15px;
+  }
+}

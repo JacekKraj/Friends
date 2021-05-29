@@ -1,0 +1,52 @@
+.userComponent {
+  color: #555;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.userComponent:hover .name {
+  color: #ce8405;
+}
+
+.image {
+  flex-basis: 27px;
+  height: 27px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: block;
+}
+
+.name {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .name {
+    font-size: 23px;
+  }
+
+  .image {
+    flex-basis: 32px;
+    height: 32px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .image {
+    flex-basis: 30px;
+    height: 30px;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .image {
+    flex-basis: 32px;
+    height: 32px;
+  }
+
+  .name {
+    font-size: 15px;
+  }
+}

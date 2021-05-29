@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import classes from "./authenticationMainPage.module.scss";
-import friendsGraphics from "./../../../assets/images/friendsGraphics.png";
+import friendsGraphics from "./../../../assets/images/friendsGraphics2.png";
 import Logo from "./../../UI/logo/Logo";
 import Button from "./../../UI/button/Button";
 import SignUpModal from "./signUpModal/SignUpModal";

@@ -40,11 +40,11 @@ export const addUserPost = (post, author, clearPost, totalPostsCreated) => {
       .ref()
       .update(updates)
       .then(() => {
-        if (post.img.preview) {
+        if (post.image.preview) {
           fire
             .storage()
             .ref(`users/${author.modifiedEmail}/posts/${totalPostsCreated}`)
-            .put(post.img)
+            .put(post.image)
             .then(() => {
               createPost(dispatch, newPost);
             });
@@ -88,26 +88,23 @@ const setUsersPosts = (posts) => {
   };
 };
 
-export const getUsersPosts = (modifiedEmail) => {
+export const getUsersPosts = (modifiedEmail, resolve) => {
   const createPosts = (dispatch, email, tpc, posts = {}) => {
     const userPosts = { [email]: { totalPostsCreated: tpc, posts } };
-    dispatch(setGetPostsLoading(false));
     dispatch(setUsersPosts(userPosts));
+    resolve(userPosts);
   };
   return (dispatch) => {
     if (modifiedEmail) {
-      dispatch(setGetPostsLoading(true));
       fire
         .database()
         .ref(`users/${modifiedEmail}/posts`)
         .get()
         .then((snapshot) => {
-          if (snapshot.val()) {
-            let posts = snapshot.val().posts ? snapshot.val().posts : [];
-            if (snapshot.val().posts) {
-              if (!Array.isArray(snapshot.val().posts)) {
-                posts = Array.from(Object.values(snapshot.val().posts));
-              }
+          if (snapshot.val() && snapshot.val().posts) {
+            let posts = snapshot.val().posts;
+            if (!Array.isArray(posts)) {
+              posts = Object.values(posts);
             }
             Promise.all(posts.map((el) => getPostURL(el)))
               .then((results) => {

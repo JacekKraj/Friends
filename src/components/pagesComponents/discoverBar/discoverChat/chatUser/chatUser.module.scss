@@ -1,0 +1,33 @@
+.chatUserComponent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.8em 0;
+}
+
+.arrow {
+  color: #f59c03;
+  opacity: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.chatUserComponent:hover .arrow {
+  opacity: 1;
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .chatUserComponent {
+    margin: 1.2em 0;
+  }
+
+  .arrow {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .arrow {
+    font-size: 20px;
+  }
+}

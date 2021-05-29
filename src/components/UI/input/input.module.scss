@@ -1,7 +1,7 @@
 .input {
   border: none;
   outline: none;
-  padding: 2%;
+  padding: 0.5em;
   border-bottom: 2px solid #e08f03;
   font-size: 18px;
   background-color: transparent;
@@ -21,8 +21,8 @@
   color: #ffa500;
 }
 
-@media (min-width: 600px) and (orientation: portrait) {
+@media (min-width: 768px) and (orientation: portrait) {
   .input {
-    font-size: 24px;
+    font-size: 22px;
   }
 }

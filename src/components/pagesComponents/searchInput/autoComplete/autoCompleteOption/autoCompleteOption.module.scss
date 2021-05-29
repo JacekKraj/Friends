@@ -1,0 +1,19 @@
+.autoCompleteOptionComponent {
+  padding: 0.4em 0;
+}
+
+.autoCompleteOptionComponent:hover .user {
+  color: #ce8405;
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .autoCompleteOptionComponent {
+    padding: 0.5em 0;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .autoCompleteOptionComponent {
+    padding: 0.3em 0;
+  }
+}

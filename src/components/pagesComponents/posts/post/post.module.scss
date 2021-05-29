@@ -1,0 +1,144 @@
+.postComponent {
+  width: 100%;
+  padding: 0.5em;
+  margin: 1em 0;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 2px 8px 1px #ddd;
+  box-shadow: 0px 2px 8px 1px #ddd;
+  border-radius: 10px;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8em;
+}
+
+.postHeader a {
+  flex-grow: 1;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 0.45em;
+  background-color: #bbb;
+  overflow: hidden;
+}
+
+.authorName {
+  color: #333;
+  margin-bottom: 0.08em;
+  font-size: 14px;
+  cursor: pointer;
+  font-size: bold;
+}
+
+.author:hover .authorName {
+  text-decoration: underline;
+}
+
+.postCreationTime {
+  font-size: 9px;
+  color: #777;
+}
+
+.text {
+  font-size: 13px;
+  color: #333;
+}
+
+.postImage {
+  margin-top: 0.65em;
+  width: 100%;
+}
+
+.postEditionModalContainer {
+  position: relative;
+}
+
+@media (min-width: 400px) and (orientation: portrait) {
+  .postCreationTime {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 500px) and (orientation: portrait) {
+  .profileImage {
+    width: 35px;
+    height: 35px;
+  }
+
+  .postCreationTime {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .postComponent {
+    padding: 0.9em;
+  }
+  .profileImage {
+    width: 50px;
+    height: 50px;
+  }
+
+  .authorName {
+    font-size: 20px;
+  }
+  .postCreationTime {
+    font-size: 13px;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 600px) and(orientation:landscape) {
+  .profileImage {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (min-width: 700px) and(orientation:landscape) {
+  .profileImage {
+    width: 33px;
+    height: 33px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1000px) and(orientation:landscape) {
+  .profileImage {
+    width: 37px;
+    height: 37px;
+  }
+
+  .postImage {
+    margin-top: 0.7em;
+  }
+
+  .authorName {
+    font-size: 16px;
+  }
+
+  .postCreationTime {
+    font-size: 10px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}

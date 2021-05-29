@@ -1,0 +1,40 @@
+.mainContentWrapperComponent {
+  min-height: 100vh;
+}
+
+.mainContentWrapperComponent main {
+  padding: 5%;
+  min-height: 70%;
+}
+
+@media (min-width: 550px) and (orientation: portrait) {
+  .mainContentWrapperComponent main {
+    padding: 4% 15%;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .mainContentWrapperComponent main {
+    padding: 3% 22%;
+  }
+}
+
+@media (min-width: 700px) and (orientation: landscape) {
+  .mainContentWrapperComponent main {
+    padding: 2.5% 23%;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .mainContentWrapperComponent {
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    flex-basis: 50%;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .mainContentWrapperComponent main {
+    padding: 3%;
+  }
+}

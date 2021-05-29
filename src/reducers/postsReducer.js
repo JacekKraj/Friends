@@ -3,7 +3,7 @@ import * as actionTypes from "./../actions/actionsTypes";
 const initialState = {
   usersPosts: {},
   newPostLoading: false,
-  getPostsLoading: false,
+  getPostsLoading: true,
 };
 
 const postsReducer = (state = initialState, action) => {
@@ -36,15 +36,15 @@ const postsReducer = (state = initialState, action) => {
         getPostsLoading: action.loading,
       };
     case actionTypes.REMOVE_POST:
-      const newPosts = { ...state.usersPosts[action.user].posts };
-      delete newPosts[action.index];
+      const newUserPosts = { ...state.usersPosts[action.user].posts };
+      delete newUserPosts[action.index];
       return {
         ...state,
         usersPosts: {
           ...state.usersPosts,
           [action.user]: {
             ...state.usersPosts[action.user],
-            posts: { ...newPosts },
+            posts: { ...newUserPosts },
           },
         },
       };
@@ -52,6 +52,7 @@ const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         usersPosts: {},
+        getPostsLoading: true,
       };
     default:
       return state;
