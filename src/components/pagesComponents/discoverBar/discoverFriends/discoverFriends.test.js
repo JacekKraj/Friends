@@ -6,27 +6,55 @@ import { BrowserRouter } from "react-router-dom";
 import DiscoverFriends from "./DiscoverFriends";
 import { findByTestAttr, storeFactory } from "./../../../../utilities/tests/testsHelperFunctions";
 
-const setup = (initialState) => {
+const setup = (initialState, defaultProps) => {
   const store = storeFactory(initialState);
   return mount(
     <Provider store={store}>
       <BrowserRouter>
-        <DiscoverFriends />
+        <DiscoverFriends {...defaultProps} />
       </BrowserRouter>
     </Provider>
   );
 };
 
-test("shows no users info when unfollowed users array is empty", () => {
-  const wrapper = setup({ userData: { unfollowedUsers: [], currentUser: { modifiedEmail: "" } } });
+test("shows no users info in home page when when there is no users to follow", () => {
+  const wrapper = setup({ userData: { currentUser: { modifiedEmail: "" } } }, { users: [], type: "home" });
   const noUsersInfo = findByTestAttr(wrapper, "no-users-info");
   expect(noUsersInfo.text()).toEqual("There are no more people to follow right now.");
 });
 
-test("shows an user when unfollowed useres array is no empty", () => {
-  const wrapper = setup({
-    userData: { unfollowedUsers: [{ modifiedEmail: "testwppl", name: "Test Test", birthdayDate: {} }], currentUser: { modifiedEmail: "" } },
-  });
-  const friendComponent = findByTestAttr(wrapper, "friend-component");
+test("shows no users info when unfollowed users array is empty", () => {
+  const wrapper = setup({ userData: { currentUser: { modifiedEmail: "" } } }, { users: [], type: "profile" });
+  const noUsersInfo = findByTestAttr(wrapper, "no-users-info");
+  expect(noUsersInfo.text()).toEqual("This user hasn't followed anyone yet.");
+});
+
+test("shows a user to follow on home page when users array is not empty", () => {
+  const wrapper = setup(
+    {
+      userData: { currentUser: { modifiedEmail: "" }, followedUsers: [] },
+    },
+    { users: [{ modifiedEmail: "testwppl", name: "Test Test", birthdayDate: {} }], type: "home" }
+  );
+  const notAFriendComponent = findByTestAttr(wrapper, "component-friend-unfollowed");
+  expect(notAFriendComponent.exists()).toBe(true);
+});
+
+test("shows a user to follow and to unfollow on profile page depending on following state", () => {
+  const wrapper = setup(
+    {
+      userData: { currentUser: { modifiedEmail: "" }, followedUsers: [{ modifiedEmail: "testwppl", name: "Test Test", birthdayDate: {} }] },
+    },
+    {
+      users: [
+        { modifiedEmail: "testwppl", name: "Test Test", birthdayDate: {} },
+        { modifiedEmail: "test2wppl", name: "Test Test", birthdayDate: {} },
+      ],
+      type: "profile",
+    }
+  );
+  const notAFriendComponent = findByTestAttr(wrapper, "component-friend-unfollowed");
+  const friendComponent = findByTestAttr(wrapper, "component-friend-followed");
+  expect(notAFriendComponent.exists()).toBe(true);
   expect(friendComponent.exists()).toBe(true);
 });

@@ -48,10 +48,12 @@
 }
 
 @media (min-width: 1000px) and (orientation: landscape) {
+  .container {
+    margin-bottom: 10%;
+  }
   .searchInputComponent {
     width: 100%;
     background-color: #eee;
-    margin-bottom: 10%;
   }
   .searchInput {
     font-size: 17px;

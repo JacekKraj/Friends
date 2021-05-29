@@ -10,12 +10,23 @@ const DiscoverFriends = (props) => {
   return (
     <div className={classes.discoverFriendsComponent}>
       <SectionTitle title={props.type === "home" ? "Discover others" : "Followed users"} />
-      {props.unfollowedUsers.length ? (
-        props.unfollowedUsers.map((el) => {
-          return <Friend name={el.name} modifiedEmail={el.modifiedEmail} key={el.modifiedEmail} profileImage={el.profileImage} />;
+      {props.users.length ? (
+        props.users.map((el) => {
+          const isFollowedByCurrentUser = JSON.stringify(props.followedUsers).includes(JSON.stringify(el));
+          return (
+            <Friend
+              name={el.name}
+              isFollowedByCurrentUser={isFollowedByCurrentUser}
+              followedUsersEmails={props.followedUsersEmails}
+              type={props.type}
+              modifiedEmail={el.modifiedEmail}
+              key={el.modifiedEmail}
+              profileImage={el.profileImage}
+            />
+          );
         })
       ) : (
-        <NoUsersInfo>There are no more people to follow right now.</NoUsersInfo>
+        <NoUsersInfo>{props.type === "home" ? "There are no more people to follow right now." : "This user hasn't followed anyone yet."}</NoUsersInfo>
       )}
     </div>
   );
@@ -23,7 +34,7 @@ const DiscoverFriends = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    unfollowedUsers: state.userData.unfollowedUsers,
+    followedUsers: state.userData.followedUsers,
   };
 };
 

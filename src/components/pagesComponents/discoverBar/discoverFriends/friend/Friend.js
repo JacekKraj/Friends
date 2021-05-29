@@ -10,15 +10,22 @@ import User from "./../../user/User";
 const Friend = (props) => {
   const [extraClass, setExtraClass] = React.useState("");
   const handleButtonClick = () => {
-    setExtraClass(classes.hiddenUser);
-    props.onFollowUser(props.modifiedEmail, props.currentUserModifiedEmail, props.followedUsersEmails);
+    props.type === "home" && setExtraClass(classes.hiddenUser);
+    !props.isFollowedByCurrentUser
+      ? props.onFollowUser(props.modifiedEmail, props.currentUserModifiedEmail, props.currentUserFollowedUsersEmails)
+      : props.onUnfollowUser(props.modifiedEmail, props.currentUserModifiedEmail, props.currentUserFollowedUsersEmails);
   };
   return (
-    <div className={classnames(classes.friendComponent, extraClass)} data-test="friend-component">
+    <div
+      className={classnames(classes.friendComponent, extraClass)}
+      data-test={`component-friend-${props.isFollowedByCurrentUser ? "followed" : "unfollowed"}`}
+    >
       <User link={`/users?user=${props.modifiedEmail}`} profileImage={props.profileImage} name={props.name} />
-      <Button className={classes.button} transparent={true} onClick={handleButtonClick}>
-        follow
-      </Button>
+      {props.currentUserModifiedEmail !== props.modifiedEmail && (
+        <Button className={classes.button} transparent={!props.isFollowedByCurrentUser} onClick={handleButtonClick}>
+          {props.isFollowedByCurrentUser ? "unfollow" : "follow"}
+        </Button>
+      )}
     </div>
   );
 };
@@ -26,13 +33,15 @@ const Friend = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-    followedUsersEmails: state.userData.currentUser.followedUsersEmails,
+    currentUserFollowedUsersEmails: state.userData.currentUser.followedUsersEmails,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onFollowUser: (userToFollow, currentUser, followedUsersEmails) => dispatch(actions.followUser(userToFollow, currentUser, followedUsersEmails)),
+    onUnfollowUser: (userToUnfollow, currentUser, followedUsersEmails) =>
+      dispatch(actions.unfollowUser(userToUnfollow, currentUser, followedUsersEmails)),
   };
 };
 

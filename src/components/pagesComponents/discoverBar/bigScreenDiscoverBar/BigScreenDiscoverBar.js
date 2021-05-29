@@ -7,7 +7,7 @@ const BigScreenDiscoverBar = (props) => {
   return (
     <div className={classes.bigScreenDiscoverBarComponent}>
       <SearchInput />
-      {props.children}
+      <div className={classes.discoverBarContent}>{props.children}</div>
     </div>
   );
 };

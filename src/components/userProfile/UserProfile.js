@@ -2,11 +2,11 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
-import classes from "./userProfile.module.scss";
 import UserProfileMainContent from "./userProfileMainContent/UserProfileMainContent";
 import SideNav from "./../pagesComponents/sideNav/SideNav";
 import DiscoverBar from "./../pagesComponents/discoverBar/DiscoverBar";
 import WholePageWrapper from "../wrappers/wholePageWrapper/WholePageWrapper";
+import UserProfileDiscoverBar from "./userProfileDiscoverBar/UserProfileDiscoverBar";
 
 const UserProfile = (props) => {
   const [userData, setUserData] = React.useState({});
@@ -45,7 +45,9 @@ const UserProfile = (props) => {
     <WholePageWrapper>
       <SideNav />
       <UserProfileMainContent userData={userData} />
-      <DiscoverBar />
+      <DiscoverBar>
+        <UserProfileDiscoverBar followed={userData.followedUsersEmails} />
+      </DiscoverBar>
     </WholePageWrapper>
   );
 };
