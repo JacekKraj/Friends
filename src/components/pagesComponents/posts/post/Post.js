@@ -62,7 +62,7 @@ const Post = (props) => {
   const date = new Date(props.post.creationTime);
   let minutes = date.getMinutes();
   minutes = minutes < 10 ? `0${minutes}` : minutes;
-  const creationTime = `${date.getDate()} ${date.getMonth()} ${date.getFullYear()} | ${date.getHours()}:${minutes}`;
+  const creationTime = `${date.getDate()} ${date.getMonth() + 1} ${date.getFullYear()} | ${date.getHours()}:${minutes}`;
   const postEditionModal = React.useRef();
 
   const handleOutsideClick = (event) => {

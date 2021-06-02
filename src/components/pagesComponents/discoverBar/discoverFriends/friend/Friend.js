@@ -11,9 +11,8 @@ const Friend = (props) => {
   const [extraClass, setExtraClass] = React.useState("");
   const handleButtonClick = () => {
     props.type === "home" && setExtraClass(classes.hiddenUser);
-    !props.isFollowedByCurrentUser
-      ? props.onFollowUser(props.modifiedEmail, props.currentUserModifiedEmail, props.currentUserFollowedUsersEmails)
-      : props.onUnfollowUser(props.modifiedEmail, props.currentUserModifiedEmail, props.currentUserFollowedUsersEmails);
+    const clickFunction = !props.isFollowedByCurrentUser ? props.onFollowUser : props.onUnfollowUser;
+    clickFunction(props.modifiedEmail, props.currentUserModifiedEmail, props.currentUserFollowedUsersEmails);
   };
   return (
     <div

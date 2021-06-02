@@ -8,16 +8,13 @@ import Spinner from "./../../UI/spinner/Spinner";
 const Posts = (props) => {
   const getAuthorProfileImage = (author) => {
     let profileImage = null;
-    props.followedUsers.forEach((user) => {
-      if (user.modifiedEmail === author.modifiedEmail) {
-        profileImage = user.profileImage;
+
+    [...props.followedUsers, ...props.unfollowedUsers].forEach((el) => {
+      if (el.modifiedEmail === author.modifiedEmail) {
+        profileImage = el.profileImage;
         return;
       }
     });
-    !profileImage &&
-      props.unfollowedUsers.forEach((user) => {
-        profileImage = user.modifiedEmail === author.modifiedEmail && user.profileImage;
-      });
     profileImage = profileImage || props.currentUserProfileImage;
     return profileImage;
   };
