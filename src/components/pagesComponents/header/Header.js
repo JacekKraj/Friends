@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import classnames from "classnames";
 
 import classes from "./header.module.scss";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -63,7 +64,7 @@ const Header = (props) => {
         <p className={classes.sectionName}>{props.sectionName}</p>
       </div>
       <div
-        className={classes.searchIcon}
+        className={classnames(classes.searchIcon, props.searchIconHidden)}
         onClick={() => {
           props.onSetShowDiscoverBar(true);
         }}

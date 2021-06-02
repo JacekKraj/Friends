@@ -21,6 +21,10 @@ const App = (props) => {
     return import("./components/userProfile/UserProfile");
   });
 
+  const FriendsPage = React.lazy(() => {
+    return import("./components/friendsPage/FriendsPage");
+  });
+
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -73,6 +77,7 @@ const App = (props) => {
           return <UserProfile />;
         }}
       />
+      <Route path="/friends" exact render={() => <FriendsPage />} />
     </Switch>
   ) : (
     <Switch>
