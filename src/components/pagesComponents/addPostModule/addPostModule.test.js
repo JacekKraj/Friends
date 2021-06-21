@@ -53,7 +53,7 @@ const createUseReducerMock = (images) => {
   React.useReducer = mockUseReducer;
 };
 
-describe("display image", () => {
+describe("displays image", () => {
   let wrapper;
   const setup = (images) => {
     createUseReducerMock(images);

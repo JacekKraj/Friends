@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { connect } from "react-redux";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { theme } from "./../../../utilities/breakpoints/breakpoints";
 
 import ClearIcon from "@material-ui/icons/Clear";
 import PhotoIcon from "@material-ui/icons/Photo";
@@ -9,19 +10,6 @@ import Button from "./../../UI/button/Button";
 import Spinner from "./../../UI/spinner/Spinner";
 import * as actions from "./../../../actions/index";
 import FileInput from "./../fileInput/FileInput";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      0: 0,
-      400: 400,
-      600: 600,
-      768: 768,
-      800: 800,
-      1000: 1000,
-    },
-  },
-});
 
 const useStyles = makeStyles(() => ({
   addPhoto: {

@@ -1,21 +1,12 @@
 import React from "react";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
 import { connect } from "react-redux";
 
+import { theme } from "./../../../utilities/breakpoints/breakpoints";
 import SearchIcon from "@material-ui/icons/Search";
 import classes from "./searchInput.module.scss";
 import AutoComplete from "./autoComplete/AutoComplete";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      0: 0,
-      400: 400,
-      600: 600,
-    },
-  },
-});
 
 const useStyles = makeStyles(() => ({
   icon: {

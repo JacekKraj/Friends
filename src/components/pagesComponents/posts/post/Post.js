@@ -1,25 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
+import { theme } from "./../../../../utilities/breakpoints/breakpoints";
 import * as actions from "./../../../../actions/index";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import classes from "./post.module.scss";
+import PostEditionPanel from "./postEditionPanel/PostEditionPanel";
 import PostEditionModal from "./postEditionModal/PostEditionModal";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      0: 0,
-      400: 400,
-      600: 600,
-      768: 768,
-      800: 800,
-      1000: 1000,
-    },
-  },
-});
 
 const useStyles = makeStyles(() => ({
   icon: {
@@ -57,18 +46,19 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Post = (props) => {
+  const [showEditionPanel, setShowEditionPanel] = React.useState(false);
   const [showEditionModal, setShowEditionModal] = React.useState(false);
   const iconStyle = useStyles();
   const date = new Date(props.post.creationTime);
   let minutes = date.getMinutes();
   minutes = minutes < 10 ? `0${minutes}` : minutes;
   const creationTime = `${date.getDate()} ${date.getMonth() + 1} ${date.getFullYear()} | ${date.getHours()}:${minutes}`;
-  const postEditionModal = React.useRef();
+  const postEditionPanel = React.useRef();
 
   const handleOutsideClick = (event) => {
-    if (postEditionModal.current) {
-      if (!postEditionModal.current.contains(event.target)) {
-        setShowEditionModal(false);
+    if (postEditionPanel.current) {
+      if (!postEditionPanel.current.contains(event.target)) {
+        setShowEditionPanel(false);
       }
     }
   };
@@ -81,43 +71,47 @@ const Post = (props) => {
   }, []);
 
   return (
-    <div className={classes.postComponent} data-test="post-component">
-      <div className={classes.postHeader}>
-        <NavLink to={`/users?user=${props.author.modifiedEmail}`}>
-          <div className={classes.author}>
-            <img src={props.profileImage} className={classes.profileImage} alt="post author profile image" />
-            <div>
-              <p className={classes.authorName}>{props.author.name}</p>
-              <p className={classes.postCreationTime}>{creationTime}</p>
+    <React.Fragment>
+      {showEditionModal && <PostEditionModal author={props.author} post={props.post} backdropClick={() => setShowEditionModal(false)} />}
+      <div className={classes.postComponent} data-test="post-component">
+        <div className={classes.postHeader}>
+          <NavLink to={`/users?user=${props.author.modifiedEmail}`}>
+            <div className={classes.author}>
+              <img src={props.profileImage} className={classes.profileImage} alt="post author profile image" />
+              <div>
+                <p className={classes.authorName}>{props.author.name}</p>
+                <p className={classes.postCreationTime}>{creationTime}</p>
+              </div>
             </div>
-          </div>
-        </NavLink>
-        {props.currUserModifiedEmail === props.author.modifiedEmail && (
-          <div className={classes.postEditionModalContainer} ref={postEditionModal}>
-            <MoreHorizIcon
-              className={iconStyle.icon}
-              data-test="post-edition-icon"
-              onClick={() => {
-                setShowEditionModal(!showEditionModal);
-              }}
-            />
-            {showEditionModal && (
-              <PostEditionModal
-                handleDelete={() => {
-                  props.onRemovePost(props.post.index, props.author.modifiedEmail);
+          </NavLink>
+          {props.currUserModifiedEmail === props.author.modifiedEmail && (
+            <div className={classes.postEditionPanelContainer} ref={postEditionPanel}>
+              <MoreHorizIcon
+                className={iconStyle.icon}
+                data-test="post-edition-icon"
+                onClick={() => {
+                  setShowEditionPanel(!showEditionPanel);
                 }}
               />
-            )}
-          </div>
-        )}
+              {showEditionPanel && (
+                <PostEditionPanel
+                  handleDelete={() => {
+                    props.onRemovePost(props.post.index, props.author.modifiedEmail);
+                  }}
+                  handleEdit={() => setShowEditionModal(true)}
+                />
+              )}
+            </div>
+          )}
+        </div>
+        <div className={classes.mainPostPart}>
+          <p className={classes.text} data-test="text">
+            {props.post.text}
+          </p>
+          {props.post.url && <img src={props.post.url} className={classes.postImage} data-test="post-image" alt="post picture" />}
+        </div>
       </div>
-      <div className={classes.mainPostPart}>
-        <p className={classes.text} data-test="text">
-          {props.post.text}
-        </p>
-        {props.post.url && <img src={props.post.url} className={classes.postImage} data-test="post-image" alt="post picture" />}
-      </div>
-    </div>
+    </React.Fragment>
   );
 };
 

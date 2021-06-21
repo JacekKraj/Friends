@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
 
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -10,19 +10,7 @@ import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
 import classes from "./navBar.module.scss";
 import NavItem from "./navItem/NavItem";
 import * as actions from "./../../../../actions/index";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      0: 0,
-      400: 400,
-      600: 600,
-      768: 768,
-      800: 800,
-      1000: 1000,
-    },
-  },
-});
+import { theme } from "./../../../../utilities/breakpoints/breakpoints";
 
 const useStyles = makeStyles(() => ({
   icon: {
