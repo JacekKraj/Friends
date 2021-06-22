@@ -1,23 +1,13 @@
 import React from "react";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
+import { theme } from "./../../../../utilities/breakpoints/breakpoints";
 import CloseIcon from "@material-ui/icons/Close";
 import classes from "./smallScreenDiscoverBar.module.scss";
 import Backdrop from "./../../../UI/backdrop/Backdrop";
 import * as actions from "./../../../../actions/index";
 import SearchInput from "./../../searchInput/SearchInput";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      0: 0,
-      400: 400,
-      600: 600,
-      768: 768,
-    },
-  },
-});
 
 const useStyles = makeStyles(() => ({
   icon: {

@@ -1,24 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
 
+import { theme } from "./../../../utilities/breakpoints/breakpoints";
 import classes from "./header.module.scss";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import * as actions from "./../../../actions/index";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      400: 400,
-      700: 700,
-      768: 768,
-      1000: 1000,
-    },
-  },
-});
 
 const useStyles = makeStyles(() => ({
   icon: {

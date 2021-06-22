@@ -29,6 +29,19 @@
   background-color: transparent;
   color: #e08f03;
 }
+
+.buttonDisabled {
+  cursor: not-allowed;
+  border-color: #aaa;
+  color: #aaa;
+  background-color: #eee;
+}
+
+.buttonDisabled:hover {
+  border-color: #aaa;
+  color: #aaa;
+  background-color: #eee;
+}
 @media (min-width: 500px) and (orientation: portrait) {
   .button {
     font-size: 22px;

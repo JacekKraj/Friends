@@ -45,21 +45,6 @@
   width: 100%;
 }
 
-.spinnerContainer {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.75);
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10;
-}
-
-.spinner {
-  border-color: rgba(255, 255, 255, 0.5);
-  border-left-color: #fff;
-}
-
 @media (min-width: 550px) and (orientation: portrait) {
   .updateProfileModalComponent {
     max-width: 480px;

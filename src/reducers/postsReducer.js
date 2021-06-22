@@ -4,6 +4,7 @@ const initialState = {
   usersPosts: {},
   newPostLoading: false,
   getPostsLoading: true,
+  updatePostLoading: false,
 };
 
 const postsReducer = (state = initialState, action) => {
@@ -53,6 +54,25 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         usersPosts: {},
         getPostsLoading: true,
+      };
+    case actionTypes.UPDATE_POST:
+      return {
+        ...state,
+        usersPosts: {
+          ...state.usersPosts,
+          [action.author.modifiedEmail]: {
+            ...state.usersPosts[action.author.modifiedEmail],
+            posts: {
+              ...state.usersPosts[action.author.modifiedEmail].posts,
+              [action.post.index]: { author: { ...action.author }, post: { ...action.post } },
+            },
+          },
+        },
+      };
+    case actionTypes.SET_UPDATE_POST_LOADING:
+      return {
+        ...state,
+        updatePostLoading: action.loading,
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
 import WorkIcon from "@material-ui/icons/Work";
@@ -12,18 +12,7 @@ import UserInfo from "./userInfo/UserInfo";
 import Spinner from "./../../../UI/spinner/Spinner";
 import UpdateProfileModal from "./updateProfileModal/UpadateProfileModal";
 import * as actions from "./../../../../actions/index";
-
-const theme = createMuiTheme({
-  breakpoints: {
-    values: {
-      0: 0,
-      400: 400,
-      550: 550,
-      800: 800,
-      1000: 1000,
-    },
-  },
-});
+import { theme } from "./../../../../utilities/breakpoints/breakpoints";
 
 const useStyles = makeStyles(() => ({
   icon: {
