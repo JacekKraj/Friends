@@ -9,7 +9,7 @@ import classes from "./updateProfileModal.module.scss";
 import Button from "./../../../../UI/button/Button";
 import FileInput from "./../../../../pagesComponents/fileInput/FileInput";
 import * as actions from "./../../../../../actions/index";
-import Spinner from "./../../../../UI/spinner/Spinner";
+import SpinnerContainer from "./../../../../../utilities/spinnerContainer/SpinnerContainer";
 
 const UpdateProfileModal = (props) => {
   const [profileImage, setProfileImage] = React.useState([{ preview: null }]);
@@ -46,11 +46,7 @@ const UpdateProfileModal = (props) => {
         }}
       />
       <div className={classes.updateProfileModalComponent} data-test="component-update-profile-modal">
-        {props.isLoading && (
-          <div className={classes.spinnerContainer}>
-            <Spinner className={classes.spinner} />
-          </div>
-        )}
+        {props.isLoading && <SpinnerContainer />}
         <div className={classes.profileImageSec}>
           <img className={classes.profileImage} src={profileImage[0].preview || props.profileImage} alt="user profile image" />
           <div className={classes.profileImageButtons}>

@@ -7,7 +7,7 @@ const PostEditionPanel = (props) => {
   return (
     <div className={classes.postEditionPanelComponent} data-test="component-post-edition-panel">
       <PostEditionPanelOption text="Remove" testAttr="remove-btn" onClick={props.handleDelete} />
-      <PostEditionPanelOption text="Edit" onClick={props.handleEdit} />
+      <PostEditionPanelOption text="Edit" testAttr="edit-btn" onClick={props.handleEdit} />
     </div>
   );
 };

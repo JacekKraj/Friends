@@ -1,6 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import { storeFactory, findByTestAttr } from "./../../../../utilities/tests/testsHelperFunctions";
 import Post from "./Post";
@@ -9,9 +10,11 @@ let store;
 const setup = (initialState, defaultProps) => {
   store = storeFactory(initialState);
   return mount(
-    <BrowserRouter>
-      <Post store={store} {...defaultProps} />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Post {...defaultProps} />
+      </BrowserRouter>
+    </Provider>
   );
 };
 
@@ -45,7 +48,16 @@ describe("current user and post author are same account", () => {
   test("shows postEditionPanel on clicking post edition icon", () => {
     const postEditionIcon = findByTestAttr(wrapper, "post-edition-icon").first();
     postEditionIcon.simulate("click");
-    const postEditionModal = findByTestAttr(wrapper, "component-post-edition-panel");
+    const postEditionPanel = findByTestAttr(wrapper, "component-post-edition-panel");
+    expect(postEditionPanel.exists()).toBe(true);
+  });
+
+  test("shows post edition modal", () => {
+    const postEditionIcon = findByTestAttr(wrapper, "post-edition-icon").first();
+    postEditionIcon.simulate("click");
+    const postEditionButton = findByTestAttr(wrapper, "edit-btn");
+    postEditionButton.simulate("click");
+    const postEditionModal = findByTestAttr(wrapper, "post-edition-modal-component");
     expect(postEditionModal.exists()).toBe(true);
   });
 });

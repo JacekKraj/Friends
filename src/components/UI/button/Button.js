@@ -8,9 +8,13 @@ const Button = (props) => {
     <button
       type="submit"
       disabled={props.disabled}
-      data-test={props.dataTest}
       onClick={props.onClick}
-      className={classnames(classes.button, props.className, props.transparent ? classes.buttonTransparent : classes.buttonNormal)}
+      className={classnames(
+        classes.button,
+        props.className,
+        props.transparent ? classes.buttonTransparent : classes.buttonNormal,
+        props.disabled && classes.buttonDisabled
+      )}
       data-test={props.testData}
     >
       {props.children}

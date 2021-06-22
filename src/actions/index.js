@@ -12,6 +12,16 @@ export {
 
 export { setUserData, followUser, unfollowUser, setFollowedUsers, setUserProfileImage, setPersonalInfo } from "./userData";
 
-export { addUserPost, createUserPost, setNewPostLoading, getUsersPosts, setGetPostsLoading, removePost, clearPosts } from "./posts";
+export {
+  addUserPost,
+  createUserPost,
+  setNewPostLoading,
+  getUsersPosts,
+  setGetPostsLoading,
+  removePost,
+  clearPosts,
+  updatePost,
+  setUpdatePostLoading,
+} from "./posts";
 
 export { setShowNav, setShowDiscoverBar } from "./nav";

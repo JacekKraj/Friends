@@ -9,6 +9,7 @@
   width: 80%;
   -webkit-box-shadow: 0px 0px 4px 2px #aaaaaa;
   box-shadow: 0px 0px 4px 2px #aaaaaa;
+  border-radius: 3px;
 }
 
 .textArea {
@@ -23,14 +24,16 @@
   resize: none;
   margin-bottom: 1em;
   background-color: #fff;
+  min-height: 10vh;
 }
 
 .imageContainer {
   width: 100%;
   max-height: 60vh;
+  min-height: 30vh;
   overflow-y: auto;
   position: relative;
-  margin-bottom: 1.5%;
+  margin-bottom: 1vh;
 }
 
 .image {
@@ -46,16 +49,39 @@
 .bottomBar {
   display: flex;
   justify-content: space-between;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  padding: 0.3em;
+  background-color: rgb(253, 253, 253);
 }
 
 .button {
-  font-size: 13px;
-  padding: 0.3em 1em;
+  font-size: 14px;
+  padding: 0.2em 1em;
 }
 
 @media (min-width: 500px) and (orientation: portrait) {
   .postEditionModal {
     width: 400px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .postEditionModal {
+    width: 500px;
+  }
+
+  .textArea {
+    min-height: 7vh;
+    font-size: 18px;
+  }
+
+  .button {
+    font-size: 17px;
+  }
+
+  .bottomBar {
+    padding: 0.4em;
   }
 }
 
@@ -87,28 +113,22 @@
 @media (min-width: 800px) and (orientation: landscape) {
   .postEditionModal {
     width: 530px;
-  }
-  .textArea {
-    padding: 0.4em;
-    font-size: 15px;
+    padding: 2em 1.1em 1.3em;
   }
 
   .imageContainer {
-    max-height: 50vh;
     margin-bottom: 0.5em;
   }
 
-  .image {
-    width: 100%;
+  .bottomBar {
+    padding: 0.4em;
   }
 
-  .bottomBar {
-    display: flex;
-    justify-content: space-between;
+  .textArea {
+    font-size: 15px;
   }
 
   .button {
-    font-size: 14px;
     padding: 0.3em 1em;
   }
 }

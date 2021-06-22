@@ -7,9 +7,9 @@ import ClearIcon from "@material-ui/icons/Clear";
 import PhotoIcon from "@material-ui/icons/Photo";
 import classes from "./addPostModule.module.scss";
 import Button from "./../../UI/button/Button";
-import Spinner from "./../../UI/spinner/Spinner";
 import * as actions from "./../../../actions/index";
 import FileInput from "./../fileInput/FileInput";
+import SpinnerContainer from "./../../../utilities/spinnerContainer/SpinnerContainer";
 
 const useStyles = makeStyles(() => ({
   addPhoto: {
@@ -145,11 +145,7 @@ export const UnconnectedAddPostModule = (props) => {
 
   return (
     <div className={classes.addPostModuleComponent} data-test="add-post-module-component">
-      {props.isLoading && (
-        <div className={classes.spinnerContainer}>
-          <Spinner className={classes.spinnerWhite} />
-        </div>
-      )}
+      {props.isLoading && <SpinnerContainer />}
       <form
         onSubmit={(event) => {
           event.preventDefault();

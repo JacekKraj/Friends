@@ -1,7 +1,7 @@
 import fire from "./../firebaseConfig";
 
 import * as actionTypes from "./actionsTypes";
-import { failToast } from "./../utilities/toasts/toasts";
+import { failToast, successToast } from "./../utilities/toasts/toasts";
 
 export const setNewPostLoading = (loading) => {
   return {
@@ -152,5 +152,56 @@ export const removePost = (index, user) => {
 export const clearPosts = () => {
   return {
     type: actionTypes.CLEAR_POSTS,
+  };
+};
+
+export const setUpdatePostLoading = (loading) => {
+  return {
+    type: actionTypes.SET_UPDATE_POST_LOADING,
+    loading,
+  };
+};
+
+export const setUpdatedPost = (author, post) => {
+  return {
+    type: actionTypes.UPDATE_POST,
+    author,
+    post,
+  };
+};
+
+export const updatePost = (author, post, previousUrl, hideModal) => {
+  const updates = {};
+  updates[`users/${author.modifiedEmail}/posts/posts/${post.index}`] = { author, post: { ...post, image: null } };
+  const storageRef = fire.storage().ref(`users/${author.modifiedEmail}/posts/${post.index}`);
+
+  return (dispatch) => {
+    const finishUpdate = () => {
+      dispatch(setUpdatedPost(author, post));
+      hideModal();
+      dispatch(setUpdatePostLoading(false));
+      successToast("Your post has been updated.");
+    };
+    dispatch(setUpdatePostLoading(true));
+    fire
+      .database()
+      .ref()
+      .update(updates)
+      .then(() => {
+        if (post.image.url !== previousUrl && post.image.url !== null) {
+          storageRef.put(post.image).then(() => {
+            finishUpdate();
+          });
+        } else if (post.image.url === previousUrl) {
+          finishUpdate();
+        } else {
+          storageRef.delete().then(() => {
+            finishUpdate();
+          });
+        }
+      })
+      .catch((error) => {
+        failToast(error.message);
+      });
   };
 };
