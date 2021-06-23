@@ -25,6 +25,10 @@ const App = (props) => {
     return import("./components/friendsPage/FriendsPage");
   });
 
+  const ChatPage = React.lazy(() => {
+    return import("./components/chatPage/ChatPage");
+  });
+
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -77,6 +81,7 @@ const App = (props) => {
           return <UserProfile />;
         }}
       />
+      <Route path="/chat" exact render={() => <ChatPage />} />
       <Route path="/friends" exact render={() => <FriendsPage />} />
     </Switch>
   ) : (

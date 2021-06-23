@@ -54,7 +54,7 @@ const NavBar = (props) => {
 
       <NavItem link={`/users?user=${props.currUserModifiedEmail}`} icon={<PersonIcon className={iconStyle.icon} />} description="Profile" />
       <NavItem link="/friends" icon={<EmojiPeopleRoundedIcon className={iconStyle.icon} />} description="Friends" />
-      <NavItem link="/chat" icon={<ChatIcon className={iconStyle.icon} />} description="Chat" />
+      <NavItem link={`/chat`} icon={<ChatIcon className={iconStyle.icon} />} description="Chat" />
       <NavItem
         link="/"
         onClick={props.onLogout}
