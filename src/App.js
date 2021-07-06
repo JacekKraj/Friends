@@ -29,6 +29,14 @@ const App = (props) => {
     return import("./components/chatPage/ChatPage");
   });
 
+  const Nofound = React.lazy(() => {
+    return import("./components/errorPage/nofound/Nofound");
+  });
+
+  const NoAccess = React.lazy(() => {
+    return import("./components/errorPage/noAccess/NoAccess");
+  });
+
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -83,10 +91,15 @@ const App = (props) => {
       />
       <Route path="/chat" exact render={() => <ChatPage />} />
       <Route path="/friends" exact render={() => <FriendsPage />} />
+      <Route path="*" render={() => <Nofound />} />
     </Switch>
   ) : (
     <Switch>
       <Route path="/" exact render={() => <AuthenticationMainPage />} />
+      <Route path="/chat" render={() => <NoAccess />} />
+      <Route path="/users" render={() => <NoAccess />} />
+      <Route path="/friends" render={() => <NoAccess />} />
+      <Route path="*" render={() => <Nofound />} />
     </Switch>
   );
 

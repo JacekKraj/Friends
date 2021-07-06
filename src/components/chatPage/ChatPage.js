@@ -50,7 +50,7 @@ const ChatPage = (props) => {
   }, [user.modifiedEmail, props.notifications]);
   return (
     <WholePageWrapper>
-      {redirect && <Redirect to="/" />}
+      {redirect && <Redirect to="/chat?to=new" />}
       {collection ? (
         <React.Fragment>
           <SideNav />

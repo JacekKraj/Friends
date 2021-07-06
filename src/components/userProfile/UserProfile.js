@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 import UserProfileMainContent from "./userProfileMainContent/UserProfileMainContent";
@@ -10,29 +10,38 @@ import UserProfileDiscoverBar from "./userProfileDiscoverBar/UserProfileDiscover
 
 const UserProfile = (props) => {
   const [userData, setUserData] = React.useState({});
+  const [redirect, setRedirect] = React.useState(false);
   const location = useLocation();
 
   React.useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const userEmail = searchParams.get("user");
     let type, user;
-    if (userEmail === props.currentUser.modifiedEmail) {
-      user = { ...props.currentUser };
-      type = "current";
-    } else {
-      user = props.unfollowedUsers.find((el) => {
-        return el.modifiedEmail === userEmail;
-      });
-      if (user) {
-        type = "unfollowed";
+    if (userEmail) {
+      if (userEmail === props.currentUser.modifiedEmail) {
+        user = { ...props.currentUser };
+        type = "current";
       } else {
-        user = props.followedUsers.find((el) => {
+        user = props.unfollowedUsers.find((el) => {
           return el.modifiedEmail === userEmail;
         });
-        type = "followed";
+        if (user) {
+          type = "unfollowed";
+        } else {
+          user = props.followedUsers.find((el) => {
+            return el.modifiedEmail === userEmail;
+          });
+          type = "followed";
+        }
       }
+      if (user) {
+        setUserData({ ...user, type });
+      } else {
+        setRedirect(true);
+      }
+    } else {
+      setRedirect(true);
     }
-    setUserData({ ...user, type });
   }, [
     props.currUserModifiedEmail,
     props.followedUsers.length,
@@ -43,6 +52,7 @@ const UserProfile = (props) => {
 
   return (
     <WholePageWrapper>
+      {redirect && <Redirect to="usernotfound" />}
       <SideNav />
       <UserProfileMainContent userData={userData} />
       <DiscoverBar>
