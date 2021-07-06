@@ -9,8 +9,13 @@
   color: #ce8405;
 }
 
-.image {
+.imageContainer {
   flex-basis: 27px;
+  position: relative;
+}
+
+.image {
+  width: 100%;
   height: 27px;
   background-color: #bbb;
   border-radius: 50%;
@@ -22,18 +27,28 @@
   font-size: 16px;
 }
 
+.currChat {
+  color: #ce8405 !important;
+}
+
 @media (min-width: 768px) and (orientation: portrait) {
   .name {
     font-size: 23px;
   }
 
-  .image {
+  .imageContainer {
     flex-basis: 32px;
+  }
+
+  .image {
     height: 32px;
   }
 }
 
 @media (min-width: 600px) and (orientation: landscape) {
+  .imageContainer {
+    flex-basis: 30px;
+  }
   .image {
     flex-basis: 30px;
     height: 30px;
@@ -41,6 +56,9 @@
 }
 
 @media (min-width: 1000px) and (orientation: landscape) {
+  .imageContainer {
+    flex-basis: 32px;
+  }
   .image {
     flex-basis: 32px;
     height: 32px;

@@ -25,3 +25,5 @@ export {
 } from "./posts";
 
 export { setShowNav, setShowDiscoverBar } from "./nav";
+
+export { setChatNotifications, sendNotification, setChat, removeNotification, setLastChat } from "./chat";

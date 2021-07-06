@@ -11,10 +11,37 @@ const DiscoverChat = (props) => {
     <div className={classes.discoverChatComponent}>
       <SectionTitle title="Chat" />
       <div className={classes.chat}>
-        {props.followedUsers.length ? (
-          props.followedUsers.map((el) => {
-            return <ChatUser name={el.name} modifiedEmail={el.modifiedEmail} key={el.modifiedEmail} profileImage={el.profileImage} />;
-          })
+        {props.followedUsers.length || props.chatNotifications.length ? (
+          <React.Fragment>
+            {props.followedUsers.map((el) => {
+              const isNotification = props.chatNotifications?.includes(el.modifiedEmail);
+              return (
+                <ChatUser
+                  name={el.name}
+                  currChat={props.currentChat === el.modifiedEmail}
+                  modifiedEmail={el.modifiedEmail}
+                  key={el.modifiedEmail}
+                  profileImage={el.profileImage}
+                  isNotification={isNotification}
+                />
+              );
+            })}
+            {props.unfollowedUsers.map((el) => {
+              if (props.chatNotifications?.includes(el.modifiedEmail)) {
+                return (
+                  <ChatUser
+                    name={el.name}
+                    currChat={props.currentChat === el.modifiedEmail}
+                    modifiedEmail={el.modifiedEmail}
+                    key={el.modifiedEmail}
+                    profileImage={el.profileImage}
+                    isNotification={true}
+                    foreign={true}
+                  />
+                );
+              }
+            })}
+          </React.Fragment>
         ) : (
           <NoUsersInfo>Follow other users to start chatting with them.</NoUsersInfo>
         )}
@@ -26,6 +53,9 @@ const DiscoverChat = (props) => {
 const mapStateToProps = (state) => {
   return {
     followedUsers: state.userData.followedUsers,
+    unfollowedUsers: state.userData.unfollowedUsers,
+    chatNotifications: state.chat.notifications,
+    currUserEmail: state.userData.currentUser.modifiedEmail,
   };
 };
 

@@ -25,6 +25,10 @@ const App = (props) => {
     return import("./components/friendsPage/FriendsPage");
   });
 
+  const ChatPage = React.lazy(() => {
+    return import("./components/chatPage/ChatPage");
+  });
+
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -38,7 +42,7 @@ const App = (props) => {
             .then((snapshot) => {
               setLoading(false);
               props.onAuthenticateEnd(fireUser);
-
+              props.onSetChat(snapshot.val()[modifiedEmail].chat);
               props.onSetUserData({ ...snapshot.val() }, modifiedEmail);
             })
             .catch((error) => {
@@ -77,6 +81,7 @@ const App = (props) => {
           return <UserProfile />;
         }}
       />
+      <Route path="/chat" exact render={() => <ChatPage />} />
       <Route path="/friends" exact render={() => <FriendsPage />} />
     </Switch>
   ) : (
@@ -109,6 +114,7 @@ const mapDispatchToProps = (dispatch) => {
     onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
     onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
     onSetGetPostsLoading: (loading) => dispatch(actions.setGetPostsLoading(loading)),
+    onSetChat: (chat) => dispatch(actions.setChat(chat)),
   };
 };
 

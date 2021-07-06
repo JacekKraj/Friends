@@ -1,0 +1,65 @@
+.messageComponent {
+  padding: 0.5em;
+  background-color: #f59c03;
+  border-radius: 15px;
+  font-size: 16px;
+  color: white;
+  max-width: 85%;
+  margin: 0.3em 0;
+}
+
+.answer {
+  align-self: flex-end;
+  background-color: rgb(240, 240, 240);
+  color: #db8d07;
+}
+
+@media (min-width: 400px) and (orientation: portrait) {
+  .messageComponent {
+    padding: 0.6em;
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 500px) and (orientation: portrait) {
+  .messageComponent {
+    max-width: 60%;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .messageComponent {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .messageComponent {
+    padding: 0.55em;
+    font-size: 16px;
+    max-width: 75%;
+    margin: 0.25em 0;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .messageComponent {
+    padding: 0.55em;
+    font-size: 16px;
+    max-width: 62%;
+    // margin: 0.4em 0;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .messageComponent {
+    max-width: 72%;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1250px) and (orientation: landscape) {
+  .messageComponent {
+    max-width: 68%;
+  }
+}

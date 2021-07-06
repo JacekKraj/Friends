@@ -1,0 +1,15 @@
+.chatComponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  max-height: 100vh;
+}
+
+.chatComponent main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: rgb(252, 252, 252);
+}

@@ -1,0 +1,97 @@
+.bottomBarComponent {
+  display: flex;
+  background-color: rgb(245, 245, 245);
+  border-top: 2px solid #ccc;
+  padding: 0.5em 0.7em;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  flex-grow: 1;
+  border-radius: 15px;
+  margin-right: 1em;
+  border: 2px solid #e08f03;
+}
+
+.inputContainer input {
+  display: block;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  outline: none;
+  padding: 0.2em 0.9em;
+  color: #666;
+  font-size: 15px;
+}
+
+.inputDisabled {
+  cursor: not-allowed;
+  border-color: #aaa;
+}
+
+.inputDisabled input {
+  cursor: not-allowed;
+}
+
+::placeholder {
+  color: #666;
+}
+
+.button {
+  font-size: 14px;
+  padding: 0.2em 1.3em;
+}
+
+@media (min-width: 400px) and (orientation: portrait) {
+  .bottomBarComponent {
+    padding: 0.7em 0.8em;
+  }
+  .inputContainer input {
+    padding: 0.3em 0.9em;
+    font-size: 17px;
+  }
+  .button {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  .bottomBarComponent {
+    padding: 1.1em 1.1em;
+  }
+  .inputContainer input {
+    padding: 0.4em 0.9em;
+    font-size: 20px;
+  }
+  .button {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .bottomBarComponent {
+    padding: 0.6em 1em;
+  }
+
+  .inputContainer input {
+    padding: 0.3em 0.9em;
+    font-size: 16px;
+  }
+
+  .inputContainer {
+    margin-right: 1.5em;
+  }
+
+  .button {
+    font-size: 17px;
+    padding: 0.2em 1.3em;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .bottomBarComponent {
+    padding: 0.6em 0.8em;
+  }
+}
