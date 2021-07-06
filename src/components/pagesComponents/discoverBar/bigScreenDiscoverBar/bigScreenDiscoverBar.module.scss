@@ -6,6 +6,7 @@
 
 .discoverBarContent {
   flex-grow: 1;
-  max-height: 87vh;
+  max-height: 85vh;
+  min-height: 85vh;
   overflow-y: auto;
 }

@@ -10,8 +10,8 @@ const FriendsPageMainContent = (props) => {
     <div className={classes.friendsPageMainContentComponent}>
       <Header sectionName="Friends" searchIconHidden={classes.searchIconHidden} />
       <div className={classes.mainContent}>
-        <DiscoverUsers header="Your friends" users={props.followedUsers} toFollow={false} />
         <DiscoverUsers header="Discover other users" users={props.unfollowedUsers} toFollow={true} />
+        <DiscoverUsers header="Your friends" users={props.followedUsers} toFollow={false} />
       </div>
     </div>
   );

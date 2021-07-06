@@ -11,8 +11,8 @@
 }
 
 .profileImageContainer {
-  max-width: 38px;
-  max-height: 38px;
+  width: 38px;
+  height: 38px;
   background-color: #bbb;
   border-radius: 50%;
   margin-right: 0.7em;
@@ -39,15 +39,15 @@
 
 @media (min-width: 500px) and (orientation: portrait) {
   .profileImageContainer {
-    max-width: 40px;
-    max-height: 40px;
+    width: 40px;
+    height: 40px;
   }
 }
 
 @media (min-width: 768px) and (orientation: portrait) {
   .profileImageContainer {
-    max-width: 55px;
-    max-height: 55px;
+    width: 55px;
+    height: 55px;
   }
 
   .userName {
@@ -64,8 +64,8 @@
   }
 
   .profileImageContainer {
-    max-width: 40px;
-    max-height: 40px;
+    width: 40px;
+    height: 40px;
   }
 
   .userName {
@@ -87,8 +87,8 @@
   }
 
   .profileImageContainer {
-    max-width: 42px;
-    max-height: 42px;
+    width: 42px;
+    height: 42px;
   }
 
   .userName {

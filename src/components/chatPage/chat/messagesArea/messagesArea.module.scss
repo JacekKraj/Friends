@@ -2,6 +2,15 @@
   flex-grow: 1;
   overflow-y: auto;
   padding: 0.4em 0.6em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style-type: none;
+  position: relative;
+}
+
+.infoRef {
+  position: relative;
 }
 
 @media (min-width: 400px) and (orientation: portrait) {
@@ -12,7 +21,7 @@
 
 @media (min-width: 500px) and (orientation: portrait) {
   .messagesAreaComponent {
-    padding: 0.5em 1em;
+    padding: 0.4em 0.8em;
   }
 }
 
@@ -24,12 +33,6 @@
 
 @media (min-width: 600px) and (orientation: landscape) {
   .messagesAreaComponent {
-    padding: 0.6em 1.1em;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .messagesAreaComponent {
-    padding: 0.4em 0.9em;
+    padding: 0.5em 0.7em;
   }
 }

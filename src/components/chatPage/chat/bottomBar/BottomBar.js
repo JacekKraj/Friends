@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 
 import classes from "./bottomBar.module.scss";
 import Button from "../../../UI/button/Button";
@@ -6,12 +7,18 @@ import Button from "../../../UI/button/Button";
 const TextInput = (props) => {
   return (
     <div className={classes.bottomBarComponent}>
-      <div></div>
-
-      <form className={classes.inputContainer}>
-        <input required={true} placeholder="Write your message" />
+      <form className={classnames(classes.inputContainer, props.foreign && classes.inputDisabled)} onSubmit={(e) => props.handleSubmit(e)}>
+        <input
+          required={true}
+          placeholder="Write your message"
+          value={props.value}
+          onChange={(e) => props.handleChange(e)}
+          disabled={props.foreign}
+        />
       </form>
-      <Button className={classes.button}>Send</Button>
+      <Button className={classes.button} onClick={(e) => props.handleSubmit(e)} disabled={props.foreign}>
+        Send
+      </Button>
     </div>
   );
 };

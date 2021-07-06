@@ -33,6 +33,10 @@
   padding: 0.5em 1em;
 }
 
+.currChat .name {
+  color: #ce8405 !important;
+}
+
 @media (min-width: 500px) and (orientation: portrait) {
   .button {
     font-size: 15px;

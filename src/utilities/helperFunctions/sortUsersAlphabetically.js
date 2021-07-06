@@ -1,12 +1,12 @@
 export const sortUsersAlphabetically = (users) => {
   const compareAlphabeticallOrder = (a, b) => {
-    const bandA = a.name.toUpperCase();
-    const bandB = b.name.toUpperCase();
+    const userA = a.name.toUpperCase();
+    const userB = b.name.toUpperCase();
 
     let comparison = 0;
-    if (bandA > bandB) {
+    if (userA > userB) {
       comparison = 1;
-    } else if (bandA < bandB) {
+    } else if (userA < userB) {
       comparison = -1;
     }
     return comparison;

@@ -26,6 +26,15 @@
   font-size: 15px;
 }
 
+.inputDisabled {
+  cursor: not-allowed;
+  border-color: #aaa;
+}
+
+.inputDisabled input {
+  cursor: not-allowed;
+}
+
 ::placeholder {
   color: #666;
 }

@@ -42,7 +42,7 @@ const App = (props) => {
             .then((snapshot) => {
               setLoading(false);
               props.onAuthenticateEnd(fireUser);
-
+              props.onSetChat(snapshot.val()[modifiedEmail].chat);
               props.onSetUserData({ ...snapshot.val() }, modifiedEmail);
             })
             .catch((error) => {
@@ -114,6 +114,7 @@ const mapDispatchToProps = (dispatch) => {
     onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
     onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
     onSetGetPostsLoading: (loading) => dispatch(actions.setGetPostsLoading(loading)),
+    onSetChat: (chat) => dispatch(actions.setChat(chat)),
   };
 };
 
