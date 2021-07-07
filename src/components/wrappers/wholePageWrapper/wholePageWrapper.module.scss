@@ -19,5 +19,7 @@
 @media (min-width: 1320px) and (orientation: landscape) {
   .pageContentWrapperComponent {
     padding: 0 10%;
+    display: Flex;
+    justify-content: center;
   }
 }
