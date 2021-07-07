@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
+import ChatIcon from "@material-ui/icons/Chat";
 import WorkIcon from "@material-ui/icons/Work";
 import WcIcon from "@material-ui/icons/Wc";
 import HouseIcon from "@material-ui/icons/House";
@@ -44,6 +46,17 @@ const useStyles = makeStyles(() => ({
     [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
       width: 28,
       height: 28,
+    },
+  },
+  chatIcon: {
+    color: "white",
+    [theme.breakpoints.up("0")]: {
+      width: 26,
+      height: 26,
+    },
+    [`${theme.breakpoints.up("768")} and (orientation:portrait)`]: {
+      width: 38,
+      height: 38,
     },
   },
 }));
@@ -94,10 +107,14 @@ const User = (props) => {
       )}
       <div className={classes.infoTop}>
         <img src={props.userData.profileImage} alt="user profile image" className={classes.image} />
-
-        {/* <img src="ASD" alt="user profile image" className={classes.image} /> */}
-
-        {displayButton}
+        <div className={classes.buttonsContainer}>
+          {displayButton}
+          {props.userData.type === "followed" && (
+            <NavLink className={classes.chatLink} to={`/chat?to=${props.userData.modifiedEmail}`}>
+              <ChatIcon className={style.chatIcon} />
+            </NavLink>
+          )}
+        </div>
       </div>
       <div className={classes.infoBottom}>
         <p className={classes.name}>{props.userData.name}</p>

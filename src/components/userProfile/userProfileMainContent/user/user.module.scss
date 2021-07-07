@@ -43,6 +43,26 @@
   flex-wrap: wrap;
 }
 
+.buttonsContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+.chatLink {
+  padding: 0.39em;
+  background-color: #ffa500;
+  display: inline-flex;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  border: 2px solid #e08f03;
+  transition: 0.19s;
+}
+
+.chatLink:hover {
+  background-color: #f59c03;
+  border: 2px solid #ce8405;
+}
+
 @media (min-width: 411px) and (orientation: portrait) {
   .userInfoComponent {
     padding: 4% 8% 2%;
@@ -91,6 +111,11 @@
   .description {
     margin: 3% 0 4%;
     font-size: 23px;
+  }
+
+  .chatLink {
+    padding: 0.7em;
+    margin-right: 0.6em;
   }
 }
 
