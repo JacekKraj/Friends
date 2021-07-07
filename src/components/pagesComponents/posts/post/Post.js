@@ -96,7 +96,7 @@ const Post = (props) => {
               {showEditionPanel && (
                 <PostEditionPanel
                   handleDelete={() => {
-                    props.onRemovePost(props.post.index, props.author.modifiedEmail);
+                    props.onRemovePost(props.post.index, props.author.modifiedEmail, props.post.url);
                   }}
                   handleEdit={() => setShowEditionModal(true)}
                 />
@@ -117,7 +117,7 @@ const Post = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRemovePost: (id, user) => dispatch(actions.removePost(id, user)),
+    onRemovePost: (id, user, isUrl) => dispatch(actions.removePost(id, user, isUrl)),
   };
 };
 

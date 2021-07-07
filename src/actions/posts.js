@@ -131,7 +131,7 @@ export const getUsersPosts = (modifiedEmail, resolve) => {
   };
 };
 
-export const removePost = (index, user) => {
+export const removePost = (index, user, isUrl) => {
   return (dispatch) => {
     const updates = {};
     updates[`users/${user}/posts/posts/${index}`] = null;
@@ -140,7 +140,9 @@ export const removePost = (index, user) => {
       .ref()
       .update(updates)
       .then(() => {
-        fire.storage().ref(`users/${user}/posts/${index}`).delete();
+        if (isUrl) {
+          fire.storage().ref(`users/${user}/posts/${index}`).delete();
+        }
       })
       .catch((error) => {
         failToast(error.message);
