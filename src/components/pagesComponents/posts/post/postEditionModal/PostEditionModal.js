@@ -2,74 +2,19 @@ import React from "react";
 import ClearIcon from "@material-ui/icons/Clear";
 import PhotoIcon from "@material-ui/icons/Photo";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+import { useStyles } from "./../../../addPostModule/AddPostModule";
 
 import classes from "./postEditionModal.module.scss";
 import Backdrop from "./../../../../UI/backdrop/Backdrop";
 import Button from "./../../../../UI/button/Button";
-import { theme } from "./../../../../../utilities/breakpoints/breakpoints";
 import FileInput from "./../../../fileInput/FileInput";
 import * as actions from "./../../../../../actions/index";
 import SpinnerContainer from "./../../../../../utilities/spinnerContainer/SpinnerContainer";
-
-const useStyles = makeStyles(() => ({
-  removePhoto: {
-    cursor: "pointer",
-    position: "absolute",
-    backgroundColor: "rgb(252,252,252)",
-    color: "#333",
-    borderRadius: "50%",
-    padding: "0.5%",
-    [theme.breakpoints.up("0")]: {
-      width: 26,
-      height: 26,
-      top: "2%",
-      right: "2%",
-    },
-    [theme.breakpoints.up("400")]: {
-      width: 33,
-      height: 33,
-    },
-
-    [theme.breakpoints.up("768")]: {
-      width: 45,
-      height: 45,
-    },
-
-    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
-      width: 31,
-      height: 31,
-    },
-  },
-  addPhoto: {
-    cursor: "pointer",
-    color: "#0eb611",
-    [theme.breakpoints.up("0")]: {
-      width: 30,
-      height: 30,
-      marginBottom: -6,
-      marginTop: -1,
-    },
-    [theme.breakpoints.up("768")]: {
-      width: 45,
-      height: 45,
-      marginBottom: -8,
-    },
-
-    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
-      width: 31,
-      height: 31,
-    },
-
-    [`${theme.breakpoints.up("800")} and (orientation:landscape)`]: {
-      width: 33,
-      height: 33,
-    },
-  },
-}));
+import EmojiPicker from "./../../../../../utilities/emojiPicker/EmojiPicker";
 
 const SET_TEXT = "SET_TEXT";
 const SET_IMAGE = "SET_IMAGE";
+const SET_CURSOR_POSITION = "SET_CURSOR_POSITION";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -85,6 +30,11 @@ const reducer = (state, action) => {
         image: action.image,
         imageTouched: true,
       };
+    case SET_CURSOR_POSITION:
+      return {
+        ...state,
+        cursorPosition: action.cursorPosition,
+      };
     default:
       return state;
   }
@@ -97,7 +47,18 @@ const PostEditionModal = (props) => {
     text: props.post.text,
     textTouched: false,
     imageTouched: false,
+    cursorPosition: 0,
   });
+
+  const textArea = React.useRef();
+
+  React.useEffect(() => {
+    textArea.current.selectionEnd = state.cursorPosition;
+  }, [state.cursorPosition]);
+
+  React.useEffect(() => {
+    textArea.current.selectionStart = props.post.text.length;
+  }, [props.post.text.length]);
 
   const handleDrop = React.useCallback((event) => {
     const newImage = [event.target.files[0]].map((file) =>
@@ -120,6 +81,11 @@ const PostEditionModal = (props) => {
       props.backdropClick
     );
   };
+
+  const handleChangeInputValue = (text) => {
+    dispatch({ type: SET_TEXT, text: text, touched: props.post.text === text ? false : true });
+  };
+
   return (
     <React.Fragment>
       <Backdrop onClick={props.backdropClick} />
@@ -134,9 +100,10 @@ const PostEditionModal = (props) => {
           <textarea
             value={state.text}
             required={true}
+            ref={textArea}
             className={classes.textArea}
             data-test="textarea"
-            onChange={(e) => dispatch({ type: SET_TEXT, text: e.target.value, touched: props.post.text === e.target.value ? false : true })}
+            onChange={(e) => handleChangeInputValue(e.target.value)}
           />
           {state.image.url && (
             <div className={classes.imageContainer} data-test="image-container">
@@ -145,9 +112,19 @@ const PostEditionModal = (props) => {
             </div>
           )}
           <div className={classes.bottomBar}>
-            <FileInput handleDrop={handleDrop}>
-              <PhotoIcon className={iconStyle.addPhoto} />
-            </FileInput>
+            <div className={classes.iconsContainer}>
+              <FileInput handleDrop={handleDrop}>
+                <PhotoIcon className={iconStyle.addPhoto} />
+              </FileInput>
+              <EmojiPicker
+                style={iconStyle.emoji}
+                input={textArea}
+                pickerStyle={{ width: "250px", bottom: "100%", boxShadow: "unset", borderColor: "#888" }}
+                setCursorPosition={(position) => dispatch({ type: SET_CURSOR_POSITION, cursorPosition: position })}
+                inputValue={state.text}
+                handleChangeInputValue={(text) => handleChangeInputValue(text)}
+              />
+            </div>
             <Button className={classes.button} disabled={!state.imageTouched && !state.textTouched} testData="submit-button">
               Submit changes
             </Button>
