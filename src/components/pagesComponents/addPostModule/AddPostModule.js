@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { theme } from "./../../../utilities/breakpoints/breakpoints";
 
+import EmojiPicker from "./../../../utilities/emojiPicker/EmojiPicker";
 import ClearIcon from "@material-ui/icons/Clear";
 import PhotoIcon from "@material-ui/icons/Photo";
 import classes from "./addPostModule.module.scss";
@@ -11,35 +12,26 @@ import * as actions from "./../../../actions/index";
 import FileInput from "./../fileInput/FileInput";
 import SpinnerContainer from "./../../../utilities/spinnerContainer/SpinnerContainer";
 
-const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles(() => ({
   addPhoto: {
     cursor: "pointer",
     color: "#0eb611",
     [theme.breakpoints.up("0")]: {
       width: 28,
       height: 28,
-      marginBottom: -5,
     },
     [theme.breakpoints.up("768")]: {
       width: 35,
       height: 35,
-      marginBottom: -8,
     },
 
     [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
-      width: 31,
-      height: 31,
+      width: 28,
+      height: 28,
     },
-
-    [`${theme.breakpoints.up("800")} and (orientation:landscape)`]: {
-      width: 36,
-      height: 36,
-    },
-
     [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
-      width: 32,
-      height: 32,
-      marginTop: -2,
+      width: 30,
+      height: 30,
     },
   },
   removePhoto: {
@@ -73,7 +65,7 @@ const useStyles = makeStyles(() => ({
       height: 27,
       padding: "0.3%",
       top: "2%",
-      right: "0.5%",
+      right: "1%",
     },
 
     [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
@@ -85,6 +77,7 @@ const useStyles = makeStyles(() => ({
 
 const SET_IMAGES = "SET_IMAGES";
 const SET_TEXT = "SET_TEXT";
+const SET_CURSOR_POSITION = "SET_CURSOR_POSITION";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -98,12 +91,25 @@ const reducer = (state, action) => {
         ...state,
         text: action.text,
       };
+    case SET_CURSOR_POSITION:
+      return {
+        ...state,
+        cursorPosition: action.cursorPosition,
+      };
+    default:
+      return state;
   }
 };
 
 export const UnconnectedAddPostModule = (props) => {
   const iconStyle = useStyles();
-  const [state, dispatch] = React.useReducer(reducer, { images: [], text: "" });
+  const [state, dispatch] = React.useReducer(reducer, { images: [], text: "", cursorPosition: 0 });
+
+  const textArea = React.useRef();
+
+  React.useEffect(() => {
+    textArea.current.selectionEnd = state.cursorPosition;
+  }, [state.cursorPosition]);
 
   const clearPostAfterSuccess = () => {
     handleRemovePhoto();
@@ -143,6 +149,10 @@ export const UnconnectedAddPostModule = (props) => {
     props.onAddUserPost(post, author, clearPostAfterSuccess, totalPostsCreated);
   };
 
+  const handleChangeInputValue = (value) => {
+    dispatch({ type: SET_TEXT, text: value });
+  };
+
   return (
     <div className={classes.addPostModuleComponent} data-test="add-post-module-component">
       {props.isLoading && <SpinnerContainer />}
@@ -155,9 +165,10 @@ export const UnconnectedAddPostModule = (props) => {
         <textarea
           className={classes.textarea}
           value={state.text}
+          ref={textArea}
           required={true}
           onChange={(e) => {
-            dispatch({ type: SET_TEXT, text: e.target.value });
+            handleChangeInputValue(e.target.value);
           }}
           placeholder="What are you thinking about?"
         />
@@ -170,9 +181,17 @@ export const UnconnectedAddPostModule = (props) => {
           );
         })}
         <div className={classes.addPostModulBottomBar}>
-          <FileInput handleDrop={handleDrop}>
-            <PhotoIcon className={iconStyle.addPhoto} />
-          </FileInput>
+          <div className={classes.iconsContainer}>
+            <FileInput handleDrop={handleDrop}>
+              <PhotoIcon className={iconStyle.addPhoto} />
+            </FileInput>
+            <EmojiPicker
+              setCursorPosition={(position) => dispatch({ type: SET_CURSOR_POSITION, cursorPosition: position })}
+              inputValue={state.text}
+              input={textArea}
+              handleChangeInputValue={handleChangeInputValue}
+            />
+          </div>
           <Button className={classes.button}>Post</Button>
         </div>
       </form>

@@ -5,13 +5,23 @@
   padding: 0.5em 0.7em;
 }
 
-.inputContainer {
+.controls {
+  flex-grow: 1;
   display: flex;
   align-items: center;
-  background-color: white;
+}
+
+.form {
+  display: flex;
+  align-items: center;
   flex-grow: 1;
+}
+
+.inputContainer {
+  background-color: white;
   border-radius: 15px;
-  margin-right: 1em;
+  margin: 0 1em;
+  flex-grow: 1;
   border: 2px solid #e08f03;
 }
 
@@ -19,7 +29,7 @@
   display: block;
   border: none;
   background-color: transparent;
-  width: 100%;
+  // width: 100%;
   outline: none;
   padding: 0.2em 0.9em;
   color: #666;
@@ -72,7 +82,7 @@
 
 @media (min-width: 600px) and (orientation: landscape) {
   .bottomBarComponent {
-    padding: 0.6em 1em;
+    padding: 0.6em 0.8em;
   }
 
   .inputContainer input {
@@ -87,11 +97,5 @@
   .button {
     font-size: 17px;
     padding: 0.2em 1.3em;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .bottomBarComponent {
-    padding: 0.6em 0.8em;
   }
 }

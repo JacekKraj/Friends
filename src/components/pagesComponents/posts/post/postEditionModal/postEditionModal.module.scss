@@ -57,7 +57,12 @@
 
 .button {
   font-size: 14px;
-  padding: 0.2em 1em;
+  padding: 0.1em 1em;
+}
+
+.iconsContainer {
+  display: flex;
+  margin-bottom: -5px;
 }
 
 @media (min-width: 500px) and (orientation: portrait) {
