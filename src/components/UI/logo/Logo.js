@@ -1,11 +1,11 @@
-import React from "react";
-import classnames from "classnames";
+import React from 'react';
+import classnames from 'classnames';
 
-import classes from "./logo.module.scss";
+import classes from './logo.module.scss';
 
-const Logo = (props) => {
+const Logo = ({ className }) => {
   return (
-    <div className={classnames(classes.logo, props.className)}>
+    <div className={classnames(classes.logo, className)}>
       <p>f</p>
     </div>
   );

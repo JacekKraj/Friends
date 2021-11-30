@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./noUsersInfo.module.scss";
+import classes from './noUsersInfo.module.scss';
 
-const NoUsersInfo = (props) => {
+const NoUsersInfo = ({ children }) => {
   return (
-    <p data-test="no-users-info" className={classes.info}>
-      {props.children}
+    <p data-test='no-users-info' className={classes.info}>
+      {children}
     </p>
   );
 };

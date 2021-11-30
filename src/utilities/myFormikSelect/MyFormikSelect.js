@@ -1,45 +1,41 @@
-import React from "react";
-import { Field } from "formik";
-import classnames from "classnames";
+import React from 'react';
+import { Field } from 'formik';
 
-import classes from "./myFormikSelect.module.scss";
-import { days, months, years } from "./../selectTimeOptions/selectTimeOptions";
+import classes from './myFormikSelect.module.scss';
+import { days, months, years } from './../selectTimeOptions/selectTimeOptions';
 
 const MyFormikSelect = (props) => {
+  const { type, className, name, disabled } = props;
+
   const [options, setOptions] = React.useState([]);
+
+  const getOptionsType = (type) => {
+    if (type === 'day') return days;
+    if (type === 'month') return months;
+    return years;
+  };
+
+  const createOptions = (type) => {
+    const optionsType = getOptionsType(type);
+    const options = optionsType.map((timeStamp) => {
+      return (
+        <option value={timeStamp} key={timeStamp}>
+          {timeStamp}
+        </option>
+      );
+    });
+    return options;
+  };
+
   React.useEffect(() => {
-    let options;
-    if (props.type === "day") {
-      options = days.map((el) => {
-        return (
-          <option value={el} key={el}>
-            {el}
-          </option>
-        );
-      });
-    } else if (props.type === "month") {
-      options = months.map((el) => {
-        return (
-          <option value={el} key={el}>
-            {el}
-          </option>
-        );
-      });
-    } else if (props.type === "year") {
-      options = years.map((el) => {
-        return (
-          <option value={el} key={el}>
-            {el}
-          </option>
-        );
-      });
-    }
+    const options = createOptions(type);
     setOptions(options);
-  }, []);
+  }, [type]);
+
   return (
-    <div className={props.className}>
-      <Field required name={props.name} as="select" disabled={props.disabled} className={classnames(classes.select)}>
-        <option value="null">{props.type}</option>
+    <div className={className}>
+      <Field required name={name} as='select' disabled={disabled} className={classes.select}>
+        <option value='null'>{type}</option>
         {options}
       </Field>
     </div>

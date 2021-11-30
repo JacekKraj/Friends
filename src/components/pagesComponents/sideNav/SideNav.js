@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./sideNav.module.scss";
-import SmallScreenNav from "./smallScreenNav/SmallScreenNav";
-import BigScreenNav from "./bigScreenNav/BigScreenNav";
+import classes from './sideNav.module.scss';
+import SmallScreenNav from './smallScreenNav/SmallScreenNav';
+import BigScreenNav from './bigScreenNav/BigScreenNav';
 
-const SideNav = (props) => {
+const SideNav = () => {
   return (
     <React.Fragment>
       <div className={classes.smallScreenNavContainer}>

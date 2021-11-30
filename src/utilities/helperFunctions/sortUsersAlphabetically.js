@@ -1,18 +1,20 @@
+const compareAlphabeticallOrder = (user1, user2) => {
+  const userA = user1.name.toUpperCase();
+  const userB = user2.name.toUpperCase();
+
+  let comparison = 0;
+  if (userA > userB) {
+    comparison = 1;
+  } else if (userA < userB) {
+    comparison = -1;
+  }
+  return comparison;
+};
+
 export const sortUsersAlphabetically = (users) => {
-  const compareAlphabeticallOrder = (a, b) => {
-    const userA = a.name.toUpperCase();
-    const userB = b.name.toUpperCase();
+  const usersArray = [...users];
 
-    let comparison = 0;
-    if (userA > userB) {
-      comparison = 1;
-    } else if (userA < userB) {
-      comparison = -1;
-    }
-    return comparison;
-  };
+  usersArray.sort(compareAlphabeticallOrder);
 
-  users.sort(compareAlphabeticallOrder);
-
-  return users;
+  return usersArray;
 };

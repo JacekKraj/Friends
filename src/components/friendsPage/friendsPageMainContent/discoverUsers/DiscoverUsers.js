@@ -1,37 +1,50 @@
-import React from "react";
-import ScrollMenu from "react-horizontal-scrolling-menu";
+import React from 'react';
+import ScrollMenu from 'react-horizontal-scrolling-menu';
 
-import classes from "./discoverUsers.module.scss";
-import User from "./user/User";
+import classes from './discoverUsers.module.scss';
+import User from './user/User';
 
-const DiscoverUsers = (props) => {
-  const [noUsersInfo, setNoUsersInfo] = React.useState("");
+const DiscoverUsers = ({ header, areFollowedUsers, usersObjects }) => {
+  const [noUsersInfo, setNoUsersInfo] = React.useState('');
   const [users, setUsers] = React.useState([]);
 
-  React.useEffect(() => {
-    const message = props.toFollow
-      ? "You follow all available users right now. Try discovering others later."
+  const getNoUsersInfoMessage = () => {
+    const message = areFollowedUsers
+      ? 'You follow all available users right now. Try discovering others later.'
       : "You don't follow any other user yet.";
 
-    const users = [...props.users].map((el) => {
-      return <User key={el.modifiedEmail} name={el.name} modifiedEmail={el.modifiedEmail} profileImage={el.profileImage} toFollow={props.toFollow} />;
+    return message;
+  };
+
+  const createUsersComponents = () => {
+    const users = [...usersObjects].map((user) => {
+      return <User key={user.modifiedEmail} user={user} isToFollow={!areFollowedUsers} />;
     });
+
+    return users;
+  };
+
+  React.useEffect(() => {
+    const message = getNoUsersInfoMessage();
+
+    const users = createUsersComponents();
+
     setUsers(users);
     setNoUsersInfo(message);
-  }, [props.users.length]);
+  }, [usersObjects.length]);
 
   const Arrow = ({ text }) => {
     return <div className={classes.arrow}>{text}</div>;
   };
 
-  const ArrowLeft = Arrow({ text: "<" });
-  const ArrowRight = Arrow({ text: ">" });
+  const ArrowLeft = Arrow({ text: '<' });
+  const ArrowRight = Arrow({ text: '>' });
 
   return (
     <div className={classes.discoverUsersComponent}>
-      <p className={classes.header}>{props.header}</p>
+      <p className={classes.header}>{header}</p>
       <div className={classes.users}>
-        {props.users.length ? (
+        {users.length ? (
           <ScrollMenu
             data={users}
             hideSingleArrow={true}
@@ -43,7 +56,7 @@ const DiscoverUsers = (props) => {
             alignCenter={false}
           />
         ) : (
-          <p className={classes.info} data-test="no-users-info">
+          <p className={classes.info} data-test='no-users-info'>
             {noUsersInfo}
           </p>
         )}

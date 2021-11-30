@@ -1,15 +1,15 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import classes from "./blockedChatInfo.module.scss";
+import classes from './blockedChatInfo.module.scss';
 
-const BlockedChatInfo = (props) => {
+const BlockedChatInfo = ({ textedUserModifiedEmail }) => {
   return (
     <div className={classes.blockedChatInfoComponenet}>
-      You need to{" "}
-      <NavLink exact to={`/users?user=${props.modifiedEmail}`} className={classes.link}>
+      You need to{' '}
+      <NavLink exact to={`/users?user=${textedUserModifiedEmail}`} className={classes.link}>
         follow
-      </NavLink>{" "}
+      </NavLink>{' '}
       this user first to be able to send him messages.
     </div>
   );

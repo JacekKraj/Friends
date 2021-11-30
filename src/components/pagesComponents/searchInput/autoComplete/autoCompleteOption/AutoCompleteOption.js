@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import User from "./../../../discoverBar/user/User";
-import classes from "./autoCompleteOption.module.scss";
+import User from './../../../discoverBar/user/User';
+import classes from './autoCompleteOption.module.scss';
 
-const AutoCompleteOption = (props) => {
+const AutoCompleteOption = ({ searchedUser }) => {
+  const { modifiedEmail, profileImage, name } = searchedUser;
   return (
     <div className={classes.autoCompleteOptionComponent}>
-      <User link={`users?user=${props.modifiedEmail}`} profileImage={props.profileImage} name={props.name} dataTest="user-name" />
+      <User navigateTo={`users?user=${modifiedEmail}`} user={{ profileImage, name }} dataTest='user-name' />
     </div>
   );
 };

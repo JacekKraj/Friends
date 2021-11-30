@@ -1,62 +1,82 @@
-import React from "react";
-import { useLocation, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { useLocation, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import ChatInstruction from "./chatInstruction/ChatInstruction";
-import WholePageWrapper from "../wrappers/wholePageWrapper/WholePageWrapper";
-import SideNav from "../pagesComponents/sideNav/SideNav";
-import DiscoverBar from "./../pagesComponents/discoverBar/DiscoverBar";
-import Chat from "./chat/Chat";
-import DiscoverChat from "./../pagesComponents/discoverBar/discoverChat/DiscoverChat";
-import { sortUsersAlphabetically } from "../../utilities/helperFunctions/sortUsersAlphabetically";
-import Spinner from "./../UI/spinner/Spinner";
-import * as actions from "./../../actions/index";
+import ChatInstruction from './chatInstruction/ChatInstruction';
+import WholePageWrapper from '../wrappers/wholePageWrapper/WholePageWrapper';
+import SideNav from '../pagesComponents/sideNav/SideNav';
+import DiscoverBar from './../pagesComponents/discoverBar/DiscoverBar';
+import Chat from './chat/Chat';
+import DiscoverChat from './../pagesComponents/discoverBar/discoverChat/DiscoverChat';
+import { sortUsersAlphabetically } from '../../utilities/helperFunctions/sortUsersAlphabetically';
+import Spinner from './../UI/spinner/Spinner';
+import * as actions from './../../actions/index';
 
-const ChatPage = (props) => {
-  const [user, setUser] = React.useState({});
-  const [collection, setCollection] = React.useState("");
-  const [redirect, setRedirect] = React.useState(false);
+const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
+  const { followedUsers, unfollowedUsers, currentUser } = userData;
+
+  const currUserModifiedEmail = currentUser.modifiedEmail;
+
+  const [textedUser, setTextedUser] = React.useState({});
+  const [chattingUsers, setChattingUsers] = React.useState('');
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
+
   const location = useLocation();
 
-  const searchUser = React.useCallback((userEmail) => {
-    let foundUser = props.followedUsers.filter((el) => el.modifiedEmail === userEmail)[0];
+  const findTextedUser = (userEmail) => {
+    let foundUser = followedUsers.filter((user) => user.modifiedEmail === userEmail)[0];
     if (!foundUser) {
-      foundUser = { ...props.unfollowedUsers.filter((el) => el.modifiedEmail === userEmail)[0], foreign: true };
+      foundUser = { ...unfollowedUsers.filter((user) => user.modifiedEmail === userEmail)[0], isForeign: true };
     }
     return foundUser;
-  }, []);
+  };
 
-  React.useEffect(() => {
+  const setTextingUsers = (textedUserEmail) => {
+    if (!textedUserEmail) {
+      setShouldRedirect(true);
+      return;
+    }
+
+    const textedUser = findTextedUser(textedUserEmail);
+
+    if (!textedUser.modifiedEmail) {
+      setChattingUsers('unknown');
+      return;
+    }
+
+    setTextedUser(textedUser);
+    const sortedUsers = sortUsersAlphabetically([{ name: currUserModifiedEmail }, { name: textedUserEmail }]);
+    const [firstUser, secondUser] = sortedUsers;
+    setChattingUsers(`${firstUser.name}${secondUser.name}`);
+  };
+
+  const getTextedUserEmailFromSearchParams = () => {
     const searchParams = new URLSearchParams(location.search);
-    let userEmail = searchParams.get("to");
-    if (userEmail) {
-      let foundUser = searchUser(userEmail);
-      if (foundUser.modifiedEmail && props.currUserModifiedEmail) {
-        setUser(foundUser);
-        const sortedNames = sortUsersAlphabetically([{ name: props.currUserModifiedEmail }, { name: userEmail }]);
-        setCollection(`${sortedNames[0].name}${sortedNames[1].name}`);
-      } else {
-        setCollection(true);
-      }
-    } else {
-      setRedirect(true);
-    }
-  }, [props.currUserModifiedEmail]);
+    const email = searchParams.get('to');
+    return email;
+  };
 
   React.useEffect(() => {
-    if (props.chatNotifications?.includes(user.modifiedEmail)) {
-      props.onRemoveNotification(props.currUserModifiedEmail, user.modifiedEmail, props.chatNotifications);
+    const textedUserEmail = getTextedUserEmailFromSearchParams();
+
+    setTextingUsers(textedUserEmail);
+  }, [currUserModifiedEmail]);
+
+  React.useEffect(() => {
+    if (chatNotifications?.includes(textedUser.modifiedEmail)) {
+      onRemoveNotification(currUserModifiedEmail, textedUser.modifiedEmail, chatNotifications);
     }
-  }, [user.modifiedEmail, props.notifications]);
+  }, [textedUser.modifiedEmail, chatNotifications, currUserModifiedEmail]);
+
   return (
     <WholePageWrapper>
-      {redirect && <Redirect to="/chat?to=new" />}
-      {collection ? (
+      {shouldRedirect && <Redirect to='/chat?to=new' />}
+      {chattingUsers ? (
         <React.Fragment>
           <SideNav />
-          {user.modifiedEmail ? <Chat user={user} collection={collection} /> : <ChatInstruction />}
+          {textedUser.modifiedEmail ? <Chat textedUser={textedUser} chattingUsers={chattingUsers} /> : <ChatInstruction />}
           <DiscoverBar>
-            <DiscoverChat currentChat={user.modifiedEmail} />
+            <DiscoverChat currentChat={textedUser.modifiedEmail} />
           </DiscoverBar>
         </React.Fragment>
       ) : (
@@ -68,11 +88,8 @@ const ChatPage = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-    currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
     chatNotifications: state.chat.notifications,
-    lastChat: state.chat.lastChat,
+    userData: state.userData,
   };
 };
 

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./wholePageWrapper.module.scss";
+import classes from './wholePageWrapper.module.scss';
 
-const WholePageWrapper = (props) => {
-  return <div className={classes.pageContentWrapperComponent}>{props.children}</div>;
+const WholePageWrapper = ({ children }) => {
+  return <div className={classes.pageContentWrapperComponent}>{children}</div>;
 };
 
 export default WholePageWrapper;

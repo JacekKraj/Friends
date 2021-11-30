@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./discoverBar.module.scss";
-import SmallScreenDiscoverBar from "./smallScreenDiscoverBar/SmallScreenDiscoverBar";
-import BigScreenDiscoverBar from "./bigScreenDiscoverBar/BigScreenDiscoverBar";
+import classes from './discoverBar.module.scss';
+import SmallScreenDiscoverBar from './smallScreenDiscoverBar/SmallScreenDiscoverBar';
+import BigScreenDiscoverBar from './bigScreenDiscoverBar/BigScreenDiscoverBar';
 
-const DiscoverBar = (props) => {
+const DiscoverBar = ({ children }) => {
   return (
     <div className={classes.discoverBarComponent}>
       <div className={classes.smallScreenNavContainer}>
-        <SmallScreenDiscoverBar>{props.children}</SmallScreenDiscoverBar>
+        <SmallScreenDiscoverBar>{children}</SmallScreenDiscoverBar>
       </div>
       <div className={classes.bigScreenNavContainer}>
-        <BigScreenDiscoverBar>{props.children}</BigScreenDiscoverBar>
+        <BigScreenDiscoverBar>{children}</BigScreenDiscoverBar>
       </div>
     </div>
   );

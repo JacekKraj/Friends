@@ -1,7 +1,7 @@
-import fire from "./../firebaseConfig";
+import fire from './../firebaseConfig';
 
-import * as actionTypes from "./actionsTypes";
-import { failToast, successToast } from "./../utilities/toasts/toasts";
+import * as actionTypes from './actionsTypes';
+import { failToast, successToast } from './../utilities/toasts/toasts';
 
 export const setNewPostLoading = (loading) => {
   return {
@@ -40,7 +40,7 @@ export const addUserPost = (post, author, clearPost, totalPostsCreated) => {
       .ref()
       .update(updates)
       .then(() => {
-        if (post.image.preview) {
+        if (post.image.url) {
           fire
             .storage()
             .ref(`users/${author.modifiedEmail}/posts/${totalPostsCreated}`)
@@ -106,12 +106,12 @@ export const getUsersPosts = (modifiedEmail, resolve) => {
             if (!Array.isArray(posts)) {
               posts = Object.values(posts);
             }
-            Promise.all(posts.map((el) => getPostURL(el)))
+            Promise.all(posts.map((postWithoutURL) => getPostURL(postWithoutURL)))
               .then((results) => {
                 let resultsModified = {};
-                results.forEach((el) => {
-                  if (el) {
-                    resultsModified = { ...resultsModified, [el.post.index]: el };
+                results.forEach((post) => {
+                  if (post) {
+                    resultsModified = { ...resultsModified, [post.post.index]: post };
                   }
                 });
                 createPosts(dispatch, modifiedEmail, snapshot.val().totalPostsCreated, resultsModified);
@@ -182,7 +182,7 @@ export const updatePost = (author, post, previousUrl, hideModal) => {
       dispatch(setUpdatedPost(author, post));
       hideModal();
       dispatch(setUpdatePostLoading(false));
-      successToast("Your post has been updated.");
+      successToast('Your post has been updated.');
     };
     dispatch(setUpdatePostLoading(true));
     fire

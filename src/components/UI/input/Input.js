@@ -1,20 +1,21 @@
-import React from "react";
-import classnames from "classnames";
+import React from 'react';
+import classnames from 'classnames';
 
-import classes from "./input.module.scss";
+import classes from './input.module.scss';
 
 const Input = (props) => {
+  const { type, name, onChange, value, required, className, disabled, placeholder } = props;
   return (
     <input
-      type={props.type}
-      name={props.name}
-      onChange={props.onChange}
-      value={props.value}
-      required={props.required}
-      className={classnames(props.className, classes.input)}
-      disabled={props.disabled}
-      placeholder={props.placeholder}
-      autoComplete="off"
+      type={type}
+      name={name}
+      onChange={onChange}
+      value={value}
+      required={required}
+      className={classnames(className, classes.input)}
+      disabled={disabled}
+      placeholder={placeholder}
+      autoComplete='off'
     ></input>
   );
 };

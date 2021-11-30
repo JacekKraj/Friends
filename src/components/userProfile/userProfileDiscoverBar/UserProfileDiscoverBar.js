@@ -1,34 +1,38 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import classes from "./userProfileDiscoverBar.module.scss";
-import { sortUsersAlphabetically } from "./../../../utilities/helperFunctions/sortUsersAlphabetically";
-import DiscoverFriends from "./../../pagesComponents/discoverBar/discoverFriends/DiscoverFriends";
+import { sortUsersAlphabetically } from './../../../utilities/helperFunctions/sortUsersAlphabetically';
+import DiscoverFriends from './../../pagesComponents/discoverBar/discoverFriends/DiscoverFriends';
 
-const UserProfileDiscoverBar = (props) => {
+const UserProfileDiscoverBar = ({ userData, followedUsersEmails }) => {
   const [followedUsers, setFollowedUsers] = React.useState([]);
 
-  React.useEffect(() => {
-    let usersToDisplay = [...props.followedUsers, ...props.unfollowedUsers, props.currentUser].filter((el) => {
-      return props.followed?.includes(el.modifiedEmail);
+  const isFollowedUser = (user) => {
+    return followedUsersEmails?.includes(user.modifiedEmail);
+  };
+
+  const getUsersToDisplay = () => {
+    const users = [...userData.followedUsers, ...userData.unfollowedUsers, userData.currentUser].filter((user) => {
+      return isFollowedUser(user);
     });
 
-    usersToDisplay = sortUsersAlphabetically(usersToDisplay);
-    setFollowedUsers(usersToDisplay);
-  }, [JSON.stringify(props.followed)]);
+    return users;
+  };
 
-  return (
-    <div>
-      <DiscoverFriends type="profile" users={followedUsers} followedUsersEmails={props.followed} />
-    </div>
-  );
+  React.useEffect(() => {
+    const usersToDisplay = getUsersToDisplay();
+
+    const sortedUsersToDisplay = sortUsersAlphabetically(usersToDisplay);
+
+    setFollowedUsers(sortedUsersToDisplay);
+  }, [JSON.stringify(followedUsersEmails)]);
+
+  return <DiscoverFriends location='profile' users={followedUsers} followedUsersEmails={followedUsersEmails} />;
 };
 
 const mapStateToProps = (state) => {
   return {
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-    currentUser: state.userData.currentUser,
+    userData: state.userData,
   };
 };
 

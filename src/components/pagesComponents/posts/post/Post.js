@@ -46,46 +46,37 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Post = (props) => {
+  const { author, post, onRemovePost, currUserModifiedEmail } = props;
+
   const [showEditionPanel, setShowEditionPanel] = React.useState(false);
   const [showEditionModal, setShowEditionModal] = React.useState(false);
+
   const iconStyle = useStyles();
-  const date = new Date(props.post.creationTime);
-  let minutes = date.getMinutes();
-  minutes = minutes < 10 ? `0${minutes}` : minutes;
-  const creationTime = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} | ${date.getHours()}:${minutes}`;
-  const postEditionPanel = React.useRef();
 
-  const handleOutsideClick = (event) => {
-    if (postEditionPanel.current) {
-      if (!postEditionPanel.current.contains(event.target)) {
-        setShowEditionPanel(false);
-      }
-    }
-  };
-
-  React.useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
-  }, []);
+  const countCreationTime = React.useMemo(() => {
+    const date = new Date(post.creationTime);
+    let minutes = date.getMinutes();
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    const creationTime = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} | ${date.getHours()}:${minutes}`;
+    return creationTime;
+  }, [post.creationTime]);
 
   return (
     <React.Fragment>
-      {showEditionModal && <PostEditionModal author={props.author} post={props.post} backdropClick={() => setShowEditionModal(false)} />}
+      {showEditionModal && <PostEditionModal author={author} post={post} handleBackdropClick={() => setShowEditionModal(false)} />}
       <div className={classes.postComponent} data-test='post-component'>
         <div className={classes.postHeader}>
-          <NavLink to={`/users?user=${props.author.modifiedEmail}`}>
+          <NavLink to={`/users?user=${author.modifiedEmail}`}>
             <div className={classes.author}>
-              <img src={props.profileImage} className={classes.profileImage} alt='post author profile image' />
+              <img src={author.profileImage} className={classes.profileImage} alt='post author profile image' />
               <div>
-                <p className={classes.authorName}>{props.author.name}</p>
-                <p className={classes.postCreationTime}>{creationTime}</p>
+                <p className={classes.authorName}>{author.name}</p>
+                <p className={classes.postCreationTime}>{countCreationTime}</p>
               </div>
             </div>
           </NavLink>
-          {props.currUserModifiedEmail === props.author.modifiedEmail && (
-            <div className={classes.postEditionPanelContainer} ref={postEditionPanel}>
+          {currUserModifiedEmail === author.modifiedEmail && (
+            <div className={classes.postEditionPanelContainer}>
               <MoreHorizIcon
                 className={iconStyle.icon}
                 data-test='post-edition-icon'
@@ -95,8 +86,9 @@ const Post = (props) => {
               />
               {showEditionPanel && (
                 <PostEditionPanel
+                  setShowEditionPanel={setShowEditionPanel}
                   handleDelete={() => {
-                    props.onRemovePost(props.post.index, props.author.modifiedEmail, props.post.url);
+                    onRemovePost(post.index, author.modifiedEmail, post.url);
                   }}
                   handleEdit={() => setShowEditionModal(true)}
                 />
@@ -106,9 +98,9 @@ const Post = (props) => {
         </div>
         <div className={classes.mainPostPart}>
           <p className={classes.text} data-test='text'>
-            {props.post.text}
+            {post.text}
           </p>
-          {props.post.url && <img src={props.post.url} className={classes.postImage} data-test='post-image' alt='post picture' />}
+          {post.url && <img src={post.url} className={classes.postImage} data-test='post-image' alt='post picture' />}
         </div>
       </div>
     </React.Fragment>

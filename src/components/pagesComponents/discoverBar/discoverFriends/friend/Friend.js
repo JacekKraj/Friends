@@ -1,28 +1,32 @@
-import React from "react";
-import classnames from "classnames";
-import { connect } from "react-redux";
+import React from 'react';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
 
-import * as actions from "./../../../../../actions/index";
-import classes from "./friend.module.scss";
-import Button from "./../../../../UI/button/Button";
-import User from "./../../user/User";
+import * as actions from './../../../../../actions/index';
+import classes from './friend.module.scss';
+import Button from './../../../../UI/button/Button';
+import User from './../../user/User';
 
 const Friend = (props) => {
-  const [extraClass, setExtraClass] = React.useState("");
+  const { isHome, onFollowUser, onUnfollowUser, currentUserModifiedEmail, currentUserFollowedUsersEmails, isFollowedByCurrentUser, user } = props;
+
+  const [extraClass, setExtraClass] = React.useState('');
+
   const handleButtonClick = () => {
-    props.type === "home" && setExtraClass(classes.hiddenUser);
-    const clickFunction = !props.isFollowedByCurrentUser ? props.onFollowUser : props.onUnfollowUser;
-    clickFunction(props.modifiedEmail, props.currentUserModifiedEmail, props.currentUserFollowedUsersEmails);
+    isHome && setExtraClass(classes.hiddenUser);
+    const clickFunction = !isFollowedByCurrentUser ? onFollowUser : onUnfollowUser;
+    clickFunction(user.modifiedEmail, currentUserModifiedEmail, currentUserFollowedUsersEmails);
   };
+
   return (
     <div
       className={classnames(classes.friendComponent, extraClass)}
-      data-test={`component-friend-${props.isFollowedByCurrentUser ? "followed" : "unfollowed"}`}
+      data-test={`component-friend-${isFollowedByCurrentUser ? 'followed' : 'unfollowed'}`}
     >
-      <User link={`/users?user=${props.modifiedEmail}`} profileImage={props.profileImage} name={props.name} />
-      {props.currentUserModifiedEmail !== props.modifiedEmail && (
-        <Button className={classes.button} transparent={!props.isFollowedByCurrentUser} onClick={handleButtonClick}>
-          {props.isFollowedByCurrentUser ? "unfollow" : "follow"}
+      <User navigateTo={`/users?user=${user.modifiedEmail}`} user={user} />
+      {currentUserModifiedEmail !== user.modifiedEmail && (
+        <Button className={classes.button} isTransparent={!isFollowedByCurrentUser} onClick={handleButtonClick}>
+          {isFollowedByCurrentUser ? 'unfollow' : 'follow'}
         </Button>
       )}
     </div>

@@ -1,87 +1,100 @@
-import React, { useState, Suspense } from "react";
-import { Route, Switch, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
-import { connect } from "react-redux";
+import React, { useState, Suspense } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { connect } from 'react-redux';
 
-import * as actions from "./actions/index";
-import fire from "./firebaseConfig";
-import AuthenticationMainPage from "./components/authentication/authenticationMainPage/AuthenticationMainPage";
-import { failToast, successToast } from "./utilities/toasts/toasts";
-import Home from "./components/home/Home";
-import Spinner from "./components/UI/spinner/Spinner";
-import { modifyEmail } from "./utilities/helperFunctions/modifyEmail";
+import * as actions from './actions/index';
+import fire from './firebaseConfig';
+import AuthenticationMainPage from './components/authentication/authenticationMainPage/AuthenticationMainPage';
+import { failToast, successToast } from './utilities/toasts/toasts';
+import Home from './components/home/Home';
+import Spinner from './components/UI/spinner/Spinner';
+import { modifyEmail } from './utilities/helperFunctions/modifyEmail';
 
 const App = (props) => {
+  const {
+    onSetUserData,
+    onAuthenticateEnd,
+    onLogout,
+    onClearPosts,
+    onSetShowNav,
+    onSetShowDiscoverBar,
+    onSetGetPostsLoading,
+    onSetChat,
+    isAuthenticated,
+  } = props;
+
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   toast.configure();
 
   const UserProfile = React.lazy(() => {
-    return import("./components/userProfile/UserProfile");
+    return import('./components/userProfile/UserProfile');
   });
-
   const FriendsPage = React.lazy(() => {
-    return import("./components/friendsPage/FriendsPage");
+    return import('./components/friendsPage/FriendsPage');
   });
-
   const ChatPage = React.lazy(() => {
-    return import("./components/chatPage/ChatPage");
+    return import('./components/chatPage/ChatPage');
   });
-
   const Nofound = React.lazy(() => {
-    return import("./components/errorPage/nofound/Nofound");
+    return import('./components/errorPage/nofound/Nofound');
+  });
+  const NoAccess = React.lazy(() => {
+    return import('./components/errorPage/noAccess/NoAccess');
   });
 
-  const NoAccess = React.lazy(() => {
-    return import("./components/errorPage/noAccess/NoAccess");
-  });
+  const clearCurrentPageState = () => {
+    onLogout();
+    onSetShowNav(false);
+    onClearPosts();
+    onSetUserData({}, null);
+    setLoading(false);
+  };
 
   React.useEffect(() => {
     fire.auth().onAuthStateChanged((authUser) => {
-      if (authUser) {
-        if (fire.auth().currentUser.emailVerified) {
-          const fireUser = fire.auth().currentUser;
-          const modifiedEmail = modifyEmail(fireUser.email);
-          fire
-            .database()
-            .ref(`users`)
-            .get()
-            .then((snapshot) => {
-              setLoading(false);
-              props.onAuthenticateEnd(fireUser);
-              props.onSetChat(snapshot.val()[modifiedEmail].chat);
-              props.onSetUserData({ ...snapshot.val() }, modifiedEmail);
-            })
-            .catch((error) => {
-              setLoading(false);
-              props.onLogout();
-              failToast("Something went wrong. Try again later.");
-              failToast(error.message);
-            });
-        } else {
-          successToast("Verification email has been sent to your address. Verify to sing in.");
-          props.onLogout();
-          setLoading(false);
-        }
-      } else {
-        props.onLogout();
-        props.onClearPosts();
-        props.onSetUserData({}, null);
-        setLoading(false);
+      if (!authUser) {
+        clearCurrentPageState();
+        return;
       }
+
+      if (!fire.auth().currentUser.emailVerified) {
+        successToast('Verification email has been sent to your address. Verify to sing in.');
+        clearCurrentPageState();
+        return;
+      }
+
+      const fireUser = fire.auth().currentUser;
+      const fireUserModifiedEmail = modifyEmail(fireUser.email);
+
+      fire
+        .database()
+        .ref(`users`)
+        .get()
+        .then((snapshot) => {
+          setLoading(false);
+          onAuthenticateEnd(fireUser);
+          onSetChat(snapshot.val()[fireUserModifiedEmail].chat);
+          onSetUserData({ ...snapshot.val() }, fireUserModifiedEmail);
+        })
+        .catch((error) => {
+          clearCurrentPageState();
+          failToast(error.message);
+        });
     });
   }, []);
 
   React.useEffect(() => {
-    props.onSetShowNav(false);
-    props.onSetShowDiscoverBar(false);
-    props.onSetGetPostsLoading(true);
+    onSetShowNav(false);
+    onSetShowDiscoverBar(false);
+    onSetGetPostsLoading(true);
   }, [location.pathname, location.search]);
 
-  let routes = props.isAuthenticated ? (
+  const routes = isAuthenticated ? (
     <Switch>
-      <Route path="/" exact render={() => <Home />} />
+      <Route path='/' exact render={() => <Home />} />
       <Route
         path={`/users`}
         exact
@@ -89,25 +102,23 @@ const App = (props) => {
           return <UserProfile />;
         }}
       />
-      <Route path="/chat" exact render={() => <ChatPage />} />
-      <Route path="/friends" exact render={() => <FriendsPage />} />
-      <Route path="*" render={() => <Nofound />} />
+      <Route path='/chat' exact render={() => <ChatPage />} />
+      <Route path='/friends' exact render={() => <FriendsPage />} />
+      <Route path='*' render={() => <Nofound />} />
     </Switch>
   ) : (
     <Switch>
-      <Route path="/" exact render={() => <AuthenticationMainPage />} />
-      <Route path="/chat" render={() => <NoAccess />} />
-      <Route path="/users" render={() => <NoAccess />} />
-      <Route path="/friends" render={() => <NoAccess />} />
-      <Route path="*" render={() => <Nofound />} />
+      <Route path='/' exact render={() => <AuthenticationMainPage />} />
+      <Route path='/chat' render={() => <NoAccess />} />
+      <Route path='/users' render={() => <NoAccess />} />
+      <Route path='/friends' render={() => <NoAccess />} />
+      <Route path='*' render={() => <Nofound />} />
     </Switch>
   );
 
-  routes = loading ? <Spinner /> : routes;
-
   return (
     <div>
-      <Suspense fallback={<div></div>}>{routes}</Suspense>
+      <Suspense fallback={<div></div>}>{loading ? <Spinner /> : routes}</Suspense>
     </div>
   );
 };

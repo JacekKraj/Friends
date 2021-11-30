@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./postEditionPanelOption.module.scss";
+import classes from './postEditionPanelOption.module.scss';
 
-const PostEditionPanelOption = (props) => {
+const PostEditionPanelOption = ({ text, onClick, testAttr }) => {
   return (
-    <button type="button" className={classes.postEditionPanelOptionComponent} onClick={props.onClick} data-test={props.testAttr}>
-      {props.text}
+    <button type='button' className={classes.postEditionPanelOptionComponent} onClick={onClick} data-test={testAttr}>
+      {text}
     </button>
   );
 };

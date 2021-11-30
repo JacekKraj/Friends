@@ -1,24 +1,27 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import * as actions from "./../../../../../actions/index";
-import classes from "./user.module.scss";
-import Button from "./../../../../UI/button/Button";
+import * as actions from './../../../../../actions/index';
+import classes from './user.module.scss';
+import Button from './../../../../UI/button/Button';
 
 export const User = (props) => {
+  const { isToFollow, onFollowUser, onUnfollowUser, followedUsersEmails, currentUserModifiedEmail, user } = props;
+
   const handleClick = () => {
-    const onClickFunction = props.toFollow ? props.onFollowUser : props.onUnfollowUser;
-    onClickFunction(props.modifiedEmail, props.currentUserModifiedEmail, props.followedUsersEmails);
+    const onClickFunction = isToFollow ? onFollowUser : onUnfollowUser;
+    onClickFunction(user.modifiedEmail, currentUserModifiedEmail, followedUsersEmails);
   };
+
   return (
-    <div className={classes.userComponent} data-test={`component-${props.toFollow ? "unfollowed" : "followed"}-user`}>
-      <NavLink to={`/users?user=${props.modifiedEmail}`} exact>
-        <div className={classes.profileImage} style={{ backgroundImage: `url("${props.profileImage}")` }} />
-        <p className={classes.name}>{props.name}</p>
+    <div className={classes.userComponent} data-test={`component-${isToFollow ? 'unfollowed' : 'followed'}-user`}>
+      <NavLink to={`/users?user=${user.modifiedEmail}`} exact>
+        <div className={classes.profileImage} style={{ backgroundImage: `url("${user.profileImage}")` }} />
+        <p className={classes.name}>{user.name}</p>
       </NavLink>
-      <Button className={classes.button} transparent={props.toFollow} onClick={handleClick} data-test="follow-button">
-        {props.toFollow ? "follow" : "unfollow"}
+      <Button className={classes.button} isTransparent={isToFollow} onClick={handleClick} data-test='follow-button'>
+        {isToFollow ? 'follow' : 'unfollow'}
       </Button>
     </div>
   );

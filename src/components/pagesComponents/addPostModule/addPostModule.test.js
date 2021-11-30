@@ -1,13 +1,13 @@
-import React from "react";
-import { shallow, mount } from "enzyme";
+import React from 'react';
+import { shallow, mount } from 'enzyme';
 
-import AddPostModule, { UnconnectedAddPostModule } from "./AddPostModule";
-import { storeFactory, findByTestAttr } from "../../../utilities/tests/testsHelperFunctions";
-import * as actions from "../../../actions/index";
+import AddPostModule from './AddPostModule';
+import { storeFactory, findByTestAttr } from '../../../utilities/tests/testsHelperFunctions';
+import * as actions from '../../../actions/index';
 
 let store;
 
-describe("textarea", () => {
+describe('textarea', () => {
   let wrapper;
 
   beforeEach(() => {
@@ -16,14 +16,14 @@ describe("textarea", () => {
       .dive()
       .dive();
   });
-  test("changes textarea value on typing", () => {
-    const textarea = wrapper.find("textarea");
-    textarea.simulate("change", { target: { value: "text" } });
-    expect(wrapper.find("textarea").props().value).toEqual("text");
+  test('changes textarea value on typing', () => {
+    const textarea = wrapper.find('textarea');
+    textarea.simulate('change', { target: { value: 'text' } });
+    expect(wrapper.find('textarea').props().value).toEqual('text');
   });
 });
 
-describe("spinner", () => {
+describe('spinner', () => {
   let wrapper;
   const setup = (initialState) => {
     store = storeFactory(initialState);
@@ -32,28 +32,28 @@ describe("spinner", () => {
   afterEach(() => {
     wrapper.unmount();
   });
-  test("shows spinner after dispatch setLoading(true)", () => {
+  test('shows spinner after dispatch setLoading(true)', () => {
     wrapper = setup();
     store.dispatch(actions.setNewPostLoading(true));
     wrapper.setProps();
-    const spinner = findByTestAttr(wrapper, "component-spinner");
+    const spinner = findByTestAttr(wrapper, 'component-spinner');
     expect(spinner.exists()).toBe(true);
   });
-  test("hides spinner after dispatch setLoading(false)", () => {
+  test('hides spinner after dispatch setLoading(false)', () => {
     wrapper = setup({ posts: { loading: true } });
     store.dispatch(actions.setNewPostLoading(false));
     wrapper.setProps();
-    const spinner = findByTestAttr(wrapper, "component-spinner");
+    const spinner = findByTestAttr(wrapper, 'component-spinner');
     expect(spinner.exists()).toBe(false);
   });
 });
 
 const createUseReducerMock = (images) => {
-  const mockUseReducer = jest.fn().mockReturnValue([{ text: "text", images }, jest.fn()]);
+  const mockUseReducer = jest.fn().mockReturnValue([{ text: 'text', images }, jest.fn()]);
   React.useReducer = mockUseReducer;
 };
 
-describe("displays image", () => {
+describe('displays image', () => {
   let wrapper;
   const setup = (images) => {
     createUseReducerMock(images);
@@ -64,29 +64,14 @@ describe("displays image", () => {
     wrapper.unmount();
   });
   test("shows image when state.images isn't an empty array", () => {
-    wrapper = setup([{ preview: "img.png" }]);
-    const image = findByTestAttr(wrapper, "image");
+    wrapper = setup([{ preview: 'img.png' }]);
+    const image = findByTestAttr(wrapper, 'image');
     expect(image.exists()).toBe(true);
   });
 
-  test("does not show image when state.images is empty array", () => {
+  test('does not show image when state.images is empty array', () => {
     wrapper = setup([]);
-    const image = findByTestAttr(wrapper, "image");
+    const image = findByTestAttr(wrapper, 'image');
     expect(image.exists()).toBe(false);
   });
 });
-
-// describe("AddPostModule form submit", () => {
-//   let wrapper;
-//   const setup = (images, defaultProps) => {
-//     createUseReducerMock(images);
-//     return mount(<UnconnectedAddPostModule {...defaultProps} />);
-//   };
-//   test("calls onSubmit function ", () => {
-//     const mockHandleSubmit = jest.fn();
-//     wrapper = setup([], { handleSubmit: mockHandleSubmit });
-//     const form = wrapper.find("form");
-//     form.simulate("submit", { preventDefault: () => {} });
-//     expect(mockHandleSubmit).toHaveBeenCalled();
-//   });
-// });

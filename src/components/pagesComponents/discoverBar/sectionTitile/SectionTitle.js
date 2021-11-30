@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./sectionTitle.module.scss";
+import classes from './sectionTitle.module.scss';
 
-const SectionTitle = (props) => {
-  return <h3 className={classes.sectionTitleComponent}>{props.title}</h3>;
+const SectionTitle = ({ title }) => {
+  return <h3 className={classes.sectionTitleComponent}>{title}</h3>;
 };
 
 export default SectionTitle;

@@ -1,12 +1,12 @@
-import React from "react";
-import classnames from "classnames";
+import React from 'react';
+import classnames from 'classnames';
 
-import classes from "./spinner.module.scss";
+import classes from './spinner.module.scss';
 
-const Spinner = (props) => {
+const Spinner = ({ className }) => {
   return (
-    <div className={classes.spinnerCenter} data-test="component-spinner">
-      <div className={classnames(classes.loader, props.className)}></div>
+    <div className={classes.spinnerCenter} data-test='component-spinner'>
+      <div className={classnames(classes.loader, className)}></div>
     </div>
   );
 };
