@@ -1,0 +1,72 @@
+.header {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.inputsContainer {
+  margin: 0.9em 0 1.4em;
+}
+
+.button {
+  width: 100%;
+  font-size: 15px;
+  padding: 0.5em 0;
+  margin: 0.8em 0;
+}
+
+.input {
+  margin: 0.3em 0;
+  width: 100%;
+}
+
+@media (min-width: 550px) and (orientation: portrait) {
+  .header {
+    font-size: 30px;
+  }
+
+  .button {
+    font-size: 18px;
+    width: 50%;
+    margin: 1em auto;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .profileInfoSec {
+    flex-basis: 50%;
+  }
+
+  .header {
+    display: none;
+  }
+
+  .inputsContainer {
+    margin: 0 0 1em;
+  }
+
+  .button {
+    width: 60%;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 800px) and (orientation: landscape) {
+  .profileInfoSec {
+    flex-basis: 52%;
+  }
+
+  .button {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1000px) and (orientation: landscape) {
+  .profileInfoSec {
+    flex-basis: 50%;
+  }
+
+  .button {
+    width: 45%;
+    font-size: 18px;
+  }
+}
