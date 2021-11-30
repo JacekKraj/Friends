@@ -1,23 +1,24 @@
-import React from "react";
-import classnames from "classnames";
+import React from 'react';
+import classnames from 'classnames';
 
-import classes from "./button.module.scss";
+import classes from './button.module.scss';
 
 const Button = (props) => {
+  const { disabled, onClick, className, isTransparent, testData, children } = props;
   return (
     <button
-      type="submit"
-      disabled={props.disabled}
-      onClick={props.onClick}
+      type='submit'
+      disabled={disabled}
+      onClick={onClick}
       className={classnames(
         classes.button,
-        props.className,
-        props.transparent ? classes.buttonTransparent : classes.buttonNormal,
-        props.disabled && classes.buttonDisabled
+        className,
+        isTransparent ? classes.buttonTransparent : classes.buttonNormal,
+        disabled && classes.buttonDisabled
       )}
-      data-test={props.testData}
+      data-test={testData}
     >
-      {props.children}
+      {children}
     </button>
   );
 };

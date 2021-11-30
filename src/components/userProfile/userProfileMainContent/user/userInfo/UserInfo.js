@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./userInfo.module.scss";
+import classes from './userInfo.module.scss';
 
-const UserInfo = (props) => {
+const UserInfo = ({ icon, text }) => {
   return (
-    <div className={classes.userInfoComponent} data-test="user-info-component">
-      {props.icon}
-      <p className={classes.text}>{props.text}</p>
+    <div className={classes.userInfoComponent} data-test='user-info-component'>
+      {icon}
+      <p className={classes.text}>{text}</p>
     </div>
   );
 };

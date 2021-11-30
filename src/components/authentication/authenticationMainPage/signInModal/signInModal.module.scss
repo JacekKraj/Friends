@@ -9,6 +9,11 @@
   background-color: #fff;
   padding: 6%;
   overflow-y: auto;
+  display: none;
+}
+
+.modalVisible {
+  display: block !important;
 }
 
 .title {

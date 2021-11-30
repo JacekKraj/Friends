@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import classes from "./mainContentWrapper.module.scss";
+import classes from './mainContentWrapper.module.scss';
 
-const MainContentWrapper = (props) => {
-  return <div className={classes.mainContentWrapperComponent}>{props.children}</div>;
+const MainContentWrapper = ({ children }) => {
+  return <div className={classes.mainContentWrapperComponent}>{children}</div>;
 };
 
 export default MainContentWrapper;

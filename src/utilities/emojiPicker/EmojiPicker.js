@@ -1,30 +1,30 @@
-import React from "react";
-import Picker from "emoji-picker-react";
-import { makeStyles } from "@material-ui/core/styles";
-import { theme } from "./../breakpoints/breakpoints";
+import React from 'react';
+import Picker from 'emoji-picker-react';
+import { makeStyles } from '@material-ui/core/styles';
+import { theme } from './../breakpoints/breakpoints';
 
-import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
-import classes from "./emojiPickerContainer.module.scss";
+import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
+import classes from './emojiPickerContainer.module.scss';
 
 const useStyles = makeStyles(() => ({
   emoji: {
-    color: "#00B2EE",
-    cursor: "pointer",
-    position: "relative",
-    [theme.breakpoints.up("0")]: {
+    color: '#00B2EE',
+    cursor: 'pointer',
+    position: 'relative',
+    [theme.breakpoints.up('0')]: {
       width: 28,
       height: 28,
     },
-    [theme.breakpoints.up("768")]: {
+    [theme.breakpoints.up('768')]: {
       width: 35,
       height: 35,
     },
 
-    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
       width: 28,
       height: 28,
     },
-    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
       width: 30,
       height: 30,
     },
@@ -32,13 +32,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EmojiPicker = (props) => {
+  const { input, setCursorPosition, pickerStyle } = props;
+
   const iconStyle = useStyles();
+
   const [showPicker, setShowPicker] = React.useState(false);
 
   const picker = React.useRef();
 
   const handleShowPicker = () => {
-    props.input.current.focus();
+    input.ref.current.focus();
     setShowPicker(!showPicker);
   };
 
@@ -51,19 +54,21 @@ const EmojiPicker = (props) => {
   };
 
   React.useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
 
-  const handleChooseEmoji = (event, { emoji }) => {
-    props.input.current.focus();
-    const mousePosition = props.input.current.selectionStart;
-    const firstStringPart = props.inputValue.substring(0, mousePosition);
-    const secondStringPart = props.inputValue.substring(mousePosition);
-    props.handleChangeInputValue(firstStringPart + emoji + secondStringPart);
-    props.setCursorPosition(mousePosition + emoji.length);
+  const handleChooseEmoji = (_, { emoji }) => {
+    input.ref.current.focus();
+
+    const mousePosition = input.ref.current.selectionStart;
+    const firstStringPart = input.value.substring(0, mousePosition);
+    const secondStringPart = input.value.substring(mousePosition);
+
+    input.changeValue(firstStringPart + emoji + secondStringPart);
+    setCursorPosition(mousePosition + emoji.length);
   };
   return (
     <div ref={picker} className={classes.emojiPickerContainer}>
@@ -73,7 +78,7 @@ const EmojiPicker = (props) => {
           preload={false}
           disableSearchBar={true}
           onEmojiClick={handleChooseEmoji}
-          pickerStyle={{ position: "absolute", zIndex: 10, left: "0%", maxHeight: "45vh", ...props.pickerStyle }}
+          pickerStyle={{ position: 'absolute', zIndex: 10, left: '0%', maxHeight: '45vh', ...pickerStyle }}
         />
       )}
     </div>

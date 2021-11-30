@@ -1,62 +1,98 @@
-import React from "react";
-import { Redirect, useLocation } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Redirect, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import UserProfileMainContent from "./userProfileMainContent/UserProfileMainContent";
-import SideNav from "./../pagesComponents/sideNav/SideNav";
-import DiscoverBar from "./../pagesComponents/discoverBar/DiscoverBar";
-import WholePageWrapper from "../wrappers/wholePageWrapper/WholePageWrapper";
-import UserProfileDiscoverBar from "./userProfileDiscoverBar/UserProfileDiscoverBar";
+import UserProfileMainContent from './userProfileMainContent/UserProfileMainContent';
+import SideNav from './../pagesComponents/sideNav/SideNav';
+import DiscoverBar from './../pagesComponents/discoverBar/DiscoverBar';
+import WholePageWrapper from '../wrappers/wholePageWrapper/WholePageWrapper';
+import UserProfileDiscoverBar from './userProfileDiscoverBar/UserProfileDiscoverBar';
 
 const UserProfile = (props) => {
-  const [userData, setUserData] = React.useState({});
-  const [redirect, setRedirect] = React.useState(false);
+  const { userData, currUserModifiedEmail } = props;
+  const { currentUser, unfollowedUsers, followedUsers } = userData;
+
+  const [user, setUser] = React.useState({});
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
+
   const location = useLocation();
 
-  React.useEffect(() => {
+  const TYPE_NO_USER_FOUND = 'no-user-found';
+
+  const getUserEmialFromSearchParams = () => {
     const searchParams = new URLSearchParams(location.search);
-    const userEmail = searchParams.get("user");
-    let type, user;
-    if (userEmail) {
-      if (userEmail === props.currentUser.modifiedEmail) {
-        user = { ...props.currentUser };
-        type = "current";
-      } else {
-        user = props.unfollowedUsers.find((el) => {
-          return el.modifiedEmail === userEmail;
-        });
-        if (user) {
-          type = "unfollowed";
-        } else {
-          user = props.followedUsers.find((el) => {
-            return el.modifiedEmail === userEmail;
-          });
-          type = "followed";
-        }
-      }
-      if (user) {
-        setUserData({ ...user, type });
-      } else {
-        setRedirect(true);
-      }
-    } else {
-      setRedirect(true);
+    const userEmail = searchParams.get('user');
+    return userEmail;
+  };
+
+  const browseInOtherUsers = (users, userEmail) => {
+    const user = users.find((user) => {
+      return user.modifiedEmail === userEmail;
+    });
+
+    return user;
+  };
+
+  const isCurrentUser = (userEmail) => {
+    return userEmail === currentUser.modifiedEmail;
+  };
+
+  const isUnfollowedUser = (userEmail) => {
+    return !!browseInOtherUsers(unfollowedUsers, userEmail);
+  };
+
+  const isFollowedUser = (userEmail) => {
+    return !!browseInOtherUsers(followedUsers, userEmail);
+  };
+
+  const getUser = (userEmail) => {
+    if (!userEmail) {
+      return { type: TYPE_NO_USER_FOUND };
     }
-  }, [
-    props.currUserModifiedEmail,
-    props.followedUsers.length,
-    props.unfollowedUsers.length,
-    props.currentUser.profileImage,
-    JSON.stringify(props.currentUser.personalInfo),
-  ]);
+
+    let user, type;
+
+    if (isCurrentUser(userEmail)) {
+      user = { ...currentUser };
+      type = 'current';
+      return { ...user, type };
+    }
+
+    if (isUnfollowedUser(userEmail)) {
+      user = { ...browseInOtherUsers(unfollowedUsers, userEmail) };
+      type = 'unfollowed';
+      return { ...user, type };
+    }
+
+    if (isFollowedUser(userEmail)) {
+      user = { ...browseInOtherUsers(followedUsers, userEmail) };
+      type = 'followed';
+      return { ...user, type };
+    }
+
+    return { type: TYPE_NO_USER_FOUND };
+  };
+
+  React.useEffect(() => {
+    const userEmail = getUserEmialFromSearchParams();
+
+    const user = getUser(userEmail);
+
+    if (user.type === TYPE_NO_USER_FOUND) {
+      setShouldRedirect(true);
+      return;
+    }
+
+    setUser(user);
+  }, [currUserModifiedEmail, followedUsers.length, unfollowedUsers.length, currentUser.profileImage, JSON.stringify(currentUser.personalInfo)]);
 
   return (
     <WholePageWrapper>
-      {redirect && <Redirect to="usernotfound" />}
+      {shouldRedirect && <Redirect to='usernotfound' />}
       <SideNav />
-      <UserProfileMainContent userData={userData} />
+      <UserProfileMainContent user={user} />
       <DiscoverBar>
-        <UserProfileDiscoverBar followed={userData.followedUsersEmails} />
+        <UserProfileDiscoverBar followedUsersEmails={user.followedUsersEmails} />
       </DiscoverBar>
     </WholePageWrapper>
   );
@@ -64,9 +100,7 @@ const UserProfile = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-    currentUser: state.userData.currentUser,
+    userData: state.userData,
   };
 };
 

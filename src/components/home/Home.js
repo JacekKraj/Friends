@@ -1,20 +1,20 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import MainContent from "./mainContent/MainContent";
-import DiscoverBar from "./../pagesComponents/discoverBar/DiscoverBar";
-import SideNav from "./../pagesComponents/sideNav/SideNav";
-import DiscoverFriends from "./../pagesComponents/discoverBar/discoverFriends/DiscoverFriends";
-import DiscoverChat from "./../pagesComponents/discoverBar/discoverChat/DiscoverChat";
-import WholePageWrapper from "./../wrappers/wholePageWrapper/WholePageWrapper";
+import MainContent from './mainContent/MainContent';
+import DiscoverBar from './../pagesComponents/discoverBar/DiscoverBar';
+import SideNav from './../pagesComponents/sideNav/SideNav';
+import DiscoverFriends from './../pagesComponents/discoverBar/discoverFriends/DiscoverFriends';
+import DiscoverChat from './../pagesComponents/discoverBar/discoverChat/DiscoverChat';
+import WholePageWrapper from './../wrappers/wholePageWrapper/WholePageWrapper';
 
-const Home = (props) => {
+const Home = ({ unfollowedUsers, followedUsersEmails }) => {
   return (
     <WholePageWrapper>
       <SideNav />
       <MainContent />
       <DiscoverBar>
-        <DiscoverFriends type="home" users={props.unfollowedUsers.slice(0, 3)} followedUsersEmails={props.followedUsersEmails} />
+        <DiscoverFriends location='home' users={unfollowedUsers.slice(0, 3)} followedUsersEmails={followedUsersEmails} />
         <DiscoverChat />
       </DiscoverBar>
     </WholePageWrapper>

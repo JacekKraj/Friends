@@ -1,42 +1,61 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import classes from "./userProfileMainContent.module.scss";
-import Header from "./../../pagesComponents/header/Header";
-import MainContentWrapper from "./../../wrappers/mainContentWrapper/MainContentWrapper";
-import Posts from "./../../pagesComponents/posts/Posts";
-import AddPostModule from "./../../pagesComponents/addPostModule/AddPostModule";
-import * as actions from "./../../../actions/index";
-import { createArrayOfPosts } from "./../../../utilities/helperFunctions/createArrayOfPosts";
-import User from "./user/User";
+import Header from './../../pagesComponents/header/Header';
+import MainContentWrapper from './../../wrappers/mainContentWrapper/MainContentWrapper';
+import Posts from './../../pagesComponents/posts/Posts';
+import AddPostModule from './../../pagesComponents/addPostModule/AddPostModule';
+import * as actions from './../../../actions/index';
+import { getArrayOfPosts } from '../../../utilities/helperFunctions/getArrayOfPosts';
+import User from './user/User';
 
 const UserProfileMainContent = (props) => {
+  const { user, usersPosts, onGetUsersPosts, onSetGetPostsLoading } = props;
+
   const [posts, setPosts] = React.useState([]);
 
+  const postsAreDownloaded = (userEmail) => {
+    return !!usersPosts[userEmail];
+  };
+
+  const getUserPosts = (userEmail) => {
+    return new Promise((resolve) => {
+      const arePostsDownloaded = postsAreDownloaded(userEmail);
+
+      if (arePostsDownloaded) {
+        const posts = getArrayOfPosts({ [userEmail]: usersPosts[userEmail] }, [userEmail]);
+        resolve(posts);
+        return;
+      }
+      const fetchPostsFromDatabse = new Promise((resolve) => {
+        onGetUsersPosts(userEmail, resolve);
+      });
+
+      fetchPostsFromDatabse.then((response) => {
+        const posts = getArrayOfPosts(response, [userEmail]);
+        resolve(posts);
+        return;
+      });
+    });
+  };
+
   React.useEffect(() => {
-    const userEmail = props.userData.modifiedEmail;
-    if (props.usersPosts[userEmail]) {
-      const downloadedPosts = createArrayOfPosts({ [userEmail]: props.usersPosts[userEmail] }, [userEmail]);
-      props.onSetGetPostsLoading(false);
-      setPosts(downloadedPosts);
-    } else {
-      const getPosts = new Promise((resolve) => {
-        props.onGetUsersPosts(userEmail, resolve);
-      });
-      getPosts.then((response) => {
-        const downloadedPosts = createArrayOfPosts(response, [userEmail]);
-        setPosts(downloadedPosts);
-        props.onSetGetPostsLoading(false);
-      });
-    }
-  }, [props.userData.modifiedEmail, props.usersPosts]);
+    const setupPosts = async () => {
+      const userPosts = await getUserPosts(user.modifiedEmail);
+
+      onSetGetPostsLoading(false);
+      setPosts(userPosts);
+    };
+
+    setupPosts();
+  }, [user.modifiedEmail, usersPosts]);
 
   return (
     <MainContentWrapper>
-      <Header sectionName="Profile" />
-      <User userData={props.userData} />
+      <Header sectionName='Profile' />
+      <User user={user} />
       <main>
-        {props.userData?.type === "current" && <AddPostModule />}
+        {user?.type === 'current' && <AddPostModule />}
         <Posts posts={posts} />
       </main>
     </MainContentWrapper>

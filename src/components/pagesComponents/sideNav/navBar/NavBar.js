@@ -1,65 +1,68 @@
-import React from "react";
-import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import classnames from "classnames";
+import React from 'react';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import PersonIcon from "@material-ui/icons/Person";
-import ChatIcon from "@material-ui/icons/Chat";
-import EmojiPeopleRoundedIcon from "@material-ui/icons/EmojiPeopleRounded";
-import classes from "./navBar.module.scss";
-import NavItem from "./navItem/NavItem";
-import * as actions from "./../../../../actions/index";
-import { theme } from "./../../../../utilities/breakpoints/breakpoints";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
+import ChatIcon from '@material-ui/icons/Chat';
+import EmojiPeopleRoundedIcon from '@material-ui/icons/EmojiPeopleRounded';
+import classes from './navBar.module.scss';
+import NavItem from './navItem/NavItem';
+import * as actions from './../../../../actions/index';
+import { theme } from './../../../../utilities/breakpoints/breakpoints';
 
 const useStyles = makeStyles(() => ({
   icon: {
-    color: "#ffa500",
-    [theme.breakpoints.up("0")]: {
+    color: '#ffa500',
+    [theme.breakpoints.up('0')]: {
       width: 30,
       height: 30,
     },
-    [theme.breakpoints.up("400")]: {
+    [theme.breakpoints.up('400')]: {
       width: 33,
       height: 33,
     },
 
-    [theme.breakpoints.up("768")]: {
+    [theme.breakpoints.up('768')]: {
       width: 50,
       height: 50,
     },
 
-    [`${theme.breakpoints.up("600")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
       width: 33,
       height: 33,
     },
 
-    [`${theme.breakpoints.up("1000")} and (orientation:landscape)`]: {
+    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
       width: 39,
       height: 39,
     },
   },
 }));
 
-const NavBar = (props) => {
+const NavBar = ({ currentUser, lastChat, onLogout }) => {
+  const { profileImage, name, modifiedEmail } = currentUser;
+
   const iconStyle = useStyles();
+
   return (
     <div className={classes.navBarComponent}>
       <div className={classes.user}>
         <div className={classes.profileImageContainer}>
-          <img className={classes.profileImage} src={props.currUserProfileImage} alt="User profile image" />
+          <img className={classes.profileImage} src={profileImage} alt='User profile image' />
         </div>
-        <p className={classes.userName}>{props.currUserName}</p>
+        <p className={classes.userName}>{name}</p>
       </div>
 
-      <NavItem link={`/users?user=${props.currUserModifiedEmail}`} icon={<PersonIcon className={iconStyle.icon} />} description="Profile" />
-      <NavItem link="/friends" icon={<EmojiPeopleRoundedIcon className={iconStyle.icon} />} description="Friends" />
-      <NavItem link={`/chat?to=${props.lastChat || "new"}`} icon={<ChatIcon className={iconStyle.icon} />} description="Chat" />
+      <NavItem navigateTo={`/users?user=${modifiedEmail}`} icon={<PersonIcon className={iconStyle.icon} />} label='Profile' />
+      <NavItem navigateTo='/friends' icon={<EmojiPeopleRoundedIcon className={iconStyle.icon} />} label='Friends' />
+      <NavItem navigateTo={`/chat?to=${lastChat || 'new'}`} icon={<ChatIcon className={iconStyle.icon} />} label='Chat' />
       <NavItem
-        link="/"
-        onClick={props.onLogout}
+        navigateTo='/'
+        onClick={onLogout}
         icon={<ExitToAppIcon className={classnames(iconStyle.icon, classes.signoutIcon)} />}
-        description="Sign out"
+        label='Sign out'
       />
     </div>
   );
@@ -67,9 +70,7 @@ const NavBar = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    currUserProfileImage: state.userData.currentUser.profileImage,
-    currUserName: state.userData.currentUser.name,
-    currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
+    currentUser: state.userData.currentUser,
     lastChat: state.chat.lastChat,
   };
 };

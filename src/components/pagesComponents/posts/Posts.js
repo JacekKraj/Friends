@@ -1,34 +1,42 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import classes from "./posts.module.scss";
-import Post from "./post/Post";
-import Spinner from "./../../UI/spinner/Spinner";
+import classes from './posts.module.scss';
+import Post from './post/Post';
+import Spinner from './../../UI/spinner/Spinner';
 
 const Posts = (props) => {
-  const getAuthorProfileImage = (author) => {
-    let profileImage = null;
+  const { followedUsers, unfollowedUsers, currentUser, posts, isLoading } = props;
 
-    [...props.followedUsers, ...props.unfollowedUsers].forEach((el) => {
-      if (el.modifiedEmail === author.modifiedEmail) {
-        profileImage = el.profileImage;
-        return;
+  const getAuthorData = (author) => {
+    const usersToBrowseIn = [...followedUsers, ...unfollowedUsers, currentUser];
+    const user = usersToBrowseIn.find((user) => {
+      if (user.modifiedEmail === author.modifiedEmail) {
+        return user;
       }
     });
-    profileImage = profileImage || props.currentUserProfileImage;
+    return user;
+  };
+
+  const getAuthorProfileImage = (author) => {
+    const authorData = getAuthorData(author);
+    const profileImage = authorData?.profileImage;
     return profileImage;
   };
 
-  const posts = props.posts.map((el) => {
-    const profileImage = getAuthorProfileImage(el.author);
-    return <Post {...el} profileImage={profileImage} key={el.post.creationTime} />;
+  const buildPosts = posts?.map((post) => {
+    const profileImage = getAuthorProfileImage(post.author);
+    const author = { ...post.author, profileImage };
+    return <Post author={author} post={post.post} key={post.post.creationTime} />;
   });
+
+  const postsAreNotFound = !isLoading && !posts?.length;
 
   return (
     <div className={classes.postsComponent}>
-      {props.isLoading ? <Spinner /> : posts}
-      {!props.isLoading && !posts.length && (
-        <p className={classes.noPostsInfo} data-test="no-posts-info">
+      {isLoading ? <Spinner /> : buildPosts}
+      {postsAreNotFound && (
+        <p className={classes.noPostsInfo} data-test='no-posts-info'>
           There are no posts to display.
         </p>
       )}
@@ -41,7 +49,7 @@ const mapStateToProps = (state) => {
     isLoading: state.posts.getPostsLoading,
     followedUsers: state.userData.followedUsers,
     unfollowedUsers: state.userData.unfollowedUsers,
-    currentUserProfileImage: state.userData.currentUser.profileImage,
+    currentUser: state.userData.currentUser,
   };
 };
 

@@ -1,10 +1,10 @@
-import * as actionTypes from "./../actions/actionsTypes";
-import defaultUserImage from "./../assets/images/defaultUserImage.png";
+import * as actionTypes from './../actions/actionsTypes';
+import defaultUserImage from './../assets/images/defaultUserImage.png';
 
 const initialState = {
   currentUser: {
-    modifiedEmail: "",
-    name: "",
+    modifiedEmail: '',
+    name: '',
     birthdayDate: {},
     profileImage: defaultUserImage,
     personalInfo: {},
@@ -15,27 +15,49 @@ const initialState = {
   updateProfileLoading: false,
 };
 
+const createUsersType = (usersEmails, allUsers) => {
+  const createdUsersType = usersEmails.map((userEmail) => {
+    const user = allUsers[userEmail];
+    delete user.posts;
+    return { modifiedEmail: userEmail, profileImage: defaultUserImage, ...user };
+  });
+  return createdUsersType;
+};
+
+const divideUsers = (emails, allUsers) => {
+  const followedUsers = createUsersType(emails.followedUsers, allUsers);
+  const unfollowedUsers = createUsersType(emails.unfollowedUsers, allUsers);
+  const dividedUsers = { followedUsers, unfollowedUsers };
+  return dividedUsers;
+};
+
+const updateUserProperties = (user) => {
+  const updatedProperties = {
+    ...user,
+    profileImage: user.profileImage || defaultUserImage,
+    personalInfo: user.personalInfo || {},
+    followedUsersEmails: user.followedUsersEmails || [],
+  };
+  delete user.posts;
+  return updatedProperties;
+};
+
 const userDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_USER_DATA:
-      const currentUser = { ...action.data[action.modifiedEmail], modifiedEmail: action.modifiedEmail };
-      currentUser.profileImage = currentUser.profileImage || defaultUserImage;
-      currentUser.personalInfo = currentUser.personalInfo || {};
-      delete currentUser.posts;
-      currentUser.followedUsersEmails = currentUser.followedUsersEmails || [];
-      const unfollowedUsersEmails = Object.keys(action.data).filter((el) => {
-        return el !== action.modifiedEmail && !currentUser?.followedUsersEmails.includes(el);
+      let currentUser = { ...action.data[action.modifiedEmail], modifiedEmail: action.modifiedEmail };
+      currentUser = updateUserProperties(currentUser);
+
+      const unfollowedUsersEmails = Object.keys(action.data).filter((userEmail) => {
+        return userEmail !== action.modifiedEmail && !currentUser?.followedUsersEmails.includes(userEmail);
       });
-      const unfollowedUsers = unfollowedUsersEmails.map((el) => {
-        const user = action.data[el];
-        delete user.posts;
-        return { modifiedEmail: el, profileImage: defaultUserImage, ...user };
-      });
-      const followedUsers = currentUser?.followedUsersEmails.map((el) => {
-        const user = action.data[el];
-        delete user.posts;
-        return { modifiedEmail: el, profileImage: defaultUserImage, ...user };
-      });
+
+      const usersEmails = {
+        followedUsers: currentUser.followedUsersEmails,
+        unfollowedUsers: unfollowedUsersEmails,
+      };
+      const { unfollowedUsers, followedUsers } = divideUsers(usersEmails, action.data);
+
       return {
         ...state,
         currentUser: {

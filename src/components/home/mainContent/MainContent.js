@@ -1,36 +1,39 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import Header from "./../../pagesComponents/header/Header";
-import AddPostModule from "./../../pagesComponents/addPostModule/AddPostModule";
-import * as actions from "./../../../actions/index";
-import Posts from "./../../pagesComponents/posts/Posts";
-import { createArrayOfPosts } from "./../../../utilities/helperFunctions/createArrayOfPosts";
-import MainContentWrapper from "./../../wrappers/mainContentWrapper/MainContentWrapper";
+import Header from './../../pagesComponents/header/Header';
+import AddPostModule from './../../pagesComponents/addPostModule/AddPostModule';
+import * as actions from './../../../actions/index';
+import Posts from './../../pagesComponents/posts/Posts';
+import { getArrayOfPosts } from './../../../utilities/helperFunctions/getArrayOfPosts';
+import MainContentWrapper from './../../wrappers/mainContentWrapper/MainContentWrapper';
 
 const MainContent = (props) => {
+  const { onGetUsersPosts, onSetGetPostsLoading, currUserModifiedEmail, usersPosts, followedUsersEmails } = props;
+
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
-    const getPosts = (el) => {
+    const getPosts = (user) => {
       return new Promise((resolve) => {
-        props.onGetUsersPosts(el, resolve);
+        onGetUsersPosts(user, resolve);
       });
     };
 
-    Promise.all([...props.followedUsersEmails, props.currUserModifiedEmail].map((el) => getPosts(el))).then(() => {
-      props.onSetGetPostsLoading(false);
+    Promise.all([...followedUsersEmails, currUserModifiedEmail].map((user) => getPosts(user))).then(() => {
+      onSetGetPostsLoading(false);
     });
-  }, [props.currUserModifiedEmail]);
+  }, [currUserModifiedEmail]);
 
   React.useEffect(() => {
-    const usersPosts = createArrayOfPosts(props.usersPosts, [...props.followedUsersEmails, props.currUserModifiedEmail]);
-    setPosts(usersPosts);
-  }, [props.usersPosts]);
+    const enabledUsersEmails = [...followedUsersEmails, currUserModifiedEmail];
+    const followedUsersPosts = getArrayOfPosts(usersPosts, enabledUsersEmails);
+    setPosts(followedUsersPosts);
+  }, [usersPosts]);
 
   return (
     <MainContentWrapper>
-      <Header sectionName="Home" />
+      <Header sectionName='Home' />
       <main>
         <AddPostModule />
         <Posts posts={posts} />

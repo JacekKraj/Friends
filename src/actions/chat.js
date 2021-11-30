@@ -1,5 +1,5 @@
-import * as actionTypes from "./actionsTypes";
-import fire from "./../firebaseConfig";
+import * as actionTypes from './actionsTypes';
+import fire from './../firebaseConfig';
 
 export const setChat = (chat) => {
   return {
@@ -46,7 +46,7 @@ export const sendNotification = (userToSend, notifications) => {
 
 export const removeNotification = (currUser, userToRemove, notifications) => {
   return (dispatch) => {
-    const newNotifications = notifications.filter((el) => el !== userToRemove);
+    const newNotifications = notifications.filter((userEmail) => userEmail !== userToRemove);
     dispatch(sendNotification(currUser, newNotifications));
     dispatch(setChatNotifications(newNotifications));
   };

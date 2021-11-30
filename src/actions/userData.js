@@ -1,7 +1,7 @@
-import fire from "./../firebaseConfig";
-import * as actionTypes from "./actionsTypes";
-import { failToast, successToast } from "./../utilities/toasts/toasts";
-import * as actions from "./index";
+import fire from './../firebaseConfig';
+import * as actionTypes from './actionsTypes';
+import { failToast, successToast } from './../utilities/toasts/toasts';
+import * as actions from './index';
 
 export const setUserData = (data, modifiedEmail) => {
   return {
@@ -31,7 +31,7 @@ export const followUser = (userToFollow, currentUser, followedUsersEmails) => {
       .ref()
       .update(updates)
       .then(() => {
-        dispatch(setFollowedUsers(userToFollow, newFollowedUsers, "unfollowedUsers", "followedUsers"));
+        dispatch(setFollowedUsers(userToFollow, newFollowedUsers, 'unfollowedUsers', 'followedUsers'));
         dispatch(actions.getUsersPosts(userToFollow, () => {}));
       })
       .catch((error) => {
@@ -43,14 +43,14 @@ export const followUser = (userToFollow, currentUser, followedUsersEmails) => {
 export const unfollowUser = (userToUnfollow, currentUser, followedUsersEmails) => {
   return (dispatch) => {
     const updates = {};
-    const newFollowedUsers = followedUsersEmails.filter((el) => el !== userToUnfollow);
+    const newFollowedUsers = followedUsersEmails.filter((email) => email !== userToUnfollow);
     updates[`users/${currentUser}/followedUsersEmails`] = [...newFollowedUsers];
     fire
       .database()
       .ref()
       .update(updates)
       .then(() => {
-        dispatch(setFollowedUsers(userToUnfollow, newFollowedUsers, "followedUsers", "unfollowedUsers"));
+        dispatch(setFollowedUsers(userToUnfollow, newFollowedUsers, 'followedUsers', 'unfollowedUsers'));
       })
       .catch((error) => {
         failToast(error.message);
@@ -93,7 +93,7 @@ export const setUserProfileImage = (image, userEmail) => {
               .update(updates)
               .then(() => {
                 dispatch(setProfileImage(url));
-                successToast("Your profile image has been changed.");
+                successToast('Your profile image has been changed.');
                 dispatch(setUpdateProfileLoading(false));
               });
           })
@@ -128,7 +128,7 @@ export const setPersonalInfo = (info, userEmail) => {
       .then(() => {
         dispatch(setInfo(info));
         dispatch(setUpdateProfileLoading(false));
-        successToast("Your profile has benn updated.");
+        successToast('Your profile has benn updated.');
       })
       .catch((error) => {
         failToast(error.message);
