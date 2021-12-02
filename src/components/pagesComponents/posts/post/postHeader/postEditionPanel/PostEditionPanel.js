@@ -3,12 +3,12 @@ import React from 'react';
 import classes from './postEditionPanel.module.scss';
 import PostEditionPanelOption from './postEditionPanelOption/PostEditionPanelOption';
 
-const PostEditionPanel = ({ handleDelete, handleEdit, setShowEditionPanel }) => {
-  const postEditionPanelRef = React.useRef();
+const PostEditionPanel = (props) => {
+  const { handleDelete, handleEdit, setIsEditionPanelShown, postEditionPanelContainerRef } = props;
 
   const handleOutsideClick = (event) => {
-    if (!postEditionPanelRef.current?.contains(event.target)) {
-      setShowEditionPanel(false);
+    if (!postEditionPanelContainerRef.current?.contains(event.target)) {
+      setIsEditionPanelShown(false);
     }
   };
 
@@ -20,7 +20,7 @@ const PostEditionPanel = ({ handleDelete, handleEdit, setShowEditionPanel }) => 
   }, []);
 
   return (
-    <div className={classes.postEditionPanelComponent} data-test='component-post-edition-panel' ref={postEditionPanelRef}>
+    <div className={classes.postEditionPanelComponent} data-test='component-post-edition-panel'>
       <PostEditionPanelOption text='Remove' testAttr='remove-btn' onClick={handleDelete} />
       <PostEditionPanelOption text='Edit' testAttr='edit-btn' onClick={handleEdit} />
     </div>
