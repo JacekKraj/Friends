@@ -1,3 +1,5 @@
+@import './../../../../../../../scssUtilities/colors';
+
 .postEditionPanelOptionComponent {
   font-size: 14px;
   padding: 0.5em 0;
@@ -9,7 +11,7 @@
 }
 
 .postEditionPanelOptionComponent:hover {
-  color: #555;
+  color: $gray-50;
 }
 
 @media (min-width: 411px) and (orientation: portrait) {

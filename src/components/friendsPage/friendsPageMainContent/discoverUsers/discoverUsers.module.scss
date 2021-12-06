@@ -1,8 +1,10 @@
+@import './../../../../scssUtilities/colors';
+
 .header {
   font-size: 20px;
   text-transform: uppercase;
   font-weight: bold;
-  color: #555;
+  color: $gray-50;
 }
 
 .users {
@@ -21,7 +23,7 @@
 }
 
 .info {
-  color: #333;
+  color: $gray-60;
 }
 
 @media (min-width: 500px) and (orientation: portrait) {

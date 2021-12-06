@@ -1,9 +1,11 @@
+@import './../../../../../scssUtilities/colors';
+
 .autoCompleteOptionComponent {
   padding: 0.4em 0;
 }
 
 .autoCompleteOptionComponent:hover .user {
-  color: #ce8405;
+  color: $orange-25;
 }
 
 @media (min-width: 768px) and (orientation: portrait) {

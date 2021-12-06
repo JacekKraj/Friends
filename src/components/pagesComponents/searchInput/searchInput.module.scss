@@ -1,3 +1,5 @@
+@import './../../../scssUtilities/colors';
+
 .container {
   position: relative;
   width: 100%;
@@ -10,7 +12,7 @@
   border-radius: 25px;
   padding: 0.3em 0.6em;
   flex-grow: 1;
-  border: 2px solid #f59c03;
+  border: 2px solid $orange-20;
 }
 
 .searchInput {
@@ -18,11 +20,11 @@
   background-color: transparent;
   margin-left: 0.5em;
   outline: none;
-  color: #555;
+  color: $gray-50;
 }
 
 ::placeholder {
-  color: #555;
+  color: $gray-50;
 }
 
 @media (min-width: 400px) and (orientation: portrait) {

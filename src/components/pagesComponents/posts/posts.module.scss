@@ -1,3 +1,5 @@
+@import './../../../scssUtilities/colors';
+
 .postsComponent {
   position: relative;
   min-height: 50vh;
@@ -6,5 +8,5 @@
 .noPostsInfo {
   text-align: center;
   padding: 10% 0;
-  color: #555;
+  color: $gray-50;
 }

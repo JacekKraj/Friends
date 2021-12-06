@@ -1,3 +1,5 @@
+@import './../../../../scssUtilities/colors';
+
 .smallScreenNavComponent {
   position: fixed;
   top: 0;
@@ -15,7 +17,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.8em 8% 0.8em 6%;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-10;
 }
 
 .logo {
@@ -57,7 +59,7 @@
     font-size: 34px;
   }
   .logoContainer {
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid $gray-10;
   }
   @keyframes showModal {
     0% {

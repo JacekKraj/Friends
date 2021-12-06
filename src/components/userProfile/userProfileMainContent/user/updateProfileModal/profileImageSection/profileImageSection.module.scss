@@ -1,9 +1,11 @@
+@import './../../../../../../scssUtilities/colors';
+
 .profileImage {
   display: block;
   width: 100%;
-  background-color: #bbb;
-  -webkit-box-shadow: 0px 0px 5px 1px #ddd;
-  box-shadow: 0px 0px 5px 1px #ddd;
+  background-color: $gray-20;
+  -webkit-box-shadow: 0px 0px 5px 1px $gray-10;
+  box-shadow: 0px 0px 5px 1px $gray-10;
 }
 
 .profileImageButtons {

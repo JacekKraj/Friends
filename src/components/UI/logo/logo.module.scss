@@ -1,9 +1,11 @@
+@import './../../../scssUtilities/colors';
+
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 43%;
-  background-color: #ffa500;
+  background-color: $orange-10;
   color: white;
   font-weight: bold;
   width: 1.65em;
@@ -13,7 +15,7 @@
 
 .logo p {
   margin-left: -5%;
-  font-family: "Gloria Hallelujah";
+  font-family: 'Gloria Hallelujah';
 }
 
 @media (min-width: 500px) and (orientation: portrait) {

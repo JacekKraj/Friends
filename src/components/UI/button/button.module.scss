@@ -1,6 +1,8 @@
+@import './../../../scssUtilities/colors';
+
 .button {
   color: white;
-  border: 2px solid #e08f03;
+  border: 2px solid $orange-20;
   font-size: 18px;
   padding: 0.6em 1em;
   font-weight: bold;
@@ -13,33 +15,32 @@
 }
 
 .buttonNormal:hover {
-  background-color: #f59c03;
-  border: 2px solid #ce8405;
+  background-color: $orange-15;
+  border: 2px solid $orange-25;
 }
 .buttonTransparent:hover {
-  background-color: rgba(255, 165, 0, 0.08);
+  background-color: $orange-05;
 }
 
 .buttonNormal {
-  background-color: #ffa500;
-  border: 2px solid #e08f03;
+  background-color: $orange-10;
 }
 
 .buttonTransparent {
   background-color: transparent;
-  color: #e08f03;
+  color: $orange-20;
 }
 
 .buttonDisabled {
   cursor: not-allowed;
-  border-color: #aaa;
-  color: #aaa;
+  border-color: $gray-25;
+  color: $gray-25aa;
   background-color: #eee;
 }
 
 .buttonDisabled:hover {
-  border-color: #aaa;
-  color: #aaa;
+  border-color: $gray-25;
+  color: $gray-25;
   background-color: #eee;
 }
 @media (min-width: 500px) and (orientation: portrait) {

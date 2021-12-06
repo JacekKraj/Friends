@@ -1,8 +1,10 @@
+@import './../../../../scssUtilities/colors';
+
 .info {
   font-size: 14px;
   margin-top: 1em;
   margin-bottom: 1.3em;
-  color: #333;
+  color: $gray-60;
 }
 
 @media (min-width: 768px) and (orientation: portrait) {

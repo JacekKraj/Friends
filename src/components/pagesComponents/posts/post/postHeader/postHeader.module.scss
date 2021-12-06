@@ -1,3 +1,5 @@
+@import './../../../../../scssUtilities/colors';
+
 .postHeader {
   display: flex;
   justify-content: space-between;
@@ -18,12 +20,12 @@
   height: 32px;
   border-radius: 50%;
   margin-right: 0.45em;
-  background-color: #bbb;
+  background-color: $gray-20;
   overflow: hidden;
 }
 
 .authorName {
-  color: #333;
+  color: $gray-60;
   margin-bottom: 0.08em;
   font-size: 14px;
   cursor: pointer;

@@ -1,3 +1,5 @@
+@import './../../../scssUtilities/colors';
+
 .chatInstructionComponent {
   padding: 5vh 5%;
   text-align: center;
@@ -9,7 +11,7 @@
 .chatInstructionComponent h3 {
   font-size: 26px;
   margin-bottom: 0.8em;
-  color: #333;
+  color: $gray-60;
 }
 
 .chatInstructionComponent p {

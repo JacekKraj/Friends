@@ -1,6 +1,8 @@
+@import './../../../../scssUtilities/colors';
+
 .info {
   margin: 0.5em 0;
-  color: #333;
+  color: $gray-60;
   font-size: 14px;
 }
 
