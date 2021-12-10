@@ -14,47 +14,41 @@ import UserInfo from './userInfo/UserInfo';
 import Spinner from './../../../UI/spinner/Spinner';
 import UpdateProfileModal from './updateProfileModal/UpadateProfileModal';
 import * as actions from './../../../../actions/index';
-import { theme } from './../../../../utilities/breakpoints/breakpoints';
+import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
+
+const { mobileVertical, tabletVertical, mobileHorizontal, tabletHorizontal, laptopSm } = breakpoints;
 
 const useStyles = makeStyles(() => ({
   icon: {
     color: '#ffa500',
-    [theme.breakpoints.up('0')]: {
-      width: 23,
-      height: 23,
-    },
-    [theme.breakpoints.up('400')]: {
+    width: 23,
+    height: 23,
+    [mobileVertical]: {
       width: 26,
       height: 26,
     },
-
-    [theme.breakpoints.up('550')]: {
+    [tabletVertical]: {
       width: 29,
       height: 29,
     },
-
-    [`${theme.breakpoints.up('550')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 25,
       height: 25,
     },
-
-    [`${theme.breakpoints.up('800')} and (orientation:landscape)`]: {
+    [tabletHorizontal]: {
       width: 30,
       height: 30,
     },
-
-    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
+    [laptopSm]: {
       width: 28,
       height: 28,
     },
   },
   chatIcon: {
     color: 'white',
-    [theme.breakpoints.up('0')]: {
-      width: 26,
-      height: 26,
-    },
-    [`${theme.breakpoints.up('768')} and (orientation:portrait)`]: {
+    width: 26,
+    height: 26,
+    [tabletVertical]: {
       width: 38,
       height: 38,
     },

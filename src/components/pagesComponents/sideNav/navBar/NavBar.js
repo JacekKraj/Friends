@@ -10,31 +10,28 @@ import EmojiPeopleRoundedIcon from '@material-ui/icons/EmojiPeopleRounded';
 import classes from './navBar.module.scss';
 import NavItem from './navItem/NavItem';
 import * as actions from './../../../../actions/index';
-import { theme } from './../../../../utilities/breakpoints/breakpoints';
+import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
+
+const { mobileVertical, tabletVertical, mobileHorizontal, laptopSm } = breakpoints;
 
 const useStyles = makeStyles(() => ({
   icon: {
     color: '#ffa500',
-    [theme.breakpoints.up('0')]: {
-      width: 30,
-      height: 30,
-    },
-    [theme.breakpoints.up('400')]: {
+    width: 30,
+    height: 30,
+    [mobileVertical]: {
       width: 33,
       height: 33,
     },
-
-    [theme.breakpoints.up('768')]: {
+    [tabletVertical]: {
       width: 50,
       height: 50,
     },
-
-    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 33,
       height: 33,
     },
-
-    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
+    [laptopSm]: {
       width: 39,
       height: 39,
     },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { theme } from './../../../utilities/breakpoints/breakpoints';
+import { breakpoints } from './../../../utilities/breakpoints/breakpoints';
 
 import EmojiPicker from './../../../utilities/emojiPicker/EmojiPicker';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -12,24 +12,23 @@ import * as actions from './../../../actions/index';
 import FileInput from '../imageFileInput/ImageFileInput';
 import SpinnerContainer from './../../../utilities/spinnerContainer/SpinnerContainer';
 
+const { tabletVertical, mobileHorizontal, laptopSm, tabletHorizontal } = breakpoints;
+
 export const useStyles = makeStyles(() => ({
   addPhoto: {
     cursor: 'pointer',
     color: '#0eb611',
-    [theme.breakpoints.up('0')]: {
-      width: 28,
-      height: 28,
-    },
-    [theme.breakpoints.up('768')]: {
+    width: 28,
+    height: 28,
+    [tabletVertical]: {
       width: 35,
       height: 35,
     },
-
-    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 28,
       height: 28,
     },
-    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
+    [laptopSm]: {
       width: 30,
       height: 30,
     },
@@ -41,26 +40,23 @@ export const useStyles = makeStyles(() => ({
     color: '#333',
     borderRadius: '50%',
     padding: '0.5%',
-    [theme.breakpoints.up('0')]: {
-      top: '1%',
-      right: '1%',
-      width: 24,
-      height: 24,
-    },
-
-    [theme.breakpoints.up('600')]: {
+    top: '1%',
+    right: '1%',
+    width: 24,
+    height: 24,
+    [tabletVertical]: {
       width: 38,
       height: 38,
     },
 
-    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 25,
       height: 25,
       top: '1.5%',
       right: '1%',
     },
 
-    [`${theme.breakpoints.up('800')} and (orientation:landscape)`]: {
+    [tabletHorizontal]: {
       width: 27,
       height: 27,
       padding: '0.3%',
@@ -68,7 +64,7 @@ export const useStyles = makeStyles(() => ({
       right: '1%',
     },
 
-    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
+    [laptopSm]: {
       width: 32,
       height: 32,
     },
