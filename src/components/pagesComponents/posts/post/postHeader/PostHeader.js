@@ -4,40 +4,40 @@ import { connect } from 'react-redux';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { theme } from './../../../../../utilities/breakpoints/breakpoints';
+import { breakpoints } from './../../../../../utilities/breakpoints/breakpoints';
 import classes from './postHeader.module.scss';
 import PostEditionPanel from './postEditionPanel/PostEditionPanel';
 import * as actions from './../../../../../actions/index';
+
+const { mobileVertical, tabletVertical, mobileHorizontal, tabletHorizontal, laptopSm } = breakpoints;
 
 const useStyles = makeStyles(() => ({
   icon: {
     color: '#ffa500',
     cursor: 'pointer',
-    [theme.breakpoints.up('0')]: {
-      width: 26,
-      height: 26,
-    },
-    [theme.breakpoints.up('400')]: {
+    width: 26,
+    height: 26,
+    [mobileVertical]: {
       width: 33,
       height: 33,
     },
 
-    [theme.breakpoints.up('768')]: {
+    [tabletVertical]: {
       width: 50,
       height: 50,
     },
 
-    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 31,
       height: 31,
     },
 
-    [`${theme.breakpoints.up('800')} and (orientation:landscape)`]: {
+    [tabletHorizontal]: {
       width: 35,
       height: 35,
     },
 
-    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
+    [laptopSm]: {
       width: 39,
       height: 39,
     },

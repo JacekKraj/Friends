@@ -1,30 +1,29 @@
 import React from 'react';
 import Picker from 'emoji-picker-react';
 import { makeStyles } from '@material-ui/core/styles';
-import { theme } from './../breakpoints/breakpoints';
+import { breakpoints } from './../breakpoints/breakpoints';
 
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import classes from './emojiPickerContainer.module.scss';
+
+const { tabletVertical, mobileHorizontal, laptopSm } = breakpoints;
 
 const useStyles = makeStyles(() => ({
   emoji: {
     color: '#00B2EE',
     cursor: 'pointer',
     position: 'relative',
-    [theme.breakpoints.up('0')]: {
-      width: 28,
-      height: 28,
-    },
-    [theme.breakpoints.up('768')]: {
+    width: 28,
+    height: 28,
+    [tabletVertical]: {
       width: 35,
       height: 35,
     },
-
-    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 28,
       height: 28,
     },
-    [`${theme.breakpoints.up('1000')} and (orientation:landscape)`]: {
+    [laptopSm]: {
       width: 30,
       height: 30,
     },

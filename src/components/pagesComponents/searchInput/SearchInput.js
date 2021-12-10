@@ -2,24 +2,23 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import { theme } from './../../../utilities/breakpoints/breakpoints';
+import { breakpoints } from './../../../utilities/breakpoints/breakpoints';
 import SearchIcon from '@material-ui/icons/Search';
 import classes from './searchInput.module.scss';
 import AutoComplete from './autoComplete/AutoComplete';
 
+const { mobileVertical, mobileHorizontal } = breakpoints;
+
 const useStyles = makeStyles(() => ({
   icon: {
     color: '#555',
-    [theme.breakpoints.up('0')]: {
-      width: 24,
-      height: 24,
-    },
-    [theme.breakpoints.up('400')]: {
+    width: 24,
+    height: 24,
+    [mobileVertical]: {
       width: 29,
       height: 29,
     },
-
-    [`${theme.breakpoints.up('600')} and (orientation:landscape)`]: {
+    [mobileHorizontal]: {
       width: 28,
       height: 28,
     },
