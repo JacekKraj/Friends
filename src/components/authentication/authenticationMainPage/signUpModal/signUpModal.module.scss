@@ -1,3 +1,5 @@
+@import './../../../../scssUtilities';
+
 .modal {
   position: fixed;
   z-index: 11;
@@ -7,9 +9,19 @@
   width: 85%;
   height: 90vh;
   background-color: #fff;
-  padding: 6%;
+  padding: 1.5em;
   overflow-y: auto;
   display: none;
+
+  @include mobileHorizontal {
+    width: 80%;
+    height: 80vh;
+    max-width: 800px;
+  }
+
+  @include laptop-sm {
+    padding: 1.7em;
+  }
 }
 
 .modalVisible {
@@ -20,197 +32,132 @@
   font-weight: bold;
   font-size: 25px;
   margin: 1.3em 0 0.8em;
+
+  @include tabletVertical {
+    font-size: 42px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 26px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 29px;
+  }
+
+  @include laptop-sm {
+    font-size: 35px;
+  }
+}
+
+.inputsContainer {
+  margin-bottom: 1.5em;
+
+  @include mobileHorizontal {
+    margin-bottom: 2em;
+  }
 }
 
 .input {
   margin: 0.25em 0;
   width: 100%;
+
+  @include mobileHorizontal {
+    width: 90%;
+    max-width: 400px;
+  }
 }
 
 .birthdayDateTitle {
   font-size: 18px;
   margin-top: 1.4em;
+
+  @include tabletVertical {
+    font-size: 35px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 24px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 27px;
+  }
+
+  @include laptop-sm {
+    font-size: 31px;
+  }
+
+  @include laptop-lg {
+    font-size: 33px;
+  }
 }
 
 .birthdayDateInfo {
   font-size: 15px;
-  margin-top: 0.7em;
-  margin-bottom: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+
+  @include tabletVertical {
+    font-size: 22px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 16px;
+  }
+
+  @include laptop-sm {
+    font-size: 19px;
+  }
 }
 
 .birthSelectsContainer {
   display: flex;
   align-items: center;
   margin-bottom: 2em;
+  max-width: 400px;
+
+  @include tabletVertical {
+    margin-bottom: 10%;
+  }
+
+  @include mobileHorizontal {
+    width: 80%;
+  }
+
+  @include tabletHorizontal {
+    margin-bottom: 3em;
+  }
 }
 
 .selectStreched {
   flex-grow: 2;
   margin: 0 5%;
+
+  @include tabletVertical {
+    margin: 0 7%;
+  }
+
+  @include mobileHorizontal {
+    margin: 0 7%;
+  }
+
+  @include laptop-lg {
+    margin: 0 5%;
+  }
 }
 
 .button {
   width: 80%;
   max-width: 220px;
   margin: 0 auto;
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .modal {
-    width: 80%;
-    height: 85vh;
-  }
-
-  .title {
-    font-weight: bold;
-    font-size: 42px;
-  }
-
-  .input {
-    width: 100%;
-  }
-
-  .birthdayDateTitle {
-    font-size: 35px;
-  }
-
-  .birthdayDateInfo {
-    font-size: 22px;
-  }
-
-  .birthSelectsContainer {
-    margin-bottom: 10%;
-  }
-
-  .selectStreched {
-    margin: 0 7%;
-  }
-
-  .button {
-    width: 65%;
-    max-width: 380px;
+  @include tabletVertical {
     margin: 0 auto;
   }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .modal {
-    width: 87%;
-    height: 85vh;
-    padding: 6%;
-  }
-
-  .title {
-    font-size: 26px;
-  }
-
-  .input {
-    width: 90%;
-  }
-
-  .birthdayDateTitle {
-    font-size: 24px;
-  }
-
-  .birthSelectsContainer {
-    width: 80%;
-  }
-
-  .selectStreched {
-    margin: 0 7%;
-  }
-
-  .button {
-    width: 50%;
-    max-width: 280px;
+  @include mobileHorizontal {
+    max-width: 240px;
     margin: 0;
-  }
-}
-
-@media (min-width: 800px) and (orientation: landscape) {
-  .modal {
-    width: 82%;
-    height: 80vh;
-    padding: 5%;
-  }
-
-  .title {
-    font-size: 29px;
-  }
-
-  .input {
-    width: 85%;
-  }
-
-  .birthdayDateTitle {
-    font-size: 27px;
-  }
-
-  .birthdayDateInfo {
-    font-size: 16px;
-  }
-
-  .birthSelectsContainer {
-    width: 75%;
-    margin-bottom: 3em;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .modal {
-    width: 65%;
-    height: 80vh;
-    padding: 4% 4;
-  }
-
-  .title {
-    font-size: 35px;
-  }
-
-  .input {
-    width: 80%;
-  }
-
-  .birthdayDateTitle {
-    font-size: 31px;
-  }
-
-  .birthdayDateInfo {
-    font-size: 19px;
-  }
-
-  .birthSelectsContainer {
-    width: 70%;
-  }
-}
-
-@media (min-width: 1300px) {
-  .modal {
-    width: 60%;
-    padding: 3%;
-  }
-
-  .title {
-    font-size: 37px;
-  }
-
-  .input {
-    width: 70%;
-  }
-
-  .birthdayDateTitle {
-    font-size: 33px;
-  }
-
-  .birthdayDateInfo {
-    font-size: 19px;
-  }
-
-  .birthSelectsContainer {
-    width: 55%;
-  }
-
-  .selectStreched {
-    margin: 0 5%;
   }
 }

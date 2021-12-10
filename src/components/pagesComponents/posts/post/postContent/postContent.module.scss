@@ -1,33 +1,27 @@
-@import './../../../../../scssUtilities/colors';
+@import './../../../../../scssUtilities';
 
 .text {
   font-size: 13px;
   color: $gray-60;
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 14px;
+  }
+
+  @include laptop-sm {
+    font-size: 16px;
+  }
 }
 
 .postImage {
   margin-top: 0.65em;
   width: 100%;
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .text {
-    font-size: 20px;
-  }
-}
-
-@media (min-width: 700px) and(orientation:landscape) {
-  .text {
-    font-size: 14px;
-  }
-}
-
-@media (min-width: 1000px) and(orientation:landscape) {
-  .postImage {
+  @include laptop-sm {
     margin-top: 0.7em;
-  }
-
-  .text {
-    font-size: 16px;
   }
 }

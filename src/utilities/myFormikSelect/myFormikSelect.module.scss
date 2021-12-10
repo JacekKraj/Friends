@@ -1,3 +1,5 @@
+@import './../../scssUtilities';
+
 .select {
   outline: none;
   border: 1px solid #e08f03;
@@ -5,24 +7,19 @@
   color: #e08f03;
   border-radius: 3px;
   width: 100%;
-}
+  cursor: pointer;
 
-@media (min-width: 600px) and (orientation: portrait) {
-  .select {
+  @include tabletVertical {
     font-size: 23px;
     border-radius: 6px;
   }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .select {
+  @include mobileHorizontal {
     font-size: 16px;
     border-radius: 4px;
   }
-}
 
-@media (min-width: 1024px) and (orientation: landscape) {
-  .select {
+  @include laptop-sm {
     font-size: 18px;
   }
 }

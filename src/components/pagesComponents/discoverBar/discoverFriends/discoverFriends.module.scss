@@ -1,26 +1,22 @@
-@import './../../../../scssUtilities/colors';
+@import './../../../../scssUtilities';
 
 .info {
   font-size: 14px;
   margin-top: 1em;
   margin-bottom: 1.3em;
   color: $gray-60;
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .info {
+  @include tabletVertical {
     font-size: 23px;
   }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .info {
+  @include mobileHorizontal {
     font-size: 15px;
   }
 }
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .discoverFriendsComponent {
+.discoverFriendsComponent {
+  @include laptop-sm {
     margin-bottom: 10%;
   }
 }

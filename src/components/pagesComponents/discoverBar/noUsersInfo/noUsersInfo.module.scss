@@ -1,19 +1,15 @@
-@import './../../../../scssUtilities/colors';
+@import './../../../../scssUtilities';
 
 .info {
   margin: 0.5em 0;
   color: $gray-60;
   font-size: 14px;
-}
 
-@media (min-width: 600px) and (orientation: portrait) {
-  .info {
-    font-size: 23px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .info {
+  @include mobileHorizontal {
     font-size: 15px;
+  }
+
+  @include mobileVertical {
+    font-size: 23px;
   }
 }

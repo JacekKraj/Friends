@@ -1,20 +1,21 @@
+@import './../../../scssUtilities';
+
 .bigScreenNavContainer {
   display: none;
-}
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .smallScreenNavContainer {
-    display: none;
-  }
-  .bigScreenNavContainer {
+  @include laptop-sm {
     display: block;
     flex-basis: 25%;
   }
-}
 
-@media (min-width: 1320px) and (orientation: landscape) {
-  .bigScreenNavContainer {
+  @include custom(1320px) {
     flex-basis: 20%;
     max-width: 350px;
+  }
+}
+
+.smallScrenNavContainer {
+  @include laptop-sm {
+    display: none;
   }
 }

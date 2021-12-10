@@ -1,4 +1,4 @@
-@import './../../../scssUtilities/colors';
+@import './../../../scssUtilities';
 
 .input {
   border: none;
@@ -8,6 +8,10 @@
   font-size: 18px;
   background-color: transparent;
   color: $orange-20;
+
+  @include tabletVertical {
+    font-size: 22px;
+  }
 }
 
 ::placeholder {
@@ -21,10 +25,4 @@
 
 .input:focus::placeholder {
   color: $orange-10;
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .input {
-    font-size: 22px;
-  }
 }

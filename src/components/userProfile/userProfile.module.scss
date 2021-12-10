@@ -1,5 +1,7 @@
-@media (min-width: 1000px) and (orientation: landscape) {
-  .userProfileComponent {
+@import './../../scssUtilities';
+
+.userProfileComponent {
+  @include laptop-sm {
     display: flex;
   }
 }

@@ -1,38 +1,32 @@
+@import './../../../scssUtilities';
+
 .friendsPageMainContentComponent {
   max-height: 100vh;
   overflow: auto;
+
+  @include laptop-sm {
+    flex-basis: 75%;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    max-width: 900px;
+  }
 }
 .searchIconHidden {
   display: none;
 }
 
 .mainContent {
-  padding: 6% 5%;
-}
+  padding: 1.5em;
 
-@media (min-width: 500px) and (orientation: portrait) {
-  .mainContent {
+  @include mobileVertical {
     padding: 1.8em;
   }
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .mainContent {
+  @include tabletVertical {
     padding: 2em;
   }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .mainContent {
+  @include mobileHorizontal {
     padding: 1.5em;
-  }
-}
-@media (min-width: 1000px) and (orientation: landscape) {
-  .friendsPageMainContentComponent {
-    flex-basis: 75%;
-    overflow-y: auto;
-    border-left: 1px solid #888;
-    border-right: 1px solid #888;
-    max-width: 900px;
   }
 }

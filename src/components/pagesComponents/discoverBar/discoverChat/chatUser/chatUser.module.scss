@@ -1,9 +1,15 @@
+@import './../../../../../scssUtilities';
+
 .chatUserComponent {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0.8em 0;
   border-radius: 15px;
+
+  @include tabletVertical {
+    margin: 1.2em 0;
+  }
 }
 
 .currChat {
@@ -20,6 +26,14 @@
   opacity: 0;
   font-size: 18px;
   font-weight: bold;
+
+  @include tabletVertical {
+    font-size: 28px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 20px;
+  }
 }
 
 .chatUserComponent:hover .arrow {
@@ -28,19 +42,4 @@
 
 .currChat:hover .arrow {
   opacity: 0;
-}
-@media (min-width: 768px) and (orientation: portrait) {
-  .chatUserComponent {
-    margin: 1.2em 0;
-  }
-
-  .arrow {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 800px) and (orientation: landscape) {
-  .arrow {
-    font-size: 20px;
-  }
 }

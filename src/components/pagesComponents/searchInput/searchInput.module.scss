@@ -1,8 +1,12 @@
-@import './../../../scssUtilities/colors';
+@import './../../../scssUtilities';
 
 .container {
   position: relative;
   width: 100%;
+
+  @include laptop-sm {
+    margin-bottom: 10%;
+  }
 }
 
 .searchInputComponent {
@@ -13,6 +17,15 @@
   padding: 0.3em 0.6em;
   flex-grow: 1;
   border: 2px solid $orange-20;
+
+  @include tabletVertical {
+    border-radius: 45px;
+    padding: 0.6em 1.1em;
+  }
+
+  @include laptop-sm {
+    width: 100%;
+  }
 }
 
 .searchInput {
@@ -21,47 +34,24 @@
   margin-left: 0.5em;
   outline: none;
   color: $gray-50;
+
+  @include mobileVertical {
+    font-size: 17px;
+  }
+
+  @include tabletVertical {
+    font-size: 23px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 16px;
+  }
+
+  @include laptop-sm {
+    font-size: 17px;
+  }
 }
 
 ::placeholder {
   color: $gray-50;
-}
-
-@media (min-width: 400px) and (orientation: portrait) {
-  .searchInput {
-    font-size: 17px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .searchInputComponent {
-    border-radius: 45px;
-    padding: 0.6em 1.1em;
-  }
-  .searchInput {
-    font-size: 23px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .searchInput {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .container {
-    margin-bottom: 10%;
-  }
-  .searchInputComponent {
-    width: 100%;
-    background-color: #eee;
-  }
-  .searchInput {
-    font-size: 17px;
-    color: #444;
-  }
-  ::placeholder {
-    color: #444;
-  }
 }

@@ -1,23 +1,19 @@
+@import './../../../scssUtilities';
+
 .pageContentWrapperComponent {
   min-height: 100vh;
   background-color: rgb(245, 245, 245);
-}
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .pageContentWrapperComponent {
+  @include laptop-sm {
     width: 100%;
     display: flex;
   }
-}
 
-@media (min-width: 1150px) and (orientation: landscape) {
-  .pageContentWrapperComponent {
+  @include custom(1150px) {
     padding: 0 5rem;
   }
-}
 
-@media (min-width: 1320px) and (orientation: landscape) {
-  .pageContentWrapperComponent {
+  @include custom(1300px) {
     padding: 0 10%;
     display: Flex;
     justify-content: center;

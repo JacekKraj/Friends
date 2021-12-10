@@ -1,4 +1,4 @@
-@import './../../../scssUtilities/colors';
+@import './../../../scssUtilities';
 
 .button {
   color: white;
@@ -12,6 +12,22 @@
   cursor: pointer;
   outline: none;
   display: block;
+
+  @include mobileVertical {
+    font-size: 22px;
+  }
+
+  @include tabletVertical {
+    font-size: 28px;
+  }
+
+  @include laptop-sm {
+    font-size: 21px;
+  }
+
+  @include custom(1300px) {
+    font-size: 22px;
+  }
 }
 
 .buttonNormal:hover {
@@ -34,7 +50,7 @@
 .buttonDisabled {
   cursor: not-allowed;
   border-color: $gray-25;
-  color: $gray-25aa;
+  color: $gray-25;
   background-color: #eee;
 }
 
@@ -42,27 +58,4 @@
   border-color: $gray-25;
   color: $gray-25;
   background-color: #eee;
-}
-@media (min-width: 500px) and (orientation: portrait) {
-  .button {
-    font-size: 22px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .button {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .button {
-    font-size: 21px;
-  }
-}
-
-@media (min-width: 1300px) {
-  .button {
-    font-size: 22px;
-  }
 }

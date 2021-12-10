@@ -1,4 +1,4 @@
-@import './../../../scssUtilities/colors';
+@import './../../../scssUtilities';
 
 .headerComponent {
   display: flex;
@@ -7,6 +7,14 @@
   width: 100%;
   padding: 0.4em 1em;
   border-bottom: 1px solid #888;
+
+  @include mobileHorizontal {
+    padding: 0.4em 1em;
+  }
+
+  @include laptop-sm {
+    padding: 0.8em 1em;
+  }
 }
 
 .headerLeftSide {
@@ -31,47 +39,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
 
-@media (min-width: 400px) and (orientation: portrait) {
-  .sectionName {
+  @include mobileVertical {
     margin-top: 2px;
     font-size: 28px;
   }
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .sectionName {
+  @include tabletVertical {
     font-size: 40px;
     margin-top: 5px;
   }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .sectionName {
+  @include mobileHorizontal {
     margin-top: 3px;
     font-size: 27px;
   }
 
-  .headerComponent {
-    padding: 0.4em 1em;
-  }
-}
-
-@media (min-width: 700px) and (orientation: landscape) {
-  .sectionName {
+  @include custom(700px) {
     font-size: 28px;
     margin-top: 0px;
   }
-}
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .headerComponent {
-    padding: 0.8em 1em;
-  }
-
-  .sectionName {
-    margin-top: 0;
+  @include laptop-sm {
     font-size: 30px;
   }
 }

@@ -1,3 +1,5 @@
+@import './../../../../scssUtilities';
+
 .messagesAreaComponent {
   flex-grow: 1;
   overflow-y: auto;
@@ -7,32 +9,20 @@
   align-items: flex-start;
   list-style-type: none;
   position: relative;
+
+  @include mobileVertical {
+    padding: 0.4em 0.8em;
+  }
+
+  @include tabletVertical {
+    padding: 0.9em 1.5em;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.5em 0.7em;
+  }
 }
 
 .infoRef {
   position: relative;
-}
-
-@media (min-width: 400px) and (orientation: portrait) {
-  .messagesAreaComponent {
-    padding: 0.4em 0.9em;
-  }
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-  .messagesAreaComponent {
-    padding: 0.4em 0.8em;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .messagesAreaComponent {
-    padding: 0.9em 1.5em;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .messagesAreaComponent {
-    padding: 0.5em 0.7em;
-  }
 }

@@ -1,15 +1,35 @@
-@import './../../../../scssUtilities/colors';
+@import './../../../../scssUtilities';
 
 .header {
   font-size: 20px;
   text-transform: uppercase;
   font-weight: bold;
   color: $gray-50;
+
+  @include tabletVertical {
+    font-size: 24px;
+  }
+
+  @include laptop-sm {
+    font-size: 22px;
+  }
 }
 
 .users {
   margin: 6% 0;
   min-height: 200px;
+
+  @include mobileVertical {
+    margin: 1.5em 0;
+  }
+
+  @include tabletVertical {
+    margin: 1.7em 0;
+  }
+
+  @include mobileHorizontal {
+    margin: 1.5em 0;
+  }
 }
 
 .arrow {
@@ -24,51 +44,20 @@
 
 .info {
   color: $gray-60;
-}
 
-@media (min-width: 500px) and (orientation: portrait) {
-  .users {
-    margin: 1.5em 0;
-  }
-  .info {
+  @include mobileVertical {
     font-size: 17px;
   }
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .users {
-    margin: 1.7em 0;
-  }
-
-  .header {
-    font-size: 24px;
-  }
-  .info {
+  @include tabletVertical {
     font-size: 22px;
   }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .users {
-    margin: 1.5em 0;
-  }
-
-  .info {
+  @include mobileHorizontal {
     font-size: 18px;
   }
-}
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .header {
-    font-size: 22px;
-  }
-  .info {
+  @include laptop-sm {
     font-size: 17px;
   }
-  // .users {
-  //   padding: 0 1rem;
-  // }
-  // .menu > div.menu-wrapper {
-  //   width: 95%;
-  // }
 }

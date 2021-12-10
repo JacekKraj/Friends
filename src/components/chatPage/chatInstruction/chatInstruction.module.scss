@@ -1,4 +1,4 @@
-@import './../../../scssUtilities/colors';
+@import './../../../scssUtilities';
 
 .chatInstructionComponent {
   padding: 5vh 5%;
@@ -6,83 +6,72 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @include mobileVertical {
+    padding: 5vh 10%;
+  }
+
+  @include tabletVertical {
+    padding: 3em 4em;
+  }
+
+  @include mobileHorizontal {
+    padding: 30px 10%;
+  }
 }
 
 .chatInstructionComponent h3 {
   font-size: 26px;
   margin-bottom: 0.8em;
   color: $gray-60;
+
+  @include mobileVertical {
+    font-size: 29px;
+  }
+
+  @include tabletVertical {
+    font-size: 34px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 29px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 31px;
+  }
 }
 
 .chatInstructionComponent p {
   font-size: 15px;
   color: #666;
   margin-bottom: 1.5em;
+
+  @include mobileVertical {
+    font-size: 17px;
+  }
+
+  @include tabletVertical {
+    font-size: 19px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 17px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 19px;
+  }
 }
+
 .button {
   font-size: 16px;
-}
 
-@media (min-width: 500px) and (orientation: portrait) {
-  .chatInstructionComponent {
-    padding: 5vh 10%;
-  }
-
-  .chatInstructionComponent h3 {
-    font-size: 29px;
-  }
-
-  .chatInstructionComponent p {
-    font-size: 17px;
-  }
-  .button {
+  @include mobileVertical {
     font-size: 18px;
   }
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .chatInstructionComponent {
-    padding: 3em 4em;
-  }
-
-  .chatInstructionComponent h3 {
-    font-size: 34px;
-  }
-
-  .chatInstructionComponent p {
-    font-size: 19px;
-  }
-  .button {
-    font-size: 19px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .chatInstructionComponent {
-    padding: 30px 10%;
-  }
-
-  .chatInstructionComponent h3 {
-    font-size: 29px;
-  }
-
-  .chatInstructionComponent p {
-    font-size: 17px;
-  }
-  .button {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 800px) and (orientation: landscape) {
-  .chatInstructionComponent h3 {
-    font-size: 31px;
-  }
-
-  .chatInstructionComponent p {
-    font-size: 19px;
-  }
-  .button {
+  @include tabletVertical {
     font-size: 19px;
   }
 }

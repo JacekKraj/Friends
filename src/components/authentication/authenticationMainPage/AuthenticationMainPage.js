@@ -67,7 +67,7 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate }) => {
   return (
     <React.Fragment>
       {(showSignInModal || showSignUpModal) && <Backdrop onClick={hideModalHandler} />}
-      <div className={classes.component}>
+      <div className={classes.authenticationMainPagecomponent}>
         <div className={classes.infoContainer}>
           <div className={classes.logoContainer}>
             <Logo className={classes.logo} />
