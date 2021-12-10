@@ -1,3 +1,5 @@
+@import './../../../../../scssUtilities';
+
 .postHeader {
   display: flex;
   justify-content: space-between;
@@ -18,16 +20,39 @@
   height: 32px;
   border-radius: 50%;
   margin-right: 0.45em;
-  background-color: #bbb;
+  background-color: $gray-20;
   overflow: hidden;
+
+  @include mobileVertical {
+    width: 35px;
+    height: 35px;
+  }
+
+  @include tabletVertical {
+    width: 50px;
+    height: 50px;
+  }
+
+  @include laptop-sm {
+    width: 37px;
+    height: 37px;
+  }
 }
 
 .authorName {
-  color: #333;
+  color: $gray-60;
   margin-bottom: 0.08em;
   font-size: 14px;
   cursor: pointer;
   font-size: bold;
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include laptop-sm {
+    font-size: 16px;
+  }
 }
 
 .author:hover .authorName {
@@ -37,71 +62,20 @@
 .postCreationTime {
   font-size: 9px;
   color: #777;
+
+  @include mobileVertical {
+    font-size: 10px;
+  }
+
+  @include tabletVertical {
+    font-size: 13px;
+  }
+
+  @include laptop-sm {
+    font-size: 10px;
+  }
 }
 
 .postEditionPanelContainer {
   position: relative;
-}
-
-@media (min-width: 400px) and (orientation: portrait) {
-  .postCreationTime {
-    font-size: 10px;
-  }
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-  .profileImage {
-    width: 35px;
-    height: 35px;
-  }
-
-  .postCreationTime {
-    font-size: 10px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .postComponent {
-    padding: 0.9em;
-  }
-  .profileImage {
-    width: 50px;
-    height: 50px;
-  }
-
-  .authorName {
-    font-size: 20px;
-  }
-  .postCreationTime {
-    font-size: 13px;
-  }
-}
-
-@media (min-width: 600px) and(orientation:landscape) {
-  .profileImage {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-@media (min-width: 700px) and(orientation:landscape) {
-  .profileImage {
-    width: 33px;
-    height: 33px;
-  }
-}
-
-@media (min-width: 1000px) and(orientation:landscape) {
-  .profileImage {
-    width: 37px;
-    height: 37px;
-  }
-
-  .authorName {
-    font-size: 16px;
-  }
-
-  .postCreationTime {
-    font-size: 10px;
-  }
 }

@@ -1,28 +1,28 @@
+@import './../../../scssUtilities';
+
 .input {
   border: none;
   outline: none;
   padding: 0.5em;
-  border-bottom: 2px solid #e08f03;
+  border-bottom: 2px solid $orange-20;
   font-size: 18px;
   background-color: transparent;
-  color: #e08f03;
+  color: $orange-20;
+
+  @include tabletVertical {
+    font-size: 22px;
+  }
 }
 
 ::placeholder {
-  color: #e08f03;
+  color: $orange-20;
 }
 
 .input:focus {
-  border-color: #ffa500;
-  color: #ffa500;
+  border-color: $orange-10;
+  color: $orange-10;
 }
 
 .input:focus::placeholder {
-  color: #ffa500;
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .input {
-    font-size: 22px;
-  }
+  color: $orange-10;
 }

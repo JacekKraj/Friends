@@ -1,16 +1,21 @@
+@import './../../../scssUtilities';
+
 .bigScreenNavContainer {
   display: none;
-}
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .discoverBarComponent {
-    flex-basis: 25%;
-  }
-  .bigScreenNavContainer {
+  @include laptop-sm {
     display: block;
   }
+}
 
-  .smallScreenNavContainer {
+.discoverBarComponent {
+  @include laptop-sm {
+    flex-basis: 25%;
+  }
+}
+
+.smallScreenNavContainer {
+  @include laptop-sm {
     display: none;
   }
 }

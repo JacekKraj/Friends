@@ -1,12 +1,18 @@
+@import './../../../scssUtilities';
+
 .addPostModuleComponent {
   width: 100%;
-  border: 1px solid #ddd;
+  border: 1px solid $gray-10;
   background-color: #fff;
-  -webkit-box-shadow: 0px 2px 8px 1px #ddd;
-  box-shadow: 0px 2px 8px 1px #ddd;
+  -webkit-box-shadow: 0px 2px 8px 1px $gray-10;
+  box-shadow: 0px 2px 8px 1px $gray-10;
   padding: 0.5em 0.5em 0.3em;
   border-radius: 10px;
   position: relative;
+
+  @include tabletVertical {
+    padding: 0.8em 0.8em 0.6em;
+  }
 }
 
 .textarea {
@@ -16,10 +22,29 @@
   outline: none;
   border: none;
   border-radius: 6px;
-  border: 2px solid #ddd;
+  border: 2px solid $gray-10;
   padding: 0.4em;
   color: #777;
   resize: none;
+
+  @include tabletVertical {
+    font-size: 24px;
+    height: 100px;
+  }
+
+  @include mobileHorizontal {
+    height: 65px;
+  }
+
+  @include tabletHorizontal {
+    height: 75px;
+    font-size: 15px;
+  }
+
+  @include laptop-sm {
+    height: 70px;
+    font-size: 17px;
+  }
 }
 
 ::placeholder {
@@ -35,6 +60,14 @@
 .button {
   font-size: 15px;
   padding: 0.1em 2em;
+
+  @include tabletVertical {
+    font-size: 22px;
+  }
+
+  @include laptop-sm {
+    font-size: 18px;
+  }
 }
 
 .photoPreviewContainer {
@@ -42,85 +75,32 @@
   max-height: 40vh;
   overflow: auto;
   position: relative;
+
+  @include tabletVertical {
+    margin: 1em 0;
+  }
+
+  @include mobileHorizontal {
+    max-height: 60vh;
+  }
+
+  @include tabletHorizontal {
+    max-height: 45vh;
+  }
 }
 
 .photoPreview {
   display: block;
   max-width: 100%;
   border-radius: 5px;
-  border: 1px solid #bbb;
+  border: 1px solid $gray-20;
 }
 
 .iconsContainer {
   display: flex;
   margin-bottom: -4px;
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .addPostModuleComponent {
-    padding: 0.8em 0.8em 0.6em;
-  }
-  .textarea {
-    font-size: 24px;
-    height: 100px;
-  }
-
-  .button {
-    font-size: 22px;
-  }
-  .addPostModulBottomBar {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .photoPreviewContainer {
-    margin: 1em 0;
-  }
-
-  .iconsContainer {
+  @include tabletVertical {
     margin-bottom: -8px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .textarea {
-    height: 65px;
-  }
-  .button {
-    font-size: 14px;
-  }
-
-  .photoPreviewContainer {
-    max-height: 60vh;
-  }
-}
-
-@media (min-width: 800px) and (orientation: landscape) {
-  .textarea {
-    height: 75px;
-    font-size: 15px;
-  }
-
-  .button {
-    font-size: 15px;
-  }
-
-  .photoPreviewContainer {
-    border-radius: 10px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .textarea {
-    height: 70px;
-    font-size: 17px;
-  }
-
-  .button {
-    font-size: 18px;
-  }
-
-  .photoPreviewContainer {
-    max-height: 45vh;
   }
 }

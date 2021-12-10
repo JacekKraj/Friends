@@ -1,3 +1,5 @@
+@import './../../../../../scssUtilities';
+
 .userComponent {
   border-radius: 10px;
   margin: 0 1rem;
@@ -14,7 +16,12 @@
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  background-color: #ddd;
+  background-color: $gray-10;
+
+  @include mobileHorizontal {
+    width: 150px;
+    height: 170px;
+  }
 }
 
 .name {
@@ -25,6 +32,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 170px;
+
+  @include mobileHorizontal {
+    font-size: 19px;
+    margin: 0.3em 0 0.7em;
+    max-width: 150px;
+  }
 }
 
 .button {
@@ -35,36 +48,4 @@
 
 .currChat .name {
   color: #ce8405 !important;
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-  .button {
-    font-size: 15px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .button {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .profileImage {
-    width: 150px;
-    height: 170px;
-  }
-
-  .name {
-    font-size: 19px;
-    text-align: center;
-    margin: 0.3em 0 0.7em;
-    max-width: 150px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .button {
-    font-size: 15px;
-  }
 }

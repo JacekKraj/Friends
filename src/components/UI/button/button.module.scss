@@ -1,6 +1,8 @@
+@import './../../../scssUtilities';
+
 .button {
   color: white;
-  border: 2px solid #e08f03;
+  border: 2px solid $orange-20;
   font-size: 18px;
   padding: 0.6em 1em;
   font-weight: bold;
@@ -10,58 +12,50 @@
   cursor: pointer;
   outline: none;
   display: block;
+
+  @include mobileVertical {
+    font-size: 22px;
+  }
+
+  @include tabletVertical {
+    font-size: 28px;
+  }
+
+  @include laptop-sm {
+    font-size: 21px;
+  }
+
+  @include custom(1300px) {
+    font-size: 22px;
+  }
 }
 
 .buttonNormal:hover {
-  background-color: #f59c03;
-  border: 2px solid #ce8405;
+  background-color: $orange-15;
+  border: 2px solid $orange-25;
 }
 .buttonTransparent:hover {
-  background-color: rgba(255, 165, 0, 0.08);
+  background-color: $orange-05;
 }
 
 .buttonNormal {
-  background-color: #ffa500;
-  border: 2px solid #e08f03;
+  background-color: $orange-10;
 }
 
 .buttonTransparent {
   background-color: transparent;
-  color: #e08f03;
+  color: $orange-20;
 }
 
 .buttonDisabled {
   cursor: not-allowed;
-  border-color: #aaa;
-  color: #aaa;
+  border-color: $gray-25;
+  color: $gray-25;
   background-color: #eee;
 }
 
 .buttonDisabled:hover {
-  border-color: #aaa;
-  color: #aaa;
+  border-color: $gray-25;
+  color: $gray-25;
   background-color: #eee;
-}
-@media (min-width: 500px) and (orientation: portrait) {
-  .button {
-    font-size: 22px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .button {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .button {
-    font-size: 21px;
-  }
-}
-
-@media (min-width: 1300px) {
-  .button {
-    font-size: 22px;
-  }
 }

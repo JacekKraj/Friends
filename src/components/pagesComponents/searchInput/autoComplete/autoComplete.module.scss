@@ -1,3 +1,5 @@
+@import './../../../../scssUtilities';
+
 .autoCompleteComponent {
   position: absolute;
   top: 100%;
@@ -9,23 +11,19 @@
   max-height: 30vh;
   overflow: auto;
   border: 1px solid #ccc;
-  -webkit-box-shadow: 0px 1px 5px 2px #dddddd;
-  box-shadow: 0px 1px 5px 2px #dddddd;
+  -webkit-box-shadow: 0px 1px 5px 2px $gray-10;
+  box-shadow: 0px 1px 5px 2px $gray-10;
   z-index: 2;
+
+  @include mobileHorizontal {
+    max-height: 60vh;
+  }
+
+  @include laptop-sm {
+    max-height: 45vh;
+  }
 }
 
 .autoCompleteShow {
   display: block;
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .autoCompleteComponent {
-    max-height: 60vh;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .autoCompleteComponent {
-    max-height: 45vh;
-  }
 }

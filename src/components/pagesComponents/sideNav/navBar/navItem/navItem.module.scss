@@ -1,9 +1,19 @@
+@import './../../../../../scssUtilities';
+
 .navItemComponent {
   display: flex;
   align-items: center;
-  padding: 0.45em;
+  padding: 0.5em 0.6em;
   border-radius: 30px;
   cursor: pointer;
+
+  @include tabletVertical {
+    padding: 0.8em 0.45em;
+  }
+
+  @include laptop-sm {
+    padding: 0.55em 0.4em;
+  }
 }
 
 .navItemComponent:hover {
@@ -22,45 +32,17 @@
 .description {
   margin-left: 0.6em;
   font-size: 17px;
-  color: #555;
-}
+  color: $gray-50;
 
-@media (min-width: 400px) and (orientation: portrait) {
-  .description {
+  @include mobileVertical {
     font-size: 19px;
   }
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .description {
+  @include tabletVertical {
     font-size: 29px;
   }
-  .navItemComponent {
-    padding: 0.8em 0.45em;
-  }
-}
 
-@media (min-width: 600px) and (orientation: landscape) {
-  .navItemComponent {
-    display: flex;
-    align-items: center;
-    padding: 0.5em;
-
-    border-radius: 30px;
-    cursor: pointer;
-  }
-
-  .description {
-    font-size: 17px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .navItemComponent {
-    padding: 0.55em 0.3em;
-  }
-
-  .description {
+  @include laptop-sm {
     margin-left: 0.4em;
 
     font-size: 20px;

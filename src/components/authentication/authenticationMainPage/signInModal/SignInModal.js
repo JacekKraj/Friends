@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
-import classes from './signInModal.module.scss';
+import classes from './../signUpModal/signUpModal.module.scss';
 import Button from './../../../UI/button/Button';
 import Logo from './../../../UI/logo/Logo';
 import MyFormikInput from './../../../../utilities/myFormikInput/MyFormikInput';
@@ -27,7 +27,7 @@ const SignInModal = ({ handleFormSubmit, isShown, isLoading }) => {
           {() => {
             return (
               <Form>
-                <div>
+                <div className={classes.inputsContainer}>
                   <MyFormikInput as={Input} required name='email' type='email' placeholder='Email address' className={classes.input} />
                   <MyFormikInput as={Input} required name='password' type='password' placeholder='Password' className={classes.input} />
                 </div>

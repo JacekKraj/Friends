@@ -1,26 +1,105 @@
-.component {
+@import './../../../scssUtilities';
+
+.authenticationMainPagecomponent {
   background-color: rgb(245, 245, 245);
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  @include mobileHorizontal {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  @include laptop-sm {
+    align-items: flex-end;
+    padding-bottom: 13rem;
+  }
 }
 
 .infoContainer {
   padding: 1em 2em 0;
+
+  @include tabletVertical {
+    padding: 2em 4em 0;
+  }
+
+  @include mobileHorizontal {
+    flex-basis: 46%;
+    padding: 0 1em 0;
+  }
+
+  @include laptop-sm {
+    padding: 0 2em 0;
+  }
 }
 
 .logoContainer {
   padding-top: 1em;
   margin-bottom: 2em;
+
+  @include mobileHorizontal {
+    padding-top: 0;
+  }
+
+  @include laptop-sm {
+    margin-bottom: 3em;
+  }
+}
+
+.hedalinesContainer {
+  @include mobileHorizontal {
+    width: 100%;
+  }
 }
 
 .hedalinesContainer > h1 {
   font-size: 36px;
+
+  @include tabletVertical {
+    font-size: 66px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 32px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 36px;
+  }
+
+  @include laptop-sm {
+    font-size: 46px;
+  }
+
+  @include laptop-lg {
+    font-size: 52px;
+  }
 }
 
 .hedalinesContainer > h4 {
   font-size: 24px;
   margin-top: 0.3em;
+
+  @include tabletVertical {
+    font-size: 40px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 21px;
+  }
+
+  @include tabletHorizontal {
+    margin-top: 0.1em;
+    font-size: 29px;
+  }
+
+  @include laptop-sm {
+    font-size: 34px;
+    margin-top: 0.2em;
+  }
 }
 
 .buttonsContainer {
@@ -29,18 +108,53 @@
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+
+  @include mobileHorizontal {
+    align-items: unset;
+    margin: 1.5em 0 0;
+    flex-direction: column;
+  }
+
+  @include laptop-sm {
+    margin: 2.3em 0 0;
+  }
 }
 
 .button {
   width: 45%;
   margin: 0.6em 0;
   max-width: 200px;
+
+  @include tabletVertical {
+    max-width: 250px;
+    margin: 0;
+  }
+
+  @include mobileVertical {
+    width: 40%;
+    padding: 0.4em 1em !important;
+    font-size: 17px !important;
+  }
+
+  @include laptop-sm {
+    font-size: 21px !important;
+  }
 }
 
 .graphicsContainer {
   flex-grow: 1;
   display: flex;
   align-items: center;
+
+  @include tabletVertical {
+    max-width: 520px;
+  }
+
+  @include mobileHorizontal {
+    flex-basis: 46%;
+    flex-grow: 0;
+    justify-content: flex-end;
+  }
 }
 
 .graphicsContainer > img {
@@ -48,158 +162,25 @@
   display: block;
   margin: 0 auto;
   max-width: 360px;
-}
 
-.infoContainer,
-.graphicsContainer {
-  width: 360px;
-  margin: 0 auto;
-}
-
-@media (min-width: 400px) and (orientation: portrait) {
-  .infoContainer,
-  .graphicsContainer {
-    max-width: unset;
-    width: 400px;
-  }
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-  .infoContainer,
-  .graphicsContainer {
-    width: 500px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .infoContainer,
-  .graphicsContainer {
-    width: 768px;
-  }
-  .infoContainer {
-    padding: 2em 4em 0;
-  }
-
-  .hedalinesContainer > h1 {
-    font-size: 66px;
-  }
-
-  .hedalinesContainer > h4 {
-    font-size: 40px;
-  }
-
-  .button {
-    max-width: 250px;
-    margin: 0;
-  }
-  .graphicsContainer > img {
-    max-width: 520px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .component {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .infoContainer {
-    // width: unset;
-    flex-basis: 46%;
-    padding: 0 1em 0;
-  }
-
-  .hedalinesContainer {
-    width: 100%;
-  }
-
-  .logoContainer {
-    padding-top: 0;
-  }
-
-  .hedalinesContainer > h1 {
-    font-size: 32px;
-  }
-
-  .hedalinesContainer > h4 {
-    font-size: 21px;
-  }
-
-  .buttonsContainer {
-    align-items: unset;
-    margin: 1.5em 0 0;
-    flex-direction: column;
-  }
-
-  .button {
-    margin: 0.5em 0;
-    padding: 0.4em 1em !important;
-    font-size: 17px !important;
-  }
-
-  .graphicsContainer {
-    flex-basis: 46%;
-    flex-grow: 0;
-    justify-content: flex-end;
-  }
-
-  .graphicsContainer > img {
+  @include mobileHorizontal {
     width: 80%;
     margin: unset;
     max-width: 440px;
   }
 }
 
-@media (min-width: 800px) and (orientation: landscape) {
-  .hedalinesContainer > h1 {
-    font-size: 36px;
+.infoContainer,
+.graphicsContainer {
+  width: 360px;
+  margin: 0 auto;
+
+  @include mobileVertical {
+    max-width: unset;
+    width: 500px;
   }
 
-  .button {
-    width: 40%;
-  }
-
-  .hedalinesContainer > h4 {
-    margin-top: 0.1em;
-    font-size: 29px;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .component {
-    align-items: flex-end;
-    padding-bottom: 13rem;
-  }
-  .infoContainer {
-    padding: 0 2em 0;
-  }
-
-  .logoContainer {
-    margin-bottom: 3em;
-  }
-
-  .hedalinesContainer > h1 {
-    font-size: 46px;
-  }
-
-  .hedalinesContainer > h4 {
-    font-size: 34px;
-    margin-top: 0.2em;
-  }
-
-  .buttonsContainer {
-    margin: 2.3em 0 0;
-  }
-
-  .button {
-    font-size: 21px !important;
-    margin: 0.6em 0;
-  }
-}
-
-@media (min-width: 1300px) and (orientation: landscape) {
-  .hedalinesContainer > h1 {
-    font-size: 52px;
+  @include tabletVertical {
+    width: 768px;
   }
 }

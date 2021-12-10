@@ -1,5 +1,7 @@
-@media (min-width: 1000px) and (orientation: landscape) {
-  .image {
+@import './../../../scssUtilities';
+
+.image {
+  @include laptop-sm {
     flex-basis: 32%;
   }
 }

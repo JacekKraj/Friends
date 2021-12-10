@@ -1,32 +1,9 @@
+@import './../../../scssUtilities';
+
 .mainContentWrapperComponent {
   min-height: 100vh;
-}
 
-.mainContentWrapperComponent main {
-  padding: 5%;
-  min-height: 70%;
-}
-
-@media (min-width: 550px) and (orientation: portrait) {
-  .mainContentWrapperComponent main {
-    padding: 4% 15%;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .mainContentWrapperComponent main {
-    padding: 3% 22%;
-  }
-}
-
-@media (min-width: 700px) and (orientation: landscape) {
-  .mainContentWrapperComponent main {
-    padding: 2.5% 23%;
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .mainContentWrapperComponent {
+  @include laptop-sm {
     border-left: 1px solid #888;
     border-right: 1px solid #888;
     flex-basis: 50%;
@@ -34,8 +11,21 @@
     overflow-y: auto;
     max-width: 700px;
   }
+}
 
-  .mainContentWrapperComponent main {
+.mainContentWrapperComponent main {
+  padding: 5%;
+  min-height: 70%;
+
+  @include mobileVertical {
+    padding: 4% 15%;
+  }
+
+  @include mobileHorizontal {
+    padding: 3% 23%;
+  }
+
+  @include laptop-sm {
     padding: 3%;
   }
 }

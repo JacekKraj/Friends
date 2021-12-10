@@ -1,3 +1,5 @@
+@import './../../../../scssUtilities';
+
 .smallScreenNavComponent {
   position: fixed;
   top: 0;
@@ -15,11 +17,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.8em 8% 0.8em 6%;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-10;
+
+  @include tabletVertical {
+    border-bottom: 2px solid $gray-10;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.8em 6% 0.8em 5%;
+  }
 }
 
 .logo {
   font-size: 23px;
+
+  @include mobileVertical {
+    font-size: 27px;
+  }
+
+  @include tabletVertical {
+    font-size: 34px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 24px;
+  }
 }
 
 @keyframes showModal {
@@ -30,12 +52,6 @@
   100% {
     width: 75%;
     max-width: 280px;
-  }
-}
-
-@media (min-width: 400px) and (orientation: portrait) {
-  .logo {
-    font-size: 27px;
   }
 }
 
@@ -53,12 +69,6 @@
 }
 
 @media (min-width: 768px) and (orientation: portrait) {
-  .logo {
-    font-size: 34px;
-  }
-  .logoContainer {
-    border-bottom: 2px solid #ddd;
-  }
   @keyframes showModal {
     0% {
       width: 0%;
@@ -71,13 +81,6 @@
 }
 
 @media (min-width: 600px) and (orientation: landscape) {
-  .logoContainer {
-    padding: 0.8em 6% 0.8em 5%;
-  }
-
-  .logo {
-    font-size: 24px;
-  }
   @keyframes showModal {
     0% {
       width: 0%;

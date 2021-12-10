@@ -1,16 +1,16 @@
+@import './../../../../scssUtilities';
+
 .postComponent {
   width: 100%;
   padding: 0.5em;
   margin: 1em 0;
-  border: 1px solid #ddd;
+  border: 1px solid $gray-10;
   background-color: #fff;
-  -webkit-box-shadow: 0px 2px 8px 1px #ddd;
-  box-shadow: 0px 2px 8px 1px #ddd;
+  -webkit-box-shadow: 0px 2px 8px 1px $gray-10;
+  box-shadow: 0px 2px 8px 1px $gray-10;
   border-radius: 10px;
-}
 
-@media (min-width: 768px) and (orientation: portrait) {
-  .postComponent {
+  @include tabletVertical {
     padding: 0.9em;
   }
 }

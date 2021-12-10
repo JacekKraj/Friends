@@ -1,22 +1,60 @@
+@import './../../../../scssUtilities';
+
 $margin: 0.7em;
 .navBarComponent {
   width: 100%;
   padding: 0.8em 3%;
   overflow: auto;
+
+  @include mobileHorizontal {
+    padding: 0.6em 3%;
+  }
+
+  @include laptop-sm {
+    padding: 1.2em 0;
+  }
 }
 
 .user {
   display: flex;
   align-items: center;
   padding: $margin 0.5em;
+
+  @include mobileHorizontal {
+    padding: 0.8em 0.5em;
+  }
+
+  @include laptop-sm {
+    padding: 0.6em 0.4em 1em;
+  }
 }
 
 .profileImageContainer {
   flex-basis: 38px;
   height: 38px;
-  background-color: #bbb;
+  background-color: $gray-20;
   border-radius: 50%;
   overflow: hidden;
+
+  @include mobileVertical {
+    flex-basis: 40px;
+    height: 40px;
+  }
+
+  @include tabletVertical {
+    flex-basis: 55px;
+    height: 55px;
+  }
+
+  @include mobileHorizontal {
+    flex-basis: 40px;
+    height: 40px;
+  }
+
+  @include laptop-sm {
+    flex-basis: 42px;
+    height: 42px;
+  }
 }
 .profileImage {
   width: 100%;
@@ -25,81 +63,31 @@ $margin: 0.7em;
 .userName {
   flex-basis: calc(100% - 38px);
   font-size: 18px;
-  color: #555;
+  color: $gray-50;
   padding-left: $margin;
+
+  @include mobileVertical {
+    font-size: 21px;
+    flex-basis: calc(100% - 40px);
+  }
+
+  @include tabletVertical {
+    font-size: 31px;
+    flex-basis: calc(100% - 55px);
+  }
+
+  @include mobileHorizontal {
+    flex-basis: calc(100% - 40px);
+    font-size: 18px;
+    color: $gray-50;
+  }
+
+  @include laptop-sm {
+    flex-basis: calc(100% - 42px);
+    font-size: 20px;
+  }
 }
 
 .signoutIcon {
   transform: rotate(180deg);
-}
-
-@media (min-width: 400px) and (orientation: portrait) {
-  .userName {
-    font-size: 21px;
-  }
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-  .profileImageContainer {
-    flex-basis: 40px;
-    height: 40px;
-  }
-
-  .userName {
-    flex-basis: calc(100% - 40px);
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .profileImageContainer {
-    width: 55px;
-    height: 55px;
-  }
-
-  .userName {
-    font-size: 31px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .navBarComponent {
-    padding: 0.6em 3%;
-  }
-  .user {
-    padding: 0.8em 0.5em;
-  }
-
-  .profileImageContainer {
-    flex-basis: 40px;
-    height: 40px;
-  }
-
-  .userName {
-    flex-basis: calc(100% - 40px);
-    font-size: 18px;
-    color: #555;
-  }
-
-  .signoutIcon {
-    transform: rotate(180deg);
-  }
-}
-
-@media (min-width: 1000px) and (orientation: landscape) {
-  .user {
-    padding: 0.6em 0.4em 1em;
-  }
-  .navBarComponent {
-    padding: 1.2em 0;
-  }
-
-  .profileImageContainer {
-    flex-basis: 42px;
-    height: 42px;
-  }
-
-  .userName {
-    flex-basis: calc(100% - 42px);
-    font-size: 20px;
-  }
 }

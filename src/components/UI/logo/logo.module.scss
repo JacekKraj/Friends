@@ -1,47 +1,39 @@
+@import './../../../scssUtilities';
+
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 43%;
-  background-color: #ffa500;
+  background-color: $orange-10;
   color: white;
   font-weight: bold;
   width: 1.65em;
   height: 1.65em;
   font-size: 27px;
+
+  @include mobileVertical {
+    font-size: 28px;
+  }
+
+  @include tabletVertical {
+    font-size: 42px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 25px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 28px;
+  }
+
+  @include laptop-sm {
+    font-size: 30px;
+  }
 }
 
 .logo p {
   margin-left: -5%;
-  font-family: "Gloria Hallelujah";
-}
-
-@media (min-width: 500px) and (orientation: portrait) {
-  .logo {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 768px) and (orientation: portrait) {
-  .logo {
-    font-size: 42px;
-  }
-}
-
-@media (min-width: 600px) and (orientation: landscape) {
-  .logo {
-    font-size: 25px;
-  }
-}
-
-@media (min-width: 700px) and (orientation: landscape) {
-  .logo {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 900px) and (orientation: landscape) {
-  .logo {
-    font-size: 30px;
-  }
+  font-family: 'Gloria Hallelujah';
 }

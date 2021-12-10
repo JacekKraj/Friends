@@ -1,5 +1,21 @@
+@import './../../scssUtilities';
+
 .nofoundComponent {
   padding: 3em 1em;
+
+  @include tabletHorizontal {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    max-width: 700px;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+
+  @include laptop-sm {
+    max-width: 850px;
+    font-size: 20px;
+  }
 }
 
 .nofoundComponent h4 {
@@ -13,39 +29,26 @@
 
 .imageContainer {
   display: none;
-}
 
-@media (min-width: 800px) and (orientation: landscape) {
-  .nofoundComponent {
-    display: flex;
-    align-items: center;
-    height: 100vh;
-    max-width: 700px;
-    margin: 0 auto;
-    justify-content: space-between;
-  }
-  .text {
-    flex-basis: 50%;
-    margin-right: 7%;
-  }
-  .imageContainer {
+  @include tabletHorizontal {
     display: block;
     flex-basis: 30%;
   }
-  .imageContainer img {
-    width: 100%;
+
+  @include laptop-sm {
+    flex-basis: 40%;
   }
 }
 
-@media (min-width: 1000px) and (orientation: landscape) {
-  .nofoundComponent {
-    max-width: 850px;
+.text {
+  @include tabletHorizontal {
+    flex-basis: 50%;
+    margin-right: 7%;
   }
-  .imageContainer {
-    flex-basis: 40%;
-  }
+}
 
-  .nofoundComponent {
-    font-size: 20px;
+.imageContainer img {
+  @include tabletHorizontal {
+    width: 100%;
   }
 }
