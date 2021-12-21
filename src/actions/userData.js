@@ -11,56 +11,72 @@ export const setUserData = (data, modifiedEmail) => {
   };
 };
 
-export const setFollowedUsers = (user, newFollowedUsersEmails, usersToReduce, usersToIncrease) => {
+export const setFollowedUsers = (user, users) => {
+  const { newFollowedEmails, toReduce, toIncrease } = users;
+
   return {
     type: actionTypes.SET_FOLLOWED_USERS,
     user,
-    newFollowedUsersEmails,
-    usersToReduce,
-    usersToIncrease,
+    newFollowedUsersEmails: newFollowedEmails,
+    usersToReduce: toReduce,
+    usersToIncrease: toIncrease,
   };
 };
 
-export const followUser = (userToFollow, currentUser, followedUsersEmails) => {
-  return (dispatch) => {
+const updateFollowedUsers = (user, users) => {
+  return async (dispatch, getState) => {
+    const { modifiedEmail } = getState().userData.currentUser;
+
     const updates = {};
-    const newFollowedUsers = [...followedUsersEmails, userToFollow];
-    updates[`users/${currentUser}/followedUsersEmails`] = newFollowedUsers;
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        dispatch(setFollowedUsers(userToFollow, newFollowedUsers, 'unfollowedUsers', 'followedUsers'));
-        dispatch(actions.getUsersPosts(userToFollow, () => {}));
-      })
-      .catch((error) => {
-        failToast(error.message);
-      });
+    updates[`users/${modifiedEmail}/followedUsersEmails`] = users.newFollowedEmails;
+
+    try {
+      await fire.database().ref().update(updates);
+    } catch (error) {
+      failToast(error.message);
+    }
+
+    dispatch(setFollowedUsers(user, users));
   };
 };
 
-export const unfollowUser = (userToUnfollow, currentUser, followedUsersEmails) => {
-  return (dispatch) => {
-    const updates = {};
-    const newFollowedUsers = followedUsersEmails.filter((email) => email !== userToUnfollow);
-    updates[`users/${currentUser}/followedUsersEmails`] = [...newFollowedUsers];
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        dispatch(setFollowedUsers(userToUnfollow, newFollowedUsers, 'followedUsers', 'unfollowedUsers'));
-      })
-      .catch((error) => {
-        failToast(error.message);
-      });
+export const followUser = (userToFollow) => {
+  return async (dispatch, getState) => {
+    const { followedUsersEmails } = getState().userData.currentUser;
+
+    const newFollowedUsersEmails = [...followedUsersEmails, userToFollow];
+
+    const users = {
+      newFollowedEmails: newFollowedUsersEmails,
+      toReduce: 'unfollowedUsers',
+      toIncrease: 'followedUsers',
+    };
+
+    await dispatch(updateFollowedUsers(userToFollow, users));
+
+    dispatch(actions.getUserPosts(userToFollow, () => {}));
   };
 };
 
-export const setUpdateProfileLoading = (loading) => {
+export const unfollowUser = (userToUnfollow) => {
+  return async (dispatch, getState) => {
+    const { followedUsersEmails } = getState().userData.currentUser;
+
+    const newFollowedUsersEmails = followedUsersEmails.filter((email) => email !== userToUnfollow);
+
+    const users = {
+      newFollowedEmails: newFollowedUsersEmails,
+      toReduce: 'followedUsers',
+      toIncrease: 'unfollowedUsers',
+    };
+
+    dispatch(updateFollowedUsers(userToUnfollow, users));
+  };
+};
+
+export const setIsUpdateProfileLoading = (loading) => {
   return {
-    type: actionTypes.SET_UPDATE_PROFILE_LOADING,
+    type: actionTypes.SET_IS_UPDATE_PROFILE_LOADING,
     loading,
   };
 };
@@ -72,40 +88,31 @@ const setProfileImage = (image) => {
   };
 };
 
-export const setUserProfileImage = (image, userEmail) => {
-  return (dispatch) => {
-    dispatch(setUpdateProfileLoading(true));
-    fire
-      .storage()
-      .ref(`users/${userEmail}/profileImage`)
-      .put(image)
-      .then(() => {
-        fire
-          .storage()
-          .ref(`users/${userEmail}/profileImage`)
-          .getDownloadURL()
-          .then((url) => {
-            const updates = {};
-            updates[`users/${userEmail}/profileImage`] = url;
-            fire
-              .database()
-              .ref()
-              .update(updates)
-              .then(() => {
-                dispatch(setProfileImage(url));
-                successToast('Your profile image has been changed.');
-                dispatch(setUpdateProfileLoading(false));
-              });
-          })
-          .catch((error) => {
-            failToast(error.message);
-            dispatch(setUpdateProfileLoading(false));
-          });
-      })
-      .catch((error) => {
-        failToast(error.message);
-        dispatch(setUpdateProfileLoading(false));
-      });
+export const setUserProfileImage = (image) => {
+  return async (dispatch, getState) => {
+    const { modifiedEmail } = getState().userData.currentUser;
+
+    dispatch(setIsUpdateProfileLoading(true));
+
+    try {
+      const storageRef = fire.storage().ref(`users/${modifiedEmail}/profileImage`);
+
+      await storageRef.put(image);
+
+      const url = await storageRef.getDownloadURL();
+
+      const updates = {};
+      updates[`users/${modifiedEmail}/profileImage`] = url;
+
+      await fire.database().ref().update(updates);
+
+      dispatch(setProfileImage(url));
+      successToast('Your profile image has been changed.');
+    } catch (error) {
+      failToast(error.message);
+    }
+
+    dispatch(setIsUpdateProfileLoading(false));
   };
 };
 
@@ -116,23 +123,25 @@ const setInfo = (info) => {
   };
 };
 
-export const setPersonalInfo = (info, userEmail) => {
-  return (dispatch) => {
-    dispatch(setUpdateProfileLoading(true));
+export const setPersonalInfo = (info) => {
+  return async (dispatch, getState) => {
+    const { modifiedEmail } = getState().userData.currentUser;
+
+    dispatch(setIsUpdateProfileLoading(true));
+
     const updates = {};
-    updates[`users/${userEmail}/personalInfo`] = info;
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        dispatch(setInfo(info));
-        dispatch(setUpdateProfileLoading(false));
-        successToast('Your profile has benn updated.');
-      })
-      .catch((error) => {
-        failToast(error.message);
-        dispatch(setUpdateProfileLoading(false));
-      });
+    updates[`users/${modifiedEmail}/personalInfo`] = info;
+
+    try {
+      await fire.database().ref().update(updates);
+
+      dispatch(setInfo(info));
+
+      successToast('Your profile info has been updated.');
+    } catch (error) {
+      failToast(error.message);
+    }
+
+    dispatch(setIsUpdateProfileLoading(false));
   };
 };

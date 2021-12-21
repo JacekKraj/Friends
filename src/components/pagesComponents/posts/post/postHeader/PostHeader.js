@@ -88,7 +88,7 @@ const PostHeader = (props) => {
               setIsEditionPanelShown={setIsEditionPanelShown}
               postEditionPanelContainerRef={postEditionPanelContainerRef}
               handleDelete={() => {
-                onRemovePost(post.index, author.modifiedEmail, post.url);
+                onRemovePost({ index: post.index, authorModifiedEmail: author.modifiedEmail, hasUrl: !!post.url });
               }}
               handleEdit={() => setIsEditionModalShown(true)}
             />
@@ -107,7 +107,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRemovePost: (id, user, isUrl) => dispatch(actions.removePost(id, user, isUrl)),
+    onRemovePost: (post) => dispatch(actions.removePost(post)),
   };
 };
 

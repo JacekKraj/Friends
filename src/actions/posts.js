@@ -3,9 +3,9 @@ import fire from './../firebaseConfig';
 import * as actionTypes from './actionsTypes';
 import { failToast, successToast } from './../utilities/toasts/toasts';
 
-export const setNewPostLoading = (loading) => {
+export const setIsNewPostLoading = (loading) => {
   return {
-    type: actionTypes.SET_NEW_POST_LOADING,
+    type: actionTypes.SET_IS_NEW_POST_LOADING,
     loading,
   };
 };
@@ -20,65 +20,47 @@ export const createUserPost = (post, tpc) => {
   };
 };
 
-export const addUserPost = (post, author, clearPost, totalPostsCreated) => {
-  const createPost = (dispatch, newPost) => {
-    dispatch(setNewPostLoading(false));
-    dispatch(createUserPost(newPost, totalPostsCreated));
+export const addUserPost = (postData, clearPost) => {
+  const { post, author, totalPostsCreatedAmount } = postData;
+
+  const finishAddingPost = (dispatch, newPost) => {
+    dispatch(createUserPost(newPost, totalPostsCreatedAmount));
     clearPost();
+    dispatch(setIsNewPostLoading(false));
   };
-  return (dispatch) => {
-    dispatch(setNewPostLoading(true));
+
+  return async (dispatch) => {
+    dispatch(setIsNewPostLoading(true));
+
     const newPost = {
-      post: { text: post.text, url: post.url, creationTime: post.creationTime, index: totalPostsCreated },
+      post: { text: post.text, url: post.url, creationTime: post.creationTime, index: totalPostsCreatedAmount },
       author: { modifiedEmail: author.modifiedEmail, name: author.name },
     };
+
     const updates = {};
-    updates[`users/${author.modifiedEmail}/posts/posts/${totalPostsCreated}`] = newPost;
-    updates[`users/${author.modifiedEmail}/posts/totalPostsCreated`] = totalPostsCreated;
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        if (post.image.url) {
-          fire
-            .storage()
-            .ref(`users/${author.modifiedEmail}/posts/${totalPostsCreated}`)
-            .put(post.image)
-            .then(() => {
-              createPost(dispatch, newPost);
-            });
-        } else {
-          createPost(dispatch, newPost);
-        }
-      })
-      .catch((error) => {
-        dispatch(setNewPostLoading(false));
-        failToast(error.message);
-      });
+    updates[`users/${author.modifiedEmail}/posts/posts/${totalPostsCreatedAmount}`] = newPost;
+    updates[`users/${author.modifiedEmail}/posts/totalPostsCreated`] = totalPostsCreatedAmount;
+
+    try {
+      await fire.database().ref().update(updates);
+
+      if (post.image.url) {
+        await fire.storage().ref(`users/${author.modifiedEmail}/posts/${totalPostsCreatedAmount}`).put(post.image);
+      }
+
+      finishAddingPost(dispatch, newPost);
+    } catch (error) {
+      failToast(error.message);
+      dispatch(setIsNewPostLoading(false));
+    }
   };
 };
 
-export const setGetPostsLoading = (loading) => {
+export const setIsGetPostsLoading = (loading) => {
   return {
-    type: actionTypes.SET_GET_POSTS_LOADING,
+    type: actionTypes.SET_IS_GET_POSTS_LOADING,
     loading,
   };
-};
-
-const getPostURL = (el) => {
-  return new Promise((resolve) => {
-    fire
-      .storage()
-      .ref(`users/${el.author.modifiedEmail}/posts/${el.post.index}`)
-      .getDownloadURL()
-      .then((url) => {
-        resolve({ ...el, post: { ...el.post, url } });
-      })
-      .catch(() => {
-        resolve({ ...el, post: { ...el.post, url: null } });
-      });
-  });
 };
 
 const setUsersPosts = (posts) => {
@@ -88,66 +70,119 @@ const setUsersPosts = (posts) => {
   };
 };
 
-export const getUsersPosts = (modifiedEmail, resolve) => {
-  const createPosts = (dispatch, email, tpc, posts = {}) => {
-    const userPosts = { [email]: { totalPostsCreated: tpc, posts } };
-    dispatch(setUsersPosts(userPosts));
-    resolve(userPosts);
-  };
-  return (dispatch) => {
-    if (modifiedEmail) {
-      fire
-        .database()
-        .ref(`users/${modifiedEmail}/posts`)
-        .get()
-        .then((snapshot) => {
-          if (snapshot.val() && snapshot.val().posts) {
-            let posts = snapshot.val().posts;
-            if (!Array.isArray(posts)) {
-              posts = Object.values(posts);
-            }
-            Promise.all(posts.map((postWithoutURL) => getPostURL(postWithoutURL)))
-              .then((results) => {
-                let resultsModified = {};
-                results.forEach((post) => {
-                  if (post) {
-                    resultsModified = { ...resultsModified, [post.post.index]: post };
-                  }
-                });
-                createPosts(dispatch, modifiedEmail, snapshot.val().totalPostsCreated, resultsModified);
-              })
-              .catch((error) => {
-                failToast(error.message);
-              });
-          } else {
-            createPosts(dispatch, modifiedEmail, 0);
-          }
-        })
-        .catch((error) => {
-          failToast(error.message);
-          dispatch(setGetPostsLoading(false));
-        });
+const getPostsSnapshotFromFirebase = (modifiedEmail) => {
+  const snapshot = fire.database().ref(`users/${modifiedEmail}/posts`).get();
+
+  return snapshot;
+};
+
+const postsAreExisting = (snapshot) => {
+  return snapshot.val() && snapshot.val().posts;
+};
+
+const buildPostsArray = (snapshot) => {
+  let posts = snapshot.val().posts;
+
+  if (!Array.isArray(posts)) {
+    posts = Object.values(posts);
+  }
+
+  posts = posts.filter((post) => post);
+
+  return posts;
+};
+
+const getPostURL = (post) => {
+  return new Promise(async (resolve) => {
+    let url;
+
+    try {
+      url = await fire.storage().ref(`users/${post.author.modifiedEmail}/posts/${post.post.index}`).getDownloadURL();
+    } catch (_) {
+      url = null;
+    }
+
+    resolve(url);
+  });
+};
+
+const appendUrlsToPosts = (posts, urls) => {
+  const postsWithUrls = posts.map((post, index) => {
+    return { ...post, post: { ...post.post, url: urls[index] } };
+  });
+
+  return postsWithUrls;
+};
+
+const getPostsWithImages = async (posts) => {
+  const urls = await Promise.all(posts.map((postWithoutURL) => getPostURL(postWithoutURL)));
+
+  const postsWithImages = appendUrlsToPosts(posts, urls);
+
+  return postsWithImages;
+};
+
+const getPostsObject = (postsArray) => {
+  const postsObject = postsArray.reduce((previousPosts, currentPost) => {
+    return { ...previousPosts, [currentPost.post.index]: currentPost };
+  }, {});
+
+  return postsObject;
+};
+
+export const getUserPosts = (modifiedEmail, resolve) => {
+  return async (dispatch) => {
+    if (!modifiedEmail) {
+      return;
+    }
+
+    try {
+      const snapshot = await getPostsSnapshotFromFirebase(modifiedEmail);
+
+      if (!postsAreExisting(snapshot)) {
+        const userPosts = { [modifiedEmail]: { totalPostsCreated: 0, posts: {} } };
+
+        dispatch(setUsersPosts(userPosts));
+        resolve(userPosts);
+
+        return;
+      }
+
+      const postsArray = buildPostsArray(snapshot);
+
+      const postsWithImages = await getPostsWithImages(postsArray);
+
+      const postsObject = getPostsObject(postsWithImages);
+
+      const totalPostsCreated = snapshot.val().totalPostsCreated;
+
+      const userPosts = { [modifiedEmail]: { totalPostsCreated, posts: postsObject } };
+
+      dispatch(setUsersPosts(userPosts));
+      resolve(userPosts);
+    } catch (error) {
+      failToast(error.message);
+      dispatch(setIsGetPostsLoading(false));
     }
   };
 };
 
-export const removePost = (index, user, isUrl) => {
-  return (dispatch) => {
+export const removePost = (post) => {
+  const { index, authorModifiedEmail, hasUrl } = post;
+
+  return async (dispatch) => {
     const updates = {};
-    updates[`users/${user}/posts/posts/${index}`] = null;
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        if (isUrl) {
-          fire.storage().ref(`users/${user}/posts/${index}`).delete();
-        }
-      })
-      .catch((error) => {
-        failToast(error.message);
-      });
-    dispatch({ type: actionTypes.REMOVE_POST, user, index });
+    updates[`users/${authorModifiedEmail}/posts/posts/${index}`] = null;
+
+    try {
+      await fire.database().ref().update(updates);
+
+      hasUrl && (await fire.storage().ref(`users/${authorModifiedEmail}/posts/${index}`).delete());
+
+      dispatch({ type: actionTypes.REMOVE_POST, user: authorModifiedEmail, index });
+    } catch (error) {
+      failToast(error.message);
+    }
   };
 };
 
@@ -157,9 +192,9 @@ export const clearPosts = () => {
   };
 };
 
-export const setUpdatePostLoading = (loading) => {
+export const setIsUpdatePostLoading = (loading) => {
   return {
-    type: actionTypes.SET_UPDATE_POST_LOADING,
+    type: actionTypes.SET_IS_UPDATE_POST_LOADING,
     loading,
   };
 };
@@ -172,38 +207,35 @@ export const setUpdatedPost = (author, post) => {
   };
 };
 
-export const updatePost = (author, post, previousUrl, hideModal) => {
+export const updatePost = (updatedPostData, hideModal) => {
+  const { author, post, previousUrl } = updatedPostData;
+
   const updates = {};
   updates[`users/${author.modifiedEmail}/posts/posts/${post.index}`] = { author, post: { ...post, image: null } };
   const storageRef = fire.storage().ref(`users/${author.modifiedEmail}/posts/${post.index}`);
 
-  return (dispatch) => {
+  return async (dispatch) => {
     const finishUpdate = () => {
       dispatch(setUpdatedPost(author, post));
       hideModal();
-      dispatch(setUpdatePostLoading(false));
+      dispatch(setIsUpdatePostLoading(false));
       successToast('Your post has been updated.');
     };
-    dispatch(setUpdatePostLoading(true));
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        if (post.image.url !== previousUrl && post.image.url !== null) {
-          storageRef.put(post.image).then(() => {
-            finishUpdate();
-          });
-        } else if (post.image.url === previousUrl) {
-          finishUpdate();
-        } else {
-          storageRef.delete().then(() => {
-            finishUpdate();
-          });
-        }
-      })
-      .catch((error) => {
-        failToast(error.message);
-      });
+
+    dispatch(setIsUpdatePostLoading(true));
+
+    try {
+      await fire.database().ref().update(updates);
+
+      if (post.image.url === null && previousUrl !== null) {
+        await storageRef.delete();
+      } else if (post.image.url !== previousUrl) {
+        await storageRef.put(post.image);
+      }
+
+      finishUpdate();
+    } catch (error) {
+      failToast(error.message);
+    }
   };
 };

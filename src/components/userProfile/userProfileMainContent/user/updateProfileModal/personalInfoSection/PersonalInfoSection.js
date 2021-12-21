@@ -23,7 +23,7 @@ const personalInfoSection = ({ user, onSetPersonalInfo }) => {
     const isPersonalInfoChanged = !lodash.isEqual(newUpdatedInfo, user.personalInfo);
 
     if (isPersonalInfoChanged) {
-      onSetPersonalInfo(newUpdatedInfo, user.modifiedEmail);
+      onSetPersonalInfo(newUpdatedInfo);
     }
   };
 
@@ -68,7 +68,7 @@ const personalInfoSection = ({ user, onSetPersonalInfo }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetPersonalInfo: (info, modifiedEmail) => dispatch(actions.setPersonalInfo(info, modifiedEmail)),
+    onSetPersonalInfo: (info) => dispatch(actions.setPersonalInfo(info)),
   };
 };
 

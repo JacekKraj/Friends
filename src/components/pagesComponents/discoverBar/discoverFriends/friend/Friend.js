@@ -8,14 +8,14 @@ import Button from './../../../../UI/button/Button';
 import User from './../../user/User';
 
 const Friend = (props) => {
-  const { isHome, onFollowUser, onUnfollowUser, currentUserModifiedEmail, currentUserFollowedUsersEmails, isFollowedByCurrentUser, user } = props;
+  const { isHome, onFollowUser, onUnfollowUser, currentUserModifiedEmail, isFollowedByCurrentUser, user } = props;
 
   const [extraClass, setExtraClass] = React.useState('');
 
   const handleButtonClick = () => {
     isHome && setExtraClass(classes.hiddenUser);
     const clickFunction = !isFollowedByCurrentUser ? onFollowUser : onUnfollowUser;
-    clickFunction(user.modifiedEmail, currentUserModifiedEmail, currentUserFollowedUsersEmails);
+    clickFunction(user.modifiedEmail);
   };
 
   return (
@@ -42,9 +42,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFollowUser: (userToFollow, currentUser, followedUsersEmails) => dispatch(actions.followUser(userToFollow, currentUser, followedUsersEmails)),
-    onUnfollowUser: (userToUnfollow, currentUser, followedUsersEmails) =>
-      dispatch(actions.unfollowUser(userToUnfollow, currentUser, followedUsersEmails)),
+    onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
+    onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
   };
 };
 

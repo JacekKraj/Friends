@@ -12,7 +12,7 @@ const initialState = {
   },
   unfollowedUsers: [],
   followedUsers: [],
-  updateProfileLoading: false,
+  isUpdateProfileLoading: false,
 };
 
 const createUsersType = (usersEmails, allUsers) => {
@@ -88,10 +88,10 @@ const userDataReducer = (state = initialState, action) => {
           profileImage: action.image,
         },
       };
-    case actionTypes.SET_UPDATE_PROFILE_LOADING:
+    case actionTypes.SET_IS_UPDATE_PROFILE_LOADING:
       return {
         ...state,
-        updateProfileLoading: action.loading,
+        isUpdateProfileLoading: action.loading,
       };
     case actionTypes.SET_PERSONAL_INFO:
       return {

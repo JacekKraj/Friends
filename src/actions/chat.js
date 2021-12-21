@@ -1,5 +1,6 @@
 import * as actionTypes from './actionsTypes';
 import fire from './../firebaseConfig';
+import { failToast } from '../utilities/toasts/toasts';
 
 export const setChat = (chat) => {
   return {
@@ -15,39 +16,58 @@ export const setLast = (lastChat) => {
   };
 };
 
-export const setLastChat = (currUser, lastChat) => {
-  return (dispatch) => {
+export const setLastChat = (lastChatEmail) => {
+  return async (dispatch, getState) => {
+    const { modifiedEmail } = getState().userData.currentUser;
+
     const updates = {};
-    updates[`users/${currUser}/chat/lastChat`] = lastChat;
-    fire
-      .database()
-      .ref()
-      .update(updates)
-      .then(() => {
-        dispatch(setLast(lastChat));
-      });
+    updates[`users/${modifiedEmail}/chat/lastChat`] = lastChatEmail;
+
+    try {
+      await fire.database().ref().update(updates);
+
+      dispatch(setLast(lastChatEmail));
+    } catch (error) {
+      failToast(error.message);
+    }
   };
 };
 
-export const setChatNotifications = (notifications) => {
+export const setNotifications = (notifications) => {
   return {
-    type: actionTypes.SET_CHAT_NOTIFICATIONS,
+    type: actionTypes.SET_NOTIFICATIONS,
     notifications,
   };
 };
 
-export const sendNotification = (userToSend, notifications) => {
-  return (dispatch) => {
+export const updateUserNotifications = (userToUpdate, notifications) => {
+  return (_) => {
     const updates = {};
-    updates[`users/${userToSend}/chat/notifications`] = notifications;
+    updates[`users/${userToUpdate}/chat/notifications`] = notifications;
+
     fire.database().ref().update(updates);
   };
 };
 
-export const removeNotification = (currUser, userToRemove, notifications) => {
-  return (dispatch) => {
+export const removeNotification = (userToRemove) => {
+  return async (dispatch, getState) => {
+    const { modifiedEmail } = getState().userData.currentUser;
+    const { notifications } = getState().chat;
+
     const newNotifications = notifications.filter((userEmail) => userEmail !== userToRemove);
-    dispatch(sendNotification(currUser, newNotifications));
-    dispatch(setChatNotifications(newNotifications));
+
+    await dispatch(updateUserNotifications(modifiedEmail, newNotifications));
+    dispatch(setNotifications(newNotifications));
+  };
+};
+
+export const addNotification = (textedUserModifiedEmail) => {
+  return (dispatch, getState) => {
+    const { followedUsers, currentUser } = getState().userData;
+
+    const currNotifications = followedUsers.find((user) => user.modifiedEmail === textedUserModifiedEmail).chat?.notifications || [];
+    const newNotifications = [...currNotifications, currentUser.modifiedEmail];
+
+    dispatch(updateUserNotifications(textedUserModifiedEmail, newNotifications));
   };
 };

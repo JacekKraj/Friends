@@ -9,19 +9,19 @@ import { getArrayOfPosts } from './../../../utilities/helperFunctions/getArrayOf
 import MainContentWrapper from './../../wrappers/mainContentWrapper/MainContentWrapper';
 
 const MainContent = (props) => {
-  const { onGetUsersPosts, onSetGetPostsLoading, currUserModifiedEmail, usersPosts, followedUsersEmails } = props;
+  const { onGetUserPosts, onSetIsGetPostsLoading, currUserModifiedEmail, usersPosts, followedUsersEmails } = props;
 
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
     const getPosts = (user) => {
       return new Promise((resolve) => {
-        onGetUsersPosts(user, resolve);
+        onGetUserPosts(user, resolve);
       });
     };
 
     Promise.all([...followedUsersEmails, currUserModifiedEmail].map((user) => getPosts(user))).then(() => {
-      onSetGetPostsLoading(false);
+      onSetIsGetPostsLoading(false);
     });
   }, [currUserModifiedEmail]);
 
@@ -44,8 +44,8 @@ const MainContent = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetUsersPosts: (modifiedEmail, resolve) => dispatch(actions.getUsersPosts(modifiedEmail, resolve)),
-    onSetGetPostsLoading: (loading) => dispatch(actions.setGetPostsLoading(loading)),
+    onGetUserPosts: (modifiedEmail, resolve) => dispatch(actions.getUserPosts(modifiedEmail, resolve)),
+    onSetIsGetPostsLoading: (loading) => dispatch(actions.setIsGetPostsLoading(loading)),
   };
 };
 

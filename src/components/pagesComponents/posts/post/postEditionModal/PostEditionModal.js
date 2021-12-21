@@ -72,7 +72,13 @@ const PostEditionModal = (props) => {
   };
 
   const submitChanges = () => {
-    onUpdatePost(author, { ...post, text: state.text, image: state.image, url: state.image.url }, post.url, handleBackdropClick);
+    const updatedPostData = {
+      author,
+      post: { ...post, text: state.text, image: state.image, url: state.image.url },
+      previousUrl: post.url,
+    };
+
+    onUpdatePost(updatedPostData, handleBackdropClick);
   };
 
   const changeInputValue = (text) => {
@@ -129,13 +135,13 @@ const PostEditionModal = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.posts.updatePostLoading,
+    isLoading: state.posts.isUpdatePostLoading,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUpdatePost: (author, post, previousUrl, hideModal) => dispatch(actions.updatePost(author, post, previousUrl, hideModal)),
+    onUpdatePost: (updatedPostData, hideModal) => dispatch(actions.updatePost(updatedPostData, hideModal)),
   };
 };
 
