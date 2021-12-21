@@ -1,4 +1,4 @@
-import * as actionTypes from "./../actions/actionsTypes";
+import * as actionTypes from './../actions/actionsTypes';
 
 const initialState = {
   lastChat: null,
@@ -15,7 +15,7 @@ const chatReducer = (state = initialState, action) => {
         notifications,
         lastChat,
       };
-    case actionTypes.SET_CHAT_NOTIFICATIONS:
+    case actionTypes.SET_NOTIFICATIONS:
       return {
         ...state,
         notifications: action.notifications,

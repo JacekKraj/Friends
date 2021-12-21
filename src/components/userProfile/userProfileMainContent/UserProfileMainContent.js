@@ -10,7 +10,7 @@ import { getArrayOfPosts } from '../../../utilities/helperFunctions/getArrayOfPo
 import User from './user/User';
 
 const UserProfileMainContent = (props) => {
-  const { user, usersPosts, onGetUsersPosts, onSetGetPostsLoading } = props;
+  const { user, usersPosts, onGetUserPosts, onSetIsGetPostsLoading } = props;
 
   const [posts, setPosts] = React.useState([]);
 
@@ -28,7 +28,7 @@ const UserProfileMainContent = (props) => {
         return;
       }
       const fetchPostsFromDatabse = new Promise((resolve) => {
-        onGetUsersPosts(userEmail, resolve);
+        onGetUserPosts(userEmail, resolve);
       });
 
       fetchPostsFromDatabse.then((response) => {
@@ -43,7 +43,7 @@ const UserProfileMainContent = (props) => {
     const setupPosts = async () => {
       const userPosts = await getUserPosts(user.modifiedEmail);
 
-      onSetGetPostsLoading(false);
+      onSetIsGetPostsLoading(false);
       setPosts(userPosts);
     };
 
@@ -70,8 +70,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetUsersPosts: (modifiedEmail, resolve) => dispatch(actions.getUsersPosts(modifiedEmail, resolve)),
-    onSetGetPostsLoading: (loading) => dispatch(actions.setGetPostsLoading(loading)),
+    onGetUserPosts: (modifiedEmail, resolve) => dispatch(actions.getUserPosts(modifiedEmail, resolve)),
+    onSetIsGetPostsLoading: (loading) => dispatch(actions.setIsGetPostsLoading(loading)),
   };
 };
 

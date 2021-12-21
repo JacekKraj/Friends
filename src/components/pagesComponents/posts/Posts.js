@@ -46,7 +46,7 @@ const Posts = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.posts.getPostsLoading,
+    isLoading: state.posts.isGetPostsLoading,
     followedUsers: state.userData.followedUsers,
     unfollowedUsers: state.userData.unfollowedUsers,
     currentUser: state.userData.currentUser,

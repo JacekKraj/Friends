@@ -62,7 +62,7 @@ export const SignUpModal = ({ handleFormSubmit, isShown, isLoading }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.auth.loading,
+    isLoading: state.auth.isLoading,
   };
 };
 

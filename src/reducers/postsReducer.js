@@ -1,10 +1,10 @@
-import * as actionTypes from "./../actions/actionsTypes";
+import * as actionTypes from './../actions/actionsTypes';
 
 const initialState = {
   usersPosts: {},
-  newPostLoading: false,
-  getPostsLoading: true,
-  updatePostLoading: false,
+  isNewPostLoading: false,
+  isGetPostsLoading: true,
+  isUpdatePostLoading: false,
 };
 
 const postsReducer = (state = initialState, action) => {
@@ -20,10 +20,10 @@ const postsReducer = (state = initialState, action) => {
           },
         },
       };
-    case actionTypes.SET_NEW_POST_LOADING:
+    case actionTypes.SET_IS_NEW_POST_LOADING:
       return {
         ...state,
-        newPostLoading: action.loading,
+        isNewPostLoading: action.loading,
       };
     case actionTypes.GET_USERS_POSTS:
       return {
@@ -31,10 +31,10 @@ const postsReducer = (state = initialState, action) => {
         usersPosts: { ...state.usersPosts, ...action.posts },
       };
 
-    case actionTypes.SET_GET_POSTS_LOADING:
+    case actionTypes.SET_IS_GET_POSTS_LOADING:
       return {
         ...state,
-        getPostsLoading: action.loading,
+        isGetPostsLoading: action.loading,
       };
     case actionTypes.REMOVE_POST:
       const newUserPosts = { ...state.usersPosts[action.user].posts };
@@ -53,7 +53,7 @@ const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         usersPosts: {},
-        getPostsLoading: true,
+        isGetPostsLoading: true,
       };
     case actionTypes.UPDATE_POST:
       return {
@@ -69,10 +69,10 @@ const postsReducer = (state = initialState, action) => {
           },
         },
       };
-    case actionTypes.SET_UPDATE_POST_LOADING:
+    case actionTypes.SET_IS_UPDATE_POST_LOADING:
       return {
         ...state,
-        updatePostLoading: action.loading,
+        isUpdatePostLoading: action.loading,
       };
     default:
       return state;

@@ -18,11 +18,7 @@ const BottomBar = (props) => {
 
   return (
     <div className={classes.bottomBarComponent}>
-      <EmojiPicker
-        input={{ value: input.value, changeValue: input.changeValue, ref: inputRef }}
-        setCursorPosition={setCursorPosition}
-        pickerStyle={{ bottom: '100%' }}
-      />
+      <EmojiPicker input={{ ...input, ref: inputRef }} setCursorPosition={setCursorPosition} pickerStyle={{ bottom: '100%' }} />
       <form className={classnames(classes.form, isForeignUser && classes.inputDisabled)} onSubmit={(e) => input.submit(e)}>
         <div className={classes.inputContainer}>
           <input

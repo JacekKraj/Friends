@@ -8,22 +8,22 @@ export {
   registerStart,
   registerFail,
   registerEnd,
-} from "./authentication";
+} from './authentication';
 
-export { setUserData, followUser, unfollowUser, setFollowedUsers, setUserProfileImage, setPersonalInfo } from "./userData";
+export { setUserData, followUser, unfollowUser, setFollowedUsers, setUserProfileImage, setPersonalInfo } from './userData';
 
 export {
   addUserPost,
   createUserPost,
-  setNewPostLoading,
-  getUsersPosts,
-  setGetPostsLoading,
+  setIsNewPostLoading,
+  getUserPosts,
+  setIsGetPostsLoading,
   removePost,
   clearPosts,
   updatePost,
-  setUpdatePostLoading,
-} from "./posts";
+  setIsUpdatePostLoading,
+} from './posts';
 
-export { setShowNav, setShowDiscoverBar } from "./nav";
+export { setShowNav, setShowDiscoverBar } from './nav';
 
-export { setChatNotifications, sendNotification, setChat, removeNotification, setLastChat } from "./chat";
+export { updateUserNotifications, setChat, removeNotification, addNotification, setLastChat } from './chat';

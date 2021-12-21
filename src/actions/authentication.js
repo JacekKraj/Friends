@@ -1,8 +1,8 @@
-import * as actionTypes from "./actionsTypes";
-import fire from "./../firebaseConfig";
+import * as actionTypes from './actionsTypes';
+import fire from './../firebaseConfig';
 
-import { failToast } from "./../utilities/toasts/toasts";
-import { modifyEmail } from "./../utilities/helperFunctions/modifyEmail";
+import { failToast } from './../utilities/toasts/toasts';
+import { modifyEmail } from './../utilities/helperFunctions/modifyEmail';
 
 export const registerStart = () => {
   return {
@@ -22,44 +22,37 @@ export const registerFail = () => {
   };
 };
 
-export const register = (email, password, hideModalHandler, name, surname, birthdayDate) => {
-  return (dispatch) => {
+const setNewUserIntoDatabase = (createdUserData) => {
+  const { email, name, surname, birthdayDate } = createdUserData;
+  const modifiedEmail = modifyEmail(email);
+
+  fire
+    .database()
+    .ref(`users/${modifiedEmail}`)
+    .set({
+      email,
+      name: `${name} ${surname}`,
+      birthdayDate,
+    });
+};
+
+export const register = (createdUserData, hideModal) => {
+  const { email, password } = createdUserData;
+
+  return async (dispatch) => {
     dispatch(registerStart());
-    const modifiedEmail = modifyEmail(email);
-    fire
-      .database()
-      .ref(`users/${modifiedEmail}`)
-      .set({
-        email,
-        name: `${name} ${surname}`,
-        birthdayDate,
-      })
-      .then(() => {
-        fire
-          .auth()
-          .createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            fire
-              .auth()
-              .currentUser.sendEmailVerification()
-              .then(() => {
-                dispatch(registerEnd());
-                hideModalHandler();
-              })
-              .catch((error) => {
-                dispatch(registerFail());
-                failToast(error.message);
-              });
-          })
-          .catch((error) => {
-            dispatch(registerFail());
-            failToast(error.message);
-          });
-      })
-      .catch((error) => {
-        dispatch(registerFail());
-        failToast(error.message);
-      });
+
+    try {
+      await setNewUserIntoDatabase(createdUserData);
+      await fire.auth().createUserWithEmailAndPassword(email, password);
+      await fire.auth().currentUser.sendEmailVerification();
+
+      dispatch(registerEnd());
+      hideModal();
+    } catch (error) {
+      dispatch(registerFail());
+      failToast(error.message);
+    }
   };
 };
 
@@ -83,16 +76,15 @@ export const authenticationFail = () => {
 };
 
 export const authenticate = (email, password) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(authenticationStart());
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {})
-      .catch((error) => {
-        failToast(error.message);
-        dispatch(authenticationFail());
-      });
+
+    try {
+      await fire.auth().signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      failToast(error.message);
+      dispatch(authenticationFail());
+    }
   };
 };
 

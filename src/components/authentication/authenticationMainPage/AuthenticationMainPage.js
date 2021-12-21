@@ -16,7 +16,7 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate }) => {
   const [showSignUpModal, setShowSignUpModal] = React.useState(false);
   const [showSignInModal, setShowSignInModal] = React.useState(false);
 
-  const hideModalHandler = () => {
+  const hideModal = () => {
     setShowSignUpModal(false);
     setShowSignInModal(false);
   };
@@ -51,11 +51,19 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate }) => {
       return;
     }
 
-    onRegister(values.email.trim(), values.password.trim(), hideModalHandler, values.name.trim(), values.surname.trim(), {
-      day: values.day,
-      month: values.month,
-      year: values.year,
-    });
+    const createdUserData = {
+      email: values.email.trim(),
+      password: values.password.trim(),
+      name: values.name.trim(),
+      surname: values.surname.trim(),
+      birthdayDate: {
+        day: values.day,
+        month: values.month,
+        year: values.year,
+      },
+    };
+
+    onRegister(createdUserData, hideModal);
   };
 
   const handleSubmitAuthenticate = (values) => {
@@ -66,7 +74,7 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate }) => {
 
   return (
     <React.Fragment>
-      {(showSignInModal || showSignUpModal) && <Backdrop onClick={hideModalHandler} />}
+      {(showSignInModal || showSignUpModal) && <Backdrop onClick={hideModal} />}
       <div className={classes.authenticationMainPagecomponent}>
         <div className={classes.infoContainer}>
           <div className={classes.logoContainer}>
@@ -97,8 +105,7 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRegister: (email, password, hideModalHandler, name, surname, birthdayDate) =>
-      dispatch(actions.register(email, password, hideModalHandler, name, surname, birthdayDate)),
+    onRegister: (createdUserData, hideModal) => dispatch(actions.register(createdUserData, hideModal)),
     onAuthenticate: (email, password) => dispatch(actions.authenticate(email, password)),
   };
 };

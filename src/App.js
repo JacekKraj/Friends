@@ -19,7 +19,7 @@ const App = (props) => {
     onClearPosts,
     onSetShowNav,
     onSetShowDiscoverBar,
-    onSetGetPostsLoading,
+    onSetIsGetPostsLoading,
     onSetChat,
     isAuthenticated,
   } = props;
@@ -89,7 +89,7 @@ const App = (props) => {
   React.useEffect(() => {
     onSetShowNav(false);
     onSetShowDiscoverBar(false);
-    onSetGetPostsLoading(true);
+    onSetIsGetPostsLoading(true);
   }, [location.pathname, location.search]);
 
   const routes = isAuthenticated ? (
@@ -137,7 +137,7 @@ const mapDispatchToProps = (dispatch) => {
     onClearPosts: () => dispatch(actions.clearPosts()),
     onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
     onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
-    onSetGetPostsLoading: (loading) => dispatch(actions.setGetPostsLoading(loading)),
+    onSetIsGetPostsLoading: (loading) => dispatch(actions.setIsGetPostsLoading(loading)),
     onSetChat: (chat) => dispatch(actions.setChat(chat)),
   };
 };

@@ -56,7 +56,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const User = (props) => {
-  const { user, followedUsersEmails, currentUserEmail, onFollowUser, onUnfollowUser } = props;
+  const { user, onFollowUser, onUnfollowUser } = props;
   const { type, modifiedEmail, profileImage, personalInfo, name, birthdayDate } = user;
 
   const [isUpdateModalShown, setIsUpdateModalShown] = React.useState(false);
@@ -64,26 +64,16 @@ const User = (props) => {
 
   const displayButton = React.useMemo(() => {
     let buttonProps = {};
-    let handleClick;
 
     switch (type) {
       case 'current':
-        handleClick = () => {
-          setIsUpdateModalShown(true);
-        };
-        buttonProps = { transparent: true, text: 'Update profile', handleClick };
+        buttonProps = { transparent: true, text: 'Update profile', handleClick: setIsUpdateModalShown.bind(null, true) };
         break;
       case 'followed':
-        handleClick = () => {
-          onUnfollowUser(modifiedEmail, currentUserEmail, followedUsersEmails);
-        };
-        buttonProps = { transparent: false, text: 'Unfollow', handleClick };
+        buttonProps = { transparent: false, text: 'Unfollow', handleClick: onUnfollowUser.bind(null, modifiedEmail) };
         break;
       default:
-        handleClick = () => {
-          onFollowUser(modifiedEmail, currentUserEmail, followedUsersEmails);
-        };
-        buttonProps = { transparent: true, text: 'Follow', handleClick };
+        buttonProps = { transparent: true, text: 'Follow', handleClick: onFollowUser.bind(null, modifiedEmail) };
         break;
     }
 
@@ -145,9 +135,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFollowUser: (userToFollow, currentUser, followedUsersEmails) => dispatch(actions.followUser(userToFollow, currentUser, followedUsersEmails)),
-    onUnfollowUser: (userToUnfollow, currentUser, followedUsersEmails) =>
-      dispatch(actions.unfollowUser(userToUnfollow, currentUser, followedUsersEmails)),
+    onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
+    onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
   };
 };
 

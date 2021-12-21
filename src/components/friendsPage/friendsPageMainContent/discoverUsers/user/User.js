@@ -7,11 +7,11 @@ import classes from './user.module.scss';
 import Button from './../../../../UI/button/Button';
 
 export const User = (props) => {
-  const { isToFollow, onFollowUser, onUnfollowUser, followedUsersEmails, currentUserModifiedEmail, user } = props;
+  const { isToFollow, onFollowUser, onUnfollowUser, user } = props;
 
   const handleClick = () => {
     const onClickFunction = isToFollow ? onFollowUser : onUnfollowUser;
-    onClickFunction(user.modifiedEmail, currentUserModifiedEmail, followedUsersEmails);
+    onClickFunction(user.modifiedEmail);
   };
 
   return (
@@ -29,9 +29,8 @@ export const User = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFollowUser: (userToFollow, currentUser, followedUsersEmails) => dispatch(actions.followUser(userToFollow, currentUser, followedUsersEmails)),
-    onUnfollowUser: (userToUnfollow, currentUser, followedUsersEmails) =>
-      dispatch(actions.unfollowUser(userToUnfollow, currentUser, followedUsersEmails)),
+    onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
+    onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
   };
 };
 

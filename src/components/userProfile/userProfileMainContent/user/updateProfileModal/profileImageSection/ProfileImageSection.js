@@ -14,7 +14,7 @@ const ProfileImageSection = ({ user, onSetUserImage }) => {
   const updateImage = () => {
     const isNewImageAdded = !!newProfileImage.url;
     if (isNewImageAdded) {
-      onSetUserImage(newProfileImage, user.modifiedEmail);
+      onSetUserImage(newProfileImage);
     }
   };
 
@@ -37,7 +37,7 @@ const ProfileImageSection = ({ user, onSetUserImage }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSetUserImage: (image, userModifiedEmail) => dispatch(actions.setUserProfileImage(image, userModifiedEmail)),
+    onSetUserImage: (image) => dispatch(actions.setUserProfileImage(image)),
   };
 };
 

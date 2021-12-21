@@ -12,7 +12,7 @@ import MessagesArea from './messagesArea/MessagesArea';
 import * as actions from './../../../actions/index';
 
 const Chat = (props) => {
-  const { textedUser, chattingUsers, followedUsers, currUserModifiedEmail, onSendNotification, onSetLastChat } = props;
+  const { textedUser, chattingUsers, currUserModifiedEmail, onSetLastChat, onAddNotification } = props;
 
   const [inputValue, setInputValue] = React.useState('');
 
@@ -32,19 +32,17 @@ const Chat = (props) => {
     });
   };
 
-  const getTextedUserChatNotifications = () => {
-    const notifications = followedUsers.find((el) => el.modifiedEmail === textedUser.modifiedEmail).chat?.notifications || [];
-    return notifications;
-  };
-
   const submitInput = React.useCallback(
     (e) => {
       e.preventDefault();
       setInputValue('');
       sendMessage();
-      const notfifications = getTextedUserChatNotifications();
-      onSendNotification(textedUser.modifiedEmail, [...notfifications, currUserModifiedEmail]);
-      onSetLastChat(currUserModifiedEmail, textedUser.modifiedEmail);
+
+      if (!textedUser.chat.notifications.includes(currUserModifiedEmail)) {
+        onAddNotification(textedUser.modifiedEmail);
+      }
+
+      onSetLastChat(textedUser.modifiedEmail);
     },
     [inputValue]
   );
@@ -70,15 +68,14 @@ const Chat = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    followedUsers: state.userData.followedUsers,
     currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSendNotification: (userToSend, notifications) => dispatch(actions.sendNotification(userToSend, notifications)),
-    onSetLastChat: (currUser, lastChat) => dispatch(actions.setLastChat(currUser, lastChat)),
+    onAddNotification: (textedUser) => dispatch(actions.addNotification(textedUser)),
+    onSetLastChat: (lastChatEmail) => dispatch(actions.setLastChat(lastChatEmail)),
   };
 };
 

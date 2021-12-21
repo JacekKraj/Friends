@@ -1,8 +1,8 @@
-import * as actionTypes from "./../actions/actionsTypes";
+import * as actionTypes from './../actions/actionsTypes';
 
 const initialState = {
   authenticated: false,
-  loading: false,
+  isLoading: false,
   fireUser: null,
 };
 const authenticationReducer = (state = initialState, action) => {
@@ -10,41 +10,41 @@ const authenticationReducer = (state = initialState, action) => {
     case actionTypes.REGISTER_START:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
     case actionTypes.REGISTER_END:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
       };
     case actionTypes.REGISTER_FAIL:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
       };
     case actionTypes.LOG_OUT:
       return {
         ...state,
         authenticated: false,
-        loading: false,
+        isLoading: false,
         fireUser: null,
       };
     case actionTypes.AUTHENTICATION_START:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
     case actionTypes.AUTHENTICATION_END:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         authenticated: true,
         fireUser: action.fireUser,
       };
     case actionTypes.AUTHENTICATION_FAIL:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         authenticated: false,
       };
     default:

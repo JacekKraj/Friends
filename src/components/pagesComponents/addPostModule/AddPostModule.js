@@ -177,12 +177,12 @@ export const UnconnectedAddPostModule = ({ currentUser, posts, onAddUserPost }) 
 
     const author = buildAuthor();
 
-    onAddUserPost(post, author, clearModuleAfterAddingPost, totalPostsCreatedAmount);
+    onAddUserPost({ post, author, totalPostsCreatedAmount }, clearModuleAfterAddingPost);
   };
 
   return (
     <div className={classes.addPostModuleComponent} data-test='add-post-module-component'>
-      {posts.newPostLoading && <SpinnerContainer />}
+      {posts.isNewPostLoading && <SpinnerContainer />}
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -231,7 +231,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddUserPost: (post, author, clearPost, totalPostsCreated) => dispatch(actions.addUserPost(post, author, clearPost, totalPostsCreated)),
+    onAddUserPost: (postData, clearPost) => dispatch(actions.addUserPost(postData, clearPost)),
   };
 };
 

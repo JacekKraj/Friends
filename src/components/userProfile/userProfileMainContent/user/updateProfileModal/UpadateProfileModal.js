@@ -28,7 +28,7 @@ const UpdateProfileModal = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoading: state.userData.updateProfileLoading,
+    isLoading: state.userData.isUpdateProfileLoading,
   };
 };
 

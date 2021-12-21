@@ -23,7 +23,7 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
 
   const location = useLocation();
 
-  const findTextedUser = (userEmail) => {
+  const findTextedUserData = (userEmail) => {
     let foundUser = followedUsers.filter((user) => user.modifiedEmail === userEmail)[0];
     if (!foundUser) {
       foundUser = { ...unfollowedUsers.filter((user) => user.modifiedEmail === userEmail)[0], isForeign: true };
@@ -37,7 +37,7 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
       return;
     }
 
-    const textedUser = findTextedUser(textedUserEmail);
+    const textedUser = findTextedUserData(textedUserEmail);
 
     if (!textedUser.modifiedEmail) {
       setChattingUsers('unknown');
@@ -45,8 +45,10 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
     }
 
     setTextedUser(textedUser);
+
     const sortedUsers = sortUsersAlphabetically([{ name: currUserModifiedEmail }, { name: textedUserEmail }]);
     const [firstUser, secondUser] = sortedUsers;
+
     setChattingUsers(`${firstUser.name}${secondUser.name}`);
   };
 
@@ -64,7 +66,7 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
 
   React.useEffect(() => {
     if (chatNotifications?.includes(textedUser.modifiedEmail)) {
-      onRemoveNotification(currUserModifiedEmail, textedUser.modifiedEmail, chatNotifications);
+      onRemoveNotification(textedUser.modifiedEmail);
     }
   }, [textedUser.modifiedEmail, chatNotifications, currUserModifiedEmail]);
 
@@ -95,7 +97,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRemoveNotification: (currUser, userToRemove, notifications) => dispatch(actions.removeNotification(currUser, userToRemove, notifications)),
+    onRemoveNotification: (userToRemove) => dispatch(actions.removeNotification(userToRemove)),
   };
 };
 
