@@ -8,26 +8,29 @@ import Spinner from './../../UI/spinner/Spinner';
 const Posts = (props) => {
   const { followedUsers, unfollowedUsers, currentUser, posts, isLoading } = props;
 
-  const getAuthorData = (author) => {
+  const getRelevantAuthorData = (author) => {
     const usersToBrowseIn = [...followedUsers, ...unfollowedUsers, currentUser];
-    const user = usersToBrowseIn.find((user) => {
-      if (user.modifiedEmail === author.modifiedEmail) {
+
+    const authorData = usersToBrowseIn.find((user) => {
+      if (user.modifiedEmail === author) {
         return user;
       }
     });
-    return user;
-  };
 
-  const getAuthorProfileImage = (author) => {
-    const authorData = getAuthorData(author);
-    const profileImage = authorData?.profileImage;
-    return profileImage;
+    const { profileImage, name } = authorData;
+
+    const relevantAuthorData = {
+      profileImage,
+      name,
+    };
+
+    return relevantAuthorData;
   };
 
   const buildPosts = posts?.map((post) => {
-    const profileImage = getAuthorProfileImage(post.author);
-    const author = { ...post.author, profileImage };
-    return <Post author={author} post={post.post} key={post.post.creationTime} />;
+    const relevantAuthorData = getRelevantAuthorData(post.author);
+    const author = { modifiedEmail: post.author, ...relevantAuthorData };
+    return <Post author={author} post={post} key={post.creationTime} />;
   });
 
   const postsAreNotFound = !isLoading && !posts?.length;

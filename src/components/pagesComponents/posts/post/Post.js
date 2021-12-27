@@ -12,7 +12,7 @@ const Post = (props) => {
 
   return (
     <React.Fragment>
-      {isEditionModalShown && <PostEditionModal author={author} post={post} handleBackdropClick={() => setIsEditionModalShown(false)} />}
+      {isEditionModalShown && <PostEditionModal post={post} handleBackdropClick={() => setIsEditionModalShown(false)} />}
       <div className={classes.postComponent} data-test='post-component'>
         <PostHeader author={author} post={post} setIsEditionModalShown={setIsEditionModalShown} />
         <PostContent post={post} />

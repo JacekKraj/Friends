@@ -97,7 +97,7 @@ const reducer = (state, action) => {
   }
 };
 
-export const UnconnectedAddPostModule = ({ currentUser, posts, onAddUserPost }) => {
+export const UnconnectedAddPostModule = ({ currentUserModifiedEmail, posts, onAddUserPost }) => {
   const iconStyle = useStyles();
 
   const [state, dispatch] = React.useReducer(reducer, { image: { url: null }, text: '', cursorPosition: 0 });
@@ -144,30 +144,17 @@ export const UnconnectedAddPostModule = ({ currentUser, posts, onAddUserPost }) 
       creationTime,
       text: state.text,
       image,
-      url: image.url,
     };
 
     return post;
   };
 
   const countTotalPostsCreatedByUserAmount = () => {
-    const currentCreatedPostsAmount = posts.usersPosts[currentUser.modifiedEmail].totalPostsCreated;
+    const currentCreatedPostsAmount = posts.usersPosts[currentUserModifiedEmail].totalPostsCreated;
 
     const newCreatedPostsAmount = currentCreatedPostsAmount !== 0 ? currentCreatedPostsAmount + 1 : 1;
 
     return newCreatedPostsAmount;
-  };
-
-  const buildAuthor = () => {
-    const { modifiedEmail, name, profileImage } = currentUser;
-
-    const author = {
-      modifiedEmail,
-      name,
-      profileImage,
-    };
-
-    return author;
   };
 
   const submitPost = () => {
@@ -175,9 +162,7 @@ export const UnconnectedAddPostModule = ({ currentUser, posts, onAddUserPost }) 
 
     const totalPostsCreatedAmount = countTotalPostsCreatedByUserAmount();
 
-    const author = buildAuthor();
-
-    onAddUserPost({ post, author, totalPostsCreatedAmount }, clearModuleAfterAddingPost);
+    onAddUserPost({ post, totalPostsCreatedAmount }, clearModuleAfterAddingPost);
   };
 
   return (
@@ -224,7 +209,7 @@ export const UnconnectedAddPostModule = ({ currentUser, posts, onAddUserPost }) 
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.userData.currentUser,
+    currentUserModifiedEmail: state.userData.currentUser.modifiedEmail,
     posts: state.posts,
   };
 };

@@ -14,8 +14,11 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         usersPosts: {
           ...state.usersPosts,
-          [action.post.author.modifiedEmail]: {
-            posts: { ...state.usersPosts[action.post.author.modifiedEmail]?.posts, [action.totalPostsCreated]: { ...action.post } },
+          [action.authorModifiedEmail]: {
+            posts: {
+              ...state.usersPosts[action.authorModifiedEmail]?.posts,
+              [action.totalPostsCreated]: { ...action.post, index: action.totalPostsCreated },
+            },
             totalPostsCreated: action.totalPostsCreated,
           },
         },
@@ -60,11 +63,11 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         usersPosts: {
           ...state.usersPosts,
-          [action.author.modifiedEmail]: {
-            ...state.usersPosts[action.author.modifiedEmail],
+          [action.post.author]: {
+            ...state.usersPosts[action.post.author],
             posts: {
-              ...state.usersPosts[action.author.modifiedEmail].posts,
-              [action.post.index]: { author: { ...action.author }, post: { ...action.post } },
+              ...state.usersPosts[action.post.author].posts,
+              [action.post.index]: { ...action.post },
             },
           },
         },
