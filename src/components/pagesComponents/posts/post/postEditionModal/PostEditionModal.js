@@ -41,12 +41,12 @@ const reducer = (state, action) => {
 };
 
 const PostEditionModal = (props) => {
-  const { post, author, onUpdatePost, isLoading, handleBackdropClick } = props;
+  const { post, onUpdatePost, isLoading, handleBackdropClick } = props;
 
   const iconStyle = useStyles();
 
   const [state, dispatch] = React.useReducer(reducer, {
-    image: { url: post.url },
+    image: { url: post.url || null },
     text: post.text,
     textChanged: false,
     imageChanged: false,
@@ -73,7 +73,6 @@ const PostEditionModal = (props) => {
 
   const submitChanges = () => {
     const updatedPostData = {
-      author,
       post: { ...post, text: state.text, image: state.image, url: state.image.url },
       previousUrl: post.url,
     };

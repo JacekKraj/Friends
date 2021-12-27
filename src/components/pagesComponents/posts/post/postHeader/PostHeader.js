@@ -88,7 +88,7 @@ const PostHeader = (props) => {
               setIsEditionPanelShown={setIsEditionPanelShown}
               postEditionPanelContainerRef={postEditionPanelContainerRef}
               handleDelete={() => {
-                onRemovePost({ index: post.index, authorModifiedEmail: author.modifiedEmail, hasUrl: !!post.url });
+                onRemovePost({ index: post.index, hasUrl: post.hasUrl });
               }}
               handleEdit={() => setIsEditionModalShown(true)}
             />
