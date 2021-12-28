@@ -106,7 +106,7 @@ const getPostURL = (post, authorModifiedEmail) => {
     let url;
 
     try {
-      url = post.hasUrl && (await fire.storage().ref(`users/${authorModifiedEmail}/posts/${post.index}`).getDownloadURL());
+      url = post.hasUrl ? await fire.storage().ref(`users/${authorModifiedEmail}/posts/${post.index}`).getDownloadURL() : null;
     } catch (_) {
       url = null;
     }
@@ -210,10 +210,11 @@ export const setIsUpdatePostLoading = (loading) => {
   };
 };
 
-export const setUpdatedPost = (post) => {
+export const setUpdatedPost = (post, author) => {
   return {
     type: actionTypes.UPDATE_POST,
     post,
+    author,
   };
 };
 
@@ -221,7 +222,7 @@ export const updatePost = (updatedPostData, hideModal) => {
   const { post, previousUrl } = updatedPostData;
 
   const updatedPost = {
-    url: post.url,
+    hasUrl: !!post.image.url,
     creationTime: post.creationTime,
     text: post.text,
   };
@@ -232,7 +233,7 @@ export const updatePost = (updatedPostData, hideModal) => {
 
   return async (dispatch) => {
     const finishUpdate = () => {
-      dispatch(setUpdatedPost(post));
+      dispatch(setUpdatedPost({ ...updatedPost, url: post.image.url, index: post.index }, post.author));
       hideModal();
       dispatch(setIsUpdatePostLoading(false));
       successToast('Your post has been updated.');

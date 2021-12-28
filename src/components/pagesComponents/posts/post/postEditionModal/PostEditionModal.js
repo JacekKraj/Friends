@@ -28,7 +28,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         image: action.image,
-        imageChanged: true,
+        imageChanged: action.changed,
       };
     case SET_CURSOR_POSITION:
       return {
@@ -46,7 +46,7 @@ const PostEditionModal = (props) => {
   const iconStyle = useStyles();
 
   const [state, dispatch] = React.useReducer(reducer, {
-    image: { url: post.url || null },
+    image: { url: post.url },
     text: post.text,
     textChanged: false,
     imageChanged: false,
@@ -64,11 +64,7 @@ const PostEditionModal = (props) => {
   }, [post.text.length]);
 
   const setImage = (image) => {
-    dispatch({ type: SET_IMAGE, image });
-  };
-
-  const removeImage = () => {
-    dispatch({ type: SET_IMAGE, image: { url: null } });
+    dispatch({ type: SET_IMAGE, image, changed: post.url !== image.url });
   };
 
   const submitChanges = () => {
@@ -106,7 +102,7 @@ const PostEditionModal = (props) => {
           />
           {state.image.url && (
             <div className={classes.imageContainer} data-test='image-container'>
-              <ClearIcon className={iconStyle.removePhoto} onClick={removeImage} data-test='remove-icon' />
+              <ClearIcon className={iconStyle.removePhoto} onClick={() => setImage({ url: null })} data-test='remove-icon' />
               <img src={state.image.url} className={classes.image} alt='post image' />
             </div>
           )}

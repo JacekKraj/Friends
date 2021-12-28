@@ -63,10 +63,10 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         usersPosts: {
           ...state.usersPosts,
-          [action.post.author]: {
-            ...state.usersPosts[action.post.author],
+          [action.author]: {
+            ...state.usersPosts[action.author],
             posts: {
-              ...state.usersPosts[action.post.author].posts,
+              ...state.usersPosts[action.author].posts,
               [action.post.index]: { ...action.post },
             },
           },
