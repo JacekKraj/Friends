@@ -8,7 +8,7 @@ const PostContent = ({ post }) => {
       <p className={classes.text} data-test='text'>
         {post.text}
       </p>
-      {post.url && <img src={post.url} className={classes.postImage} data-test='post-image' alt='post picture' />}
+      {post.hasUrl && <img src={post.url} className={classes.postImage} data-test='post-image' alt='post picture' />}
     </div>
   );
 };

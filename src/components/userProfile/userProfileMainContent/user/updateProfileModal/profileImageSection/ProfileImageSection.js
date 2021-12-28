@@ -6,7 +6,7 @@ import * as actions from './../../../../../../actions/index';
 import Button from './../../../../../UI/button/Button';
 import FileInput from './../../../../../pagesComponents/imageFileInput/ImageFileInput';
 
-const ProfileImageSection = ({ user, onSetUserImage }) => {
+const ProfileImageSection = ({ image, onSetUserImage }) => {
   const [newProfileImage, setNewProfileImage] = React.useState({ url: null });
 
   const onDropHandler = (image) => setNewProfileImage(image);
@@ -20,7 +20,7 @@ const ProfileImageSection = ({ user, onSetUserImage }) => {
 
   return (
     <div className={classes.profileImageSec}>
-      <img className={classes.profileImage} src={newProfileImage.url || user.profileImage} alt='user profile image' />
+      <img className={classes.profileImage} src={newProfileImage.url || image} alt='user profile image' />
       <div className={classes.profileImageButtons}>
         <FileInput onDropHandler={onDropHandler}>
           <Button className={classes.button} isTransparent>
