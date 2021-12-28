@@ -13,39 +13,32 @@
 
 .imageContainer {
   flex-basis: 27px;
+  height: 27px;
   position: relative;
 
   @include tabletVertical {
     flex-basis: 32px;
+    height: 32px;
   }
 
   @include mobileHorizontal {
     flex-basis: 30px;
+    height: 30px;
   }
 
   @include laptop-sm {
     flex-basis: 32px;
+    height: 32px;
   }
 }
 
 .image {
   width: 100%;
-  height: 27px;
+  height: 100%;
+
   background-color: $gray-20;
   border-radius: 50%;
   display: block;
-
-  @include tabletVertical {
-    height: 32px;
-  }
-
-  @include mobileHorizontal {
-    height: 30px;
-  }
-
-  @include laptop-sm {
-    height: 32px;
-  }
 }
 
 .name {

@@ -19,7 +19,7 @@ const UpdateProfileModal = (props) => {
       <Backdrop onClick={handleBacdkropClick} />
       <div className={classes.updateProfileModalComponent} data-test='component-update-profile-modal'>
         {isLoading && <SpinnerContainer />}
-        <ProfileImageSection user={user} />
+        <ProfileImageSection image={user.profileImage} />
         <PersonalInfoSection user={user} />
       </div>
     </React.Fragment>
