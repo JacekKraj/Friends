@@ -18,36 +18,27 @@ const UserProfileMainContent = (props) => {
     return !!usersPosts[userEmail];
   };
 
-  const getUserPosts = (userEmail) => {
-    return new Promise((resolve) => {
-      const arePostsDownloaded = postsAreDownloaded(userEmail);
-
-      if (arePostsDownloaded) {
-        const posts = getArrayOfPosts({ [userEmail]: usersPosts[userEmail] }, [userEmail]);
-        resolve(posts);
-        return;
-      }
-      const fetchPostsFromDatabse = new Promise((resolve) => {
-        onGetUserPosts(userEmail, resolve);
-      });
-
-      fetchPostsFromDatabse.then((response) => {
-        const posts = getArrayOfPosts(response, [userEmail]);
-        resolve(posts);
-        return;
-      });
-    });
-  };
-
   React.useEffect(() => {
-    const setupPosts = async () => {
-      const userPosts = await getUserPosts(user.modifiedEmail);
+    if (!user.modifiedEmail) return;
 
+    if (postsAreDownloaded(user.modifiedEmail)) {
       onSetIsGetPostsLoading(false);
-      setPosts(userPosts);
+      return;
+    }
+
+    const getPosts = async () => {
+      await onGetUserPosts(user.modifiedEmail, () => {});
+      onSetIsGetPostsLoading(false);
     };
 
-    setupPosts();
+    getPosts();
+  }, [user.modifiedEmail]);
+
+  React.useEffect(() => {
+    if (!usersPosts[user.modifiedEmail]) return;
+
+    const userPosts = getArrayOfPosts({ [user.modifiedEmail]: usersPosts[user.modifiedEmail] }, [user.modifiedEmail]);
+    setPosts(userPosts);
   }, [user.modifiedEmail, usersPosts]);
 
   return (

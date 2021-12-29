@@ -168,7 +168,7 @@ export const getUserPosts = (modifiedEmail, resolve) => {
       const userPosts = { [modifiedEmail]: { totalPostsCreated, posts: postsObject } };
 
       dispatch(setUsersPosts(userPosts));
-      resolve(userPosts);
+      resolve();
     } catch (error) {
       failToast(error.message);
       dispatch(setIsGetPostsLoading(false));
