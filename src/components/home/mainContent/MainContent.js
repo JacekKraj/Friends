@@ -14,13 +14,13 @@ const MainContent = (props) => {
   const [posts, setPosts] = React.useState([]);
 
   React.useEffect(() => {
-    const getPosts = (user) => {
+    const setPosts = (user) => {
       return new Promise((resolve) => {
         onGetUserPosts(user, resolve);
       });
     };
 
-    Promise.all([...followedUsersEmails, currUserModifiedEmail].map((user) => getPosts(user))).then(() => {
+    Promise.all([...followedUsersEmails, currUserModifiedEmail].map((user) => setPosts(user))).then(() => {
       onSetIsGetPostsLoading(false);
     });
   }, [currUserModifiedEmail]);
