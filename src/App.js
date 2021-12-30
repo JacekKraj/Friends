@@ -53,8 +53,22 @@ const App = (props) => {
     setLoading(false);
   };
 
+  const verifyUser = async (user) => {
+    const unverifiedCurrentUserDataSnapshot = await fire.database().ref(`unverifiedUsers/${user}`).get();
+
+    const unverifiedCurrentUserData = unverifiedCurrentUserDataSnapshot.val();
+
+    const updates = {};
+    updates[`unverifiedUsers/${user}`] = null;
+    updates[`users/${user}`] = unverifiedCurrentUserData;
+
+    await fire.database().ref().update(updates);
+
+    return unverifiedCurrentUserData;
+  };
+
   React.useEffect(() => {
-    fire.auth().onAuthStateChanged((authUser) => {
+    fire.auth().onAuthStateChanged(async (authUser) => {
       if (!authUser) {
         clearCurrentPageState();
         return;
@@ -69,20 +83,25 @@ const App = (props) => {
       const fireUser = fire.auth().currentUser;
       const fireUserModifiedEmail = modifyEmail(fireUser.email);
 
-      fire
-        .database()
-        .ref(`users`)
-        .get()
-        .then((snapshot) => {
-          setLoading(false);
-          onAuthenticateEnd(fireUser);
-          onSetChat(snapshot.val()[fireUserModifiedEmail].chat);
-          onSetUserData({ ...snapshot.val() }, fireUserModifiedEmail);
-        })
-        .catch((error) => {
-          clearCurrentPageState();
-          failToast(error.message);
-        });
+      try {
+        const usersDataSnapshot = await fire.database().ref(`users`).get();
+        let usersData = { ...usersDataSnapshot.val() };
+
+        const isUserVerified = usersData[fireUserModifiedEmail];
+
+        if (!isUserVerified) {
+          const verifiedUserData = await verifyUser(fireUserModifiedEmail);
+          usersData = { ...usersData, [fireUserModifiedEmail]: verifiedUserData };
+        }
+
+        setLoading(false);
+        onAuthenticateEnd(fireUser);
+        onSetChat(usersData[fireUserModifiedEmail].chat);
+        onSetUserData(usersData, fireUserModifiedEmail);
+      } catch (error) {
+        clearCurrentPageState();
+        failToast(error.message);
+      }
     });
   }, []);
 

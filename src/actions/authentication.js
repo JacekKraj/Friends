@@ -28,7 +28,7 @@ const setNewUserIntoDatabase = (createdUserData) => {
 
   fire
     .database()
-    .ref(`users/${modifiedEmail}`)
+    .ref(`unverifiedUsers/${modifiedEmail}`)
     .set({
       email,
       name: `${name} ${surname}`,

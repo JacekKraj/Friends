@@ -56,8 +56,8 @@ const userDataReducer = (state = initialState, action) => {
         followedUsers: currentUser.followedUsersEmails,
         unfollowedUsers: unfollowedUsersEmails,
       };
-      const { unfollowedUsers, followedUsers } = divideUsers(usersEmails, action.data);
 
+      const { unfollowedUsers, followedUsers } = divideUsers(usersEmails, action.data);
       return {
         ...state,
         currentUser: {
