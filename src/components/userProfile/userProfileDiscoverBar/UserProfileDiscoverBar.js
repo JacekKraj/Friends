@@ -27,7 +27,7 @@ const UserProfileDiscoverBar = ({ userData, followedUsersEmails }) => {
     setFollowedUsers(sortedUsersToDisplay);
   }, [JSON.stringify(followedUsersEmails)]);
 
-  return <DiscoverFriends location='profile' users={followedUsers} followedUsersEmails={followedUsersEmails} />;
+  return <DiscoverFriends location='profile' users={followedUsers} />;
 };
 
 const mapStateToProps = (state) => {

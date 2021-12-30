@@ -7,7 +7,7 @@ import SectionTitle from './../sectionTitile/SectionTitle';
 import NoUsersInfo from './../noUsersInfo/NoUsersInfo';
 
 const DiscoverFriends = (props) => {
-  const { location, users, followedUsers, followedUsersEmails } = props;
+  const { location, users, followedUsers } = props;
 
   const isHome = location === 'home';
 
@@ -17,15 +17,7 @@ const DiscoverFriends = (props) => {
       {users.length ? (
         users.map((user) => {
           const isFollowedByCurrentUser = JSON.stringify(followedUsers).includes(JSON.stringify(user));
-          return (
-            <Friend
-              user={user}
-              isFollowedByCurrentUser={isFollowedByCurrentUser}
-              followedUsersEmails={followedUsersEmails}
-              isHome={isHome}
-              key={user.modifiedEmail}
-            />
-          );
+          return <Friend user={user} isFollowedByCurrentUser={isFollowedByCurrentUser} isHome={isHome} key={user.modifiedEmail} />;
         })
       ) : (
         <NoUsersInfo>{isHome ? 'There are no more people to follow right now.' : "This user hasn't followed anyone yet."}</NoUsersInfo>
