@@ -38,7 +38,9 @@ const Chat = (props) => {
       setInputValue('');
       sendMessage();
 
-      if (!textedUser.chat.notifications.includes(currUserModifiedEmail)) {
+      console.log(textedUser);
+
+      if (!textedUser.chat?.notifications?.includes(currUserModifiedEmail)) {
         onAddNotification(textedUser.modifiedEmail);
       }
 
