@@ -28,3 +28,6 @@ export const SET_LAST_CHAT = 'SET_LAST_CHAT';
 export const SET_NOTIFICATIONS = 'SET_NOTIFICATIONS';
 export const SET_CHAT = 'SET_CHAT';
 export const REMOVE_NOTIFICATIONS = 'REMOVE_NOTIFICATIONS';
+
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';

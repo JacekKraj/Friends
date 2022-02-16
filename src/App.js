@@ -10,6 +10,7 @@ import { failToast, successToast } from './utilities/toasts/toasts';
 import Home from './components/home/Home';
 import Spinner from './components/UI/spinner/Spinner';
 import { modifyEmail } from './utilities/helperFunctions/modifyEmail';
+import ModalMenager from './modalMenager/ModalMenager';
 
 const App = (props) => {
   const {
@@ -21,6 +22,7 @@ const App = (props) => {
     onSetShowDiscoverBar,
     onSetIsGetPostsLoading,
     onSetChat,
+    onHideModal,
     isAuthenticated,
   } = props;
 
@@ -95,6 +97,7 @@ const App = (props) => {
         }
 
         setLoading(false);
+        onHideModal();
         onAuthenticateEnd(fireUser);
         onSetChat(usersData[fireUserModifiedEmail].chat);
         onSetUserData(usersData, fireUserModifiedEmail);
@@ -138,6 +141,7 @@ const App = (props) => {
   return (
     <div>
       <Suspense fallback={<div></div>}>{loading ? <Spinner /> : routes}</Suspense>
+      <ModalMenager />
     </div>
   );
 };
@@ -158,6 +162,7 @@ const mapDispatchToProps = (dispatch) => {
     onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
     onSetIsGetPostsLoading: (loading) => dispatch(actions.setIsGetPostsLoading(loading)),
     onSetChat: (chat) => dispatch(actions.setChat(chat)),
+    onHideModal: () => dispatch(actions.hideModal()),
   };
 };
 
