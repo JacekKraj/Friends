@@ -10,22 +10,10 @@
   font-weight: bold;
   width: 1.65em;
   height: 1.65em;
-  font-size: 27px;
-
-  @include mobileVertical {
-    font-size: 28px;
-  }
+  font-size: 29px;
 
   @include tabletVertical {
     font-size: 42px;
-  }
-
-  @include mobileHorizontal {
-    font-size: 25px;
-  }
-
-  @include tabletHorizontal {
-    font-size: 28px;
   }
 
   @include laptop-sm {
