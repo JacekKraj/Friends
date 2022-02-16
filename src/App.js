@@ -1,16 +1,15 @@
 import React, { useState, Suspense } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 
 import * as actions from './actions/index';
 import fire from './firebaseConfig';
-import AuthenticationMainPage from './components/authentication/authenticationMainPage/AuthenticationMainPage';
 import { failToast, successToast } from './utilities/toasts/toasts';
-import Home from './components/home/Home';
 import Spinner from './components/UI/spinner/Spinner';
 import { modifyEmail } from './utilities/helperFunctions/modifyEmail';
 import ModalMenager from './modalMenager/ModalMenager';
+import Routes from './routes/Routes';
 
 const App = (props) => {
   const {
@@ -23,29 +22,12 @@ const App = (props) => {
     onSetIsGetPostsLoading,
     onSetChat,
     onHideModal,
-    isAuthenticated,
   } = props;
 
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   toast.configure();
-
-  const UserProfile = React.lazy(() => {
-    return import('./components/userProfile/UserProfile');
-  });
-  const FriendsPage = React.lazy(() => {
-    return import('./components/friendsPage/FriendsPage');
-  });
-  const ChatPage = React.lazy(() => {
-    return import('./components/chatPage/ChatPage');
-  });
-  const Nofound = React.lazy(() => {
-    return import('./components/errorPage/nofound/Nofound');
-  });
-  const NoAccess = React.lazy(() => {
-    return import('./components/errorPage/noAccess/NoAccess');
-  });
 
   const clearCurrentPageState = () => {
     onLogout();
@@ -114,42 +96,12 @@ const App = (props) => {
     onSetIsGetPostsLoading(true);
   }, [location.pathname, location.search]);
 
-  const routes = isAuthenticated ? (
-    <Switch>
-      <Route path='/' exact render={() => <Home />} />
-      <Route
-        path={`/users`}
-        exact
-        render={() => {
-          return <UserProfile />;
-        }}
-      />
-      <Route path='/chat' exact render={() => <ChatPage />} />
-      <Route path='/friends' exact render={() => <FriendsPage />} />
-      <Route path='*' render={() => <Nofound />} />
-    </Switch>
-  ) : (
-    <Switch>
-      <Route path='/' exact render={() => <AuthenticationMainPage />} />
-      <Route path='/chat' render={() => <NoAccess />} />
-      <Route path='/users' render={() => <NoAccess />} />
-      <Route path='/friends' render={() => <NoAccess />} />
-      <Route path='*' render={() => <Nofound />} />
-    </Switch>
-  );
-
   return (
-    <div>
-      <Suspense fallback={<div></div>}>{loading ? <Spinner /> : routes}</Suspense>
+    <React.Fragment>
+      <Suspense fallback={<div></div>}>{loading ? <Spinner /> : <Routes />}</Suspense>
       <ModalMenager />
-    </div>
+    </React.Fragment>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.authenticated,
-  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -166,4 +118,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
