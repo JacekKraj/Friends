@@ -1,15 +1,27 @@
-import React from "react";
-import { mount } from "enzyme";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
-import Posts from "./Posts";
-import { storeFactory, findByTestAttr } from "./../../../utilities/tests/testsHelperFunctions";
+import Posts from './Posts';
+import { storeFactory, findByTestAttr } from './../../../utilities/tests/testsHelperFunctions';
 
-describe("displaying posts", () => {
+const userDataReduxStore = {
+  userData: {
+    currentUser: {
+      modifiedEmail: 'jacekkrajewski12wppl',
+      profileImage: null,
+      name: 'name name',
+    },
+    followedUsers: [],
+    unfollowedUsers: [],
+  },
+};
+
+describe('displaying posts', () => {
   let store, wrapper;
   const setup = (initialState, defaultProps) => {
-    store = storeFactory(initialState);
+    store = storeFactory({ ...userDataReduxStore, ...initialState });
     return mount(
       <Provider store={store}>
         <BrowserRouter>
@@ -25,39 +37,34 @@ describe("displaying posts", () => {
 
   test("displays 'There are no posts to display' when posts array is empty", () => {
     wrapper = setup(
-      { posts: { getPostsLoading: false } },
+      { posts: { isGetPostsLoading: false } },
       {
         posts: [],
       }
     );
-    const noPostsInfo = findByTestAttr(wrapper, "no-posts-info");
-    expect(noPostsInfo.text()).toEqual("There are no posts to display.");
+    const noPostsInfo = findByTestAttr(wrapper, 'no-posts-info');
+    expect(noPostsInfo.text()).toEqual('There are no posts to display.');
   });
 
-  test("show spinner when isLoading is true", () => {
+  test('show spinner when isLoading is true', () => {
     wrapper = setup(
-      { posts: { getPostsLoading: true } },
+      { posts: { isGetPostsLoading: true } },
       {
         posts: [],
       }
     );
-    const spinner = findByTestAttr(wrapper, "component-spinner");
+    const spinner = findByTestAttr(wrapper, 'component-spinner');
     expect(spinner.exists()).toBe(true);
   });
 
-  test("display one post when posts array is not initially empty", () => {
+  test('display one post when posts array is not initially empty', () => {
     wrapper = setup(
-      { posts: { getPostsLoading: false } },
+      { posts: { isGetPostsLoading: false } },
       {
-        posts: [
-          {
-            author: { name: "name", modifiedEmail: "jacekkrajewski12wppl" },
-            post: { creationTime: 1615988637142, index: 1, name: "jacekkrajewski12wppl", text: "text", type: "users" },
-          },
-        ],
+        posts: [{ author: 'jacekkrajewski12wppl', creationTime: 1615988637142, hasUrl: false, index: '1', text: 'text', url: null }],
       }
     );
-    const post = findByTestAttr(wrapper, "post-component");
+    const post = findByTestAttr(wrapper, 'post-component');
     expect(post.exists()).toBe(true);
   });
 });

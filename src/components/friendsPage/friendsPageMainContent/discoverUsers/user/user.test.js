@@ -30,13 +30,13 @@ describe('dispatches actions on clicking buttons', () => {
     const wrapper = setup({ ...setupProps, isToFollow: true, followedUsersEmails: [] });
     const button = findByTestAttr(wrapper, 'follow-button');
     button.simulate('click');
-    expect(mockFollowUser).toHaveBeenCalledWith('userusercom', 'testtestcom', []);
+    expect(mockFollowUser).toHaveBeenCalledWith('userusercom');
   });
 
   test('dispatches unfollow action with apropriate arguments', () => {
     const wrapper = setup({ ...setupProps, isToFollow: false, followedUsersEmails: ['userusercom'] });
     const button = findByTestAttr(wrapper, 'follow-button');
     button.simulate('click');
-    expect(mockUnfollowUser).toHaveBeenCalledWith('userusercom', 'testtestcom', ['userusercom']);
+    expect(mockUnfollowUser).toHaveBeenCalledWith('userusercom');
   });
 });

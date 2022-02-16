@@ -20,7 +20,7 @@ export const User = (props) => {
         <div className={classes.profileImage} style={{ backgroundImage: `url("${user.profileImage}")` }} />
         <p className={classes.name}>{user.name}</p>
       </NavLink>
-      <Button className={classes.button} isTransparent={isToFollow} onClick={handleClick} data-test='follow-button'>
+      <Button className={classes.button} isTransparent={isToFollow} onClick={handleClick} testData='follow-button'>
         {isToFollow ? 'follow' : 'unfollow'}
       </Button>
     </div>
