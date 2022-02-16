@@ -34,22 +34,22 @@ describe('spinner', () => {
   });
   test('shows spinner after dispatch setLoading(true)', () => {
     wrapper = setup();
-    store.dispatch(actions.setNewPostLoading(true));
+    store.dispatch(actions.setIsNewPostLoading(true));
     wrapper.setProps();
     const spinner = findByTestAttr(wrapper, 'component-spinner');
     expect(spinner.exists()).toBe(true);
   });
   test('hides spinner after dispatch setLoading(false)', () => {
     wrapper = setup({ posts: { loading: true } });
-    store.dispatch(actions.setNewPostLoading(false));
+    store.dispatch(actions.setIsNewPostLoading(false));
     wrapper.setProps();
     const spinner = findByTestAttr(wrapper, 'component-spinner');
     expect(spinner.exists()).toBe(false);
   });
 });
 
-const createUseReducerMock = (images) => {
-  const mockUseReducer = jest.fn().mockReturnValue([{ text: 'text', images }, jest.fn()]);
+const createUseReducerMock = (image) => {
+  const mockUseReducer = jest.fn().mockReturnValue([{ text: 'text', image }, jest.fn()]);
   React.useReducer = mockUseReducer;
 };
 
@@ -64,13 +64,13 @@ describe('displays image', () => {
     wrapper.unmount();
   });
   test("shows image when state.images isn't an empty array", () => {
-    wrapper = setup([{ preview: 'img.png' }]);
+    wrapper = setup({ url: 'img.png' });
     const image = findByTestAttr(wrapper, 'image');
     expect(image.exists()).toBe(true);
   });
 
   test('does not show image when state.images is empty array', () => {
-    wrapper = setup([]);
+    wrapper = setup({});
     const image = findByTestAttr(wrapper, 'image');
     expect(image.exists()).toBe(false);
   });
