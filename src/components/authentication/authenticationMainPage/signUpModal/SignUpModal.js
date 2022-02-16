@@ -11,18 +11,20 @@ import MyFormikInput from './../../../../utilities/myFormikInput/MyFormikInput';
 import Input from './../../../UI/input/Input';
 import MyFormikSelect from './../../../../utilities/myFormikSelect/MyFormikSelect';
 
-export const SignUpModal = ({ handleFormSubmit, isShown, isLoading }) => {
+export const SignUpModal = ({ isLoading, modalProps }) => {
+  const { submit } = modalProps;
+
   const signUpForm = (
     <React.Fragment>
       <div className={classes.logoContainer}>
         <Logo />
       </div>
       <h3 className={classes.title}>Create account</h3>
-      <div className={classes.formContainer} data-test={isShown && 'component-sign-up-modal'}>
+      <div className={classes.formContainer} data-test={'component-sign-up-modal'}>
         <Formik
           initialValues={{ email: '', emailRepeat: '', password: '', passwordRepeat: '', day: '', month: '', year: '', name: '', surname: '' }}
           onSubmit={(values) => {
-            handleFormSubmit({
+            submit({
               ...values,
             });
           }}
@@ -57,12 +59,13 @@ export const SignUpModal = ({ handleFormSubmit, isShown, isLoading }) => {
     </React.Fragment>
   );
 
-  return <div className={classnames(classes.modal, isShown && classes.modalVisible)}>{isLoading ? <Spinner /> : signUpForm}</div>;
+  return <div className={classnames(classes.modal, classes.modalVisible)}>{isLoading ? <Spinner /> : signUpForm}</div>;
 };
 
 const mapStateToProps = (state) => {
   return {
     isLoading: state.auth.isLoading,
+    modalProps: state.modals.props,
   };
 };
 

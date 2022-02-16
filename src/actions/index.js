@@ -27,3 +27,5 @@ export {
 export { setShowNav, setShowDiscoverBar } from './nav';
 
 export { updateUserNotifications, setChat, removeNotification, addNotification, setLastChat } from './chat';
+
+export { showModal, hideModal } from './modals';

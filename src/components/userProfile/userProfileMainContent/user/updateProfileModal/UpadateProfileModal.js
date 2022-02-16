@@ -7,28 +7,20 @@ import SpinnerContainer from './../../../../../utilities/spinnerContainer/Spinne
 import ProfileImageSection from './profileImageSection/ProfileImageSection';
 import PersonalInfoSection from './personalInfoSection/PersonalInfoSection';
 
-const UpdateProfileModal = (props) => {
-  const { isLoading, hideModal, user } = props;
-
-  const handleBacdkropClick = () => {
-    !isLoading && hideModal();
-  };
-
+const UpdateProfileModal = ({ isLoading, currentUser }) => {
   return (
-    <React.Fragment>
-      <Backdrop onClick={handleBacdkropClick} />
-      <div className={classes.updateProfileModalComponent} data-test='component-update-profile-modal'>
-        {isLoading && <SpinnerContainer />}
-        <ProfileImageSection image={user.profileImage} />
-        <PersonalInfoSection user={user} />
-      </div>
-    </React.Fragment>
+    <div className={classes.updateProfileModalComponent} data-test='component-update-profile-modal'>
+      {isLoading && <SpinnerContainer />}
+      <ProfileImageSection image={currentUser.profileImage} />
+      <PersonalInfoSection user={currentUser} />
+    </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
     isLoading: state.userData.isUpdateProfileLoading,
+    currentUser: state.userData.currentUser,
   };
 };
 

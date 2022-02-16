@@ -1,6 +1,7 @@
 import * as actionTypes from './actionsTypes';
 import fire from './../firebaseConfig';
 
+import * as actions from './index';
 import { failToast } from './../utilities/toasts/toasts';
 import { modifyEmail } from './../utilities/helperFunctions/modifyEmail';
 
@@ -36,7 +37,7 @@ const setNewUserIntoDatabase = (createdUserData) => {
     });
 };
 
-export const register = (createdUserData, hideModal) => {
+export const register = (createdUserData) => {
   const { email, password } = createdUserData;
 
   return async (dispatch) => {
@@ -48,7 +49,7 @@ export const register = (createdUserData, hideModal) => {
       await fire.auth().currentUser.sendEmailVerification();
 
       dispatch(registerEnd());
-      hideModal();
+      dispatch(actions.hideModal());
     } catch (error) {
       dispatch(registerFail());
       failToast(error.message);

@@ -12,9 +12,9 @@ import classes from './user.module.scss';
 import Button from '../../../UI/button/Button';
 import UserInfo from './userInfo/UserInfo';
 import Spinner from './../../../UI/spinner/Spinner';
-import UpdateProfileModal from './updateProfileModal/UpadateProfileModal';
 import * as actions from './../../../../actions/index';
 import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
+import { MODAL_TYPES } from '../../../../modalMenager/ModalMenager';
 
 const { mobileVertical, tabletVertical, mobileHorizontal, tabletHorizontal, laptopSm } = breakpoints;
 
@@ -56,18 +56,20 @@ const useStyles = makeStyles(() => ({
 }));
 
 const User = (props) => {
-  const { user, onFollowUser, onUnfollowUser } = props;
+  const { user, onFollowUser, onUnfollowUser, onShowModal } = props;
   const { type, modifiedEmail, profileImage, personalInfo, name, birthdayDate } = user;
 
-  const [isUpdateModalShown, setIsUpdateModalShown] = React.useState(false);
   const style = useStyles();
 
   const displayButton = React.useMemo(() => {
     let buttonProps = {};
-
     switch (type) {
       case 'current':
-        buttonProps = { transparent: true, text: 'Update profile', handleClick: setIsUpdateModalShown.bind(null, true) };
+        buttonProps = {
+          transparent: true,
+          text: 'Update profile',
+          handleClick: onShowModal.bind(null, MODAL_TYPES.UPDATE_PROFILE, {}),
+        };
         break;
       case 'followed':
         buttonProps = { transparent: false, text: 'Unfollow', handleClick: onUnfollowUser.bind(null, modifiedEmail) };
@@ -90,9 +92,6 @@ const User = (props) => {
     <div className={classes.userInfoComponent}>
       {isUserDataDownloaded ? (
         <React.Fragment>
-          {isUpdateModalShown && (
-            <UpdateProfileModal hideModal={() => setIsUpdateModalShown(false)} user={{ modifiedEmail, profileImage, personalInfo }} />
-          )}
           <div className={classes.infoTop}>
             <img src={profileImage} alt='user profile image' className={classes.image} />
             <div className={classes.buttonsContainer}>
@@ -137,6 +136,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
     onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
+    onShowModal: (type, props) => dispatch(actions.showModal(type, props)),
   };
 };
 

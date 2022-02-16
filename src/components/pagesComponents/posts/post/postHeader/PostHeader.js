@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { breakpoints } from './../../../../../utilities/breakpoints/breakpoints';
 import classes from './postHeader.module.scss';
 import PostEditionPanel from './postEditionPanel/PostEditionPanel';
-import * as actions from './../../../../../actions/index';
 
 const { mobileVertical, tabletVertical, mobileHorizontal, tabletHorizontal, laptopSm } = breakpoints;
 
@@ -44,9 +43,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PostHeader = (props) => {
-  const { author, currUserModifiedEmail, onRemovePost, post, setIsEditionModalShown } = props;
-
+const PostHeader = ({ author, currUserModifiedEmail, post }) => {
   const [isEditionPanelShown, setIsEditionPanelShown] = React.useState(false);
 
   const iconStyle = useStyles();
@@ -87,10 +84,7 @@ const PostHeader = (props) => {
             <PostEditionPanel
               setIsEditionPanelShown={setIsEditionPanelShown}
               postEditionPanelContainerRef={postEditionPanelContainerRef}
-              handleDelete={() => {
-                onRemovePost({ index: post.index, hasUrl: post.hasUrl });
-              }}
-              handleEdit={() => setIsEditionModalShown(true)}
+              post={post}
             />
           )}
         </div>
@@ -105,10 +99,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRemovePost: (post) => dispatch(actions.removePost(post)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostHeader);
+export default connect(mapStateToProps)(PostHeader);

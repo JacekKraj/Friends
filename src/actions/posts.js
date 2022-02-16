@@ -1,5 +1,6 @@
 import fire from './../firebaseConfig';
 
+import * as actions from './index';
 import * as actionTypes from './actionsTypes';
 import { failToast, successToast } from './../utilities/toasts/toasts';
 
@@ -218,7 +219,7 @@ export const setUpdatedPost = (post, author) => {
   };
 };
 
-export const updatePost = (updatedPostData, hideModal) => {
+export const updatePost = (updatedPostData) => {
   const { post, previousUrl } = updatedPostData;
 
   const updatedPost = {
@@ -234,7 +235,7 @@ export const updatePost = (updatedPostData, hideModal) => {
   return async (dispatch) => {
     const finishUpdate = () => {
       dispatch(setUpdatedPost({ ...updatedPost, url: post.image.url, index: post.index }, post.author));
-      hideModal();
+      dispatch(actions.hideModal());
       dispatch(setIsUpdatePostLoading(false));
       successToast('Your post has been updated.');
     };

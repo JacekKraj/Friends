@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { useStyles } from './../../../addPostModule/AddPostModule';
 
 import classes from './postEditionModal.module.scss';
-import Backdrop from './../../../../UI/backdrop/Backdrop';
 import Button from './../../../../UI/button/Button';
 import FileInput from '../../../imageFileInput/ImageFileInput';
 import * as actions from './../../../../../actions/index';
@@ -40,9 +39,7 @@ const reducer = (state, action) => {
   }
 };
 
-const PostEditionModal = (props) => {
-  const { post, onUpdatePost, isLoading, handleBackdropClick } = props;
-
+const PostEditionModal = ({ post, onUpdatePost, isLoading }) => {
   const iconStyle = useStyles();
 
   const [state, dispatch] = React.useReducer(reducer, {
@@ -73,7 +70,7 @@ const PostEditionModal = (props) => {
       previousUrl: post.url,
     };
 
-    onUpdatePost(updatedPostData, handleBackdropClick);
+    onUpdatePost(updatedPostData);
   };
 
   const changeInputValue = (text) => {
@@ -82,61 +79,59 @@ const PostEditionModal = (props) => {
   };
 
   return (
-    <React.Fragment>
-      <Backdrop onClick={handleBackdropClick} />
-      <div className={classes.postEditionModal} data-test='post-edition-modal-component'>
-        {isLoading && <SpinnerContainer />}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitChanges();
-          }}
-        >
-          <textarea
-            value={state.text}
-            required
-            ref={textAreaRef}
-            className={classes.textArea}
-            data-test='textarea'
-            onChange={(e) => changeInputValue(e.target.value)}
-          />
-          {state.image.url && (
-            <div className={classes.imageContainer} data-test='image-container'>
-              <ClearIcon className={iconStyle.removePhoto} onClick={() => setImage({ url: null })} data-test='remove-icon' />
-              <img src={state.image.url} className={classes.image} alt='post image' />
-            </div>
-          )}
-          <div className={classes.bottomBar}>
-            <div className={classes.iconsContainer}>
-              <FileInput onDropHandler={setImage}>
-                <PhotoIcon className={iconStyle.addPhoto} />
-              </FileInput>
-              <EmojiPicker
-                style={iconStyle.emoji}
-                input={{ ref: textAreaRef, value: state.text, changeValue: changeInputValue }}
-                pickerStyle={{ width: '250px', bottom: '100%', boxShadow: 'unset', borderColor: '#888' }}
-                setCursorPosition={(position) => dispatch({ type: SET_CURSOR_POSITION, cursorPosition: position })}
-              />
-            </div>
-            <Button className={classes.button} disabled={!state.imageChanged && !state.textChanged} testData='submit-button'>
-              Submit changes
-            </Button>
+    <div className={classes.postEditionModal} data-test='post-edition-modal-component'>
+      {isLoading && <SpinnerContainer />}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitChanges();
+        }}
+      >
+        <textarea
+          value={state.text}
+          required
+          ref={textAreaRef}
+          className={classes.textArea}
+          data-test='textarea'
+          onChange={(e) => changeInputValue(e.target.value)}
+        />
+        {state.image.url && (
+          <div className={classes.imageContainer} data-test='image-container'>
+            <ClearIcon className={iconStyle.removePhoto} onClick={() => setImage({ url: null })} data-test='remove-icon' />
+            <img src={state.image.url} className={classes.image} alt='post image' />
           </div>
-        </form>
-      </div>
-    </React.Fragment>
+        )}
+        <div className={classes.bottomBar}>
+          <div className={classes.iconsContainer}>
+            <FileInput onDropHandler={setImage}>
+              <PhotoIcon className={iconStyle.addPhoto} />
+            </FileInput>
+            <EmojiPicker
+              style={iconStyle.emoji}
+              input={{ ref: textAreaRef, value: state.text, changeValue: changeInputValue }}
+              pickerStyle={{ width: '250px', bottom: '100%', boxShadow: 'unset', borderColor: '#888' }}
+              setCursorPosition={(position) => dispatch({ type: SET_CURSOR_POSITION, cursorPosition: position })}
+            />
+          </div>
+          <Button className={classes.button} disabled={!state.imageChanged && !state.textChanged} testData='submit-button'>
+            Submit changes
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
     isLoading: state.posts.isUpdatePostLoading,
+    post: state.modals.props,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUpdatePost: (updatedPostData, hideModal) => dispatch(actions.updatePost(updatedPostData, hideModal)),
+    onUpdatePost: (updatedPostData) => dispatch(actions.updatePost(updatedPostData)),
   };
 };
 
