@@ -51,15 +51,6 @@ describe('current user and post author are same account', () => {
     const postEditionPanel = findByTestAttr(wrapper, 'component-post-edition-panel');
     expect(postEditionPanel.exists()).toBe(true);
   });
-
-  test('shows post edition modal', () => {
-    const postEditionIcon = findByTestAttr(wrapper, 'post-edition-icon').first();
-    postEditionIcon.simulate('click');
-    const postEditionButton = findByTestAttr(wrapper, 'edit-btn');
-    postEditionButton.simulate('click');
-    const postEditionModal = findByTestAttr(wrapper, 'post-edition-modal-component');
-    expect(postEditionModal.exists()).toBe(true);
-  });
 });
 
 describe('current user and post author are not same account', () => {

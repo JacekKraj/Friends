@@ -5,23 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Posts from './Posts';
 import { storeFactory, findByTestAttr } from './../../../utilities/tests/testsHelperFunctions';
+import { userData } from '../../../utilities/tests/reduxStoreObjects';
 
-const userDataReduxStore = {
-  userData: {
-    currentUser: {
-      modifiedEmail: 'jacekkrajewski12wppl',
-      profileImage: null,
-      name: 'name name',
-    },
-    followedUsers: [],
-    unfollowedUsers: [],
-  },
-};
+const currentUserPost = { author: 'jacekkrajewski12wppl', creationTime: 1615988637142, hasUrl: false, index: '1', text: 'text', url: null };
 
-describe('displaying posts', () => {
+describe('<Posts />', () => {
   let store, wrapper;
   const setup = (initialState, defaultProps) => {
-    store = storeFactory({ ...userDataReduxStore, ...initialState });
+    store = storeFactory({ ...userData, ...initialState });
     return mount(
       <Provider store={store}>
         <BrowserRouter>
@@ -61,7 +52,7 @@ describe('displaying posts', () => {
     wrapper = setup(
       { posts: { isGetPostsLoading: false } },
       {
-        posts: [{ author: 'jacekkrajewski12wppl', creationTime: 1615988637142, hasUrl: false, index: '1', text: 'text', url: null }],
+        posts: [currentUserPost],
       }
     );
     const post = findByTestAttr(wrapper, 'post-component');

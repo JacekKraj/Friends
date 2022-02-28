@@ -1,5 +1,4 @@
-import fire from './../firebaseConfig';
-
+import { fire } from './../firebaseConfig';
 import * as actions from './index';
 import * as actionTypes from './actionsTypes';
 import { failToast, successToast } from './../utilities/toasts/toasts';
@@ -65,7 +64,7 @@ export const setIsGetPostsLoading = (loading) => {
 
 const setUsersPosts = (posts) => {
   return {
-    type: actionTypes.GET_USERS_POSTS,
+    type: actionTypes.SET_USERS_POSTS,
     posts,
   };
 };
@@ -140,11 +139,9 @@ const getPostsObject = (postsArray) => {
   return postsObject;
 };
 
-export const getUserPosts = (modifiedEmail, resolve) => {
+export const downloadUserPosts = (modifiedEmail, resolve) => {
   return async (dispatch) => {
-    if (!modifiedEmail) {
-      return;
-    }
+    if (!modifiedEmail) return;
 
     try {
       const snapshot = await getPostsSnapshotFromFirebase(modifiedEmail);
@@ -153,7 +150,7 @@ export const getUserPosts = (modifiedEmail, resolve) => {
         const userPosts = { [modifiedEmail]: { totalPostsCreated: 0, posts: {} } };
 
         dispatch(setUsersPosts(userPosts));
-        resolve(userPosts);
+        resolve();
 
         return;
       }

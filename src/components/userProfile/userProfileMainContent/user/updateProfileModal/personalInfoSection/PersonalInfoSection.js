@@ -37,6 +37,7 @@ const personalInfoSection = ({ user, onSetPersonalInfo }) => {
           home: user.personalInfo?.home || '',
         }}
         onSubmit={submitPersonalInfoChanges}
+        data-test='personal-info-section-form'
       >
         {() => {
           return (

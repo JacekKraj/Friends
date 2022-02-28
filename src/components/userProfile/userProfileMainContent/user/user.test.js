@@ -3,92 +3,58 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import User from './User';
-import { findByTestAttr, storeFactory, formikFindByInputName } from './../../../../utilities/tests/testsHelperFunctions';
+import { findByTestAttr, storeFactory } from './../../../../utilities/tests/testsHelperFunctions';
+import { birthdayDate } from './../../../../utilities/tests/reduxStoreObjects';
 
-let store;
-const setup = (defaultProps, initialState) => {
-  store = storeFactory(initialState);
-  return mount(
-    <BrowserRouter>
-      <Provider store={store}>
-        <User {...defaultProps} />
-      </Provider>
-    </BrowserRouter>
-  );
-};
+describe('<User />', () => {
+  let store;
+  const setup = (defaultProps) => {
+    store = storeFactory();
+    return mount(
+      <BrowserRouter>
+        <Provider store={store}>
+          <User {...defaultProps} />
+        </Provider>
+      </BrowserRouter>
+    );
+  };
 
-const birthdayDate = { day: 1, month: 1, year: 2000 };
+  const personalInfo = { profileDescription: 'description', gender: 'gender', home: 'home', work: 'work' };
 
-test('shows user info components when props.userData contains thas info', () => {
-  const wrapper = setup({
-    user: { personalInfo: { profileDescription: 'description', gender: 'gender', home: 'home', work: 'work' }, birthdayDate },
-  });
-  const userInfoComponents = findByTestAttr(wrapper, 'user-info-component');
-  const description = findByTestAttr(wrapper, 'profile-description');
-  expect(userInfoComponents.length).toBe(4);
-  expect(description.exists()).toBe(true);
-});
-
-test("shows 'Update profile' when type is current", () => {
-  const wrapper = setup({ user: { type: 'current', birthdayDate } });
-  const profileButton = findByTestAttr(wrapper, 'profile-button');
-  expect(profileButton.text()).toEqual('Update profile');
-});
-
-test("shows 'Follow' when type is unfollowed", () => {
-  const wrapper = setup({ user: { type: 'unfollowed', birthdayDate } });
-  const profileButton = findByTestAttr(wrapper, 'profile-button');
-  expect(profileButton.text()).toEqual('Follow');
-});
-
-test("shows 'Unfollow' when type is followed", () => {
-  const wrapper = setup({ user: { type: 'followed', birthdayDate } });
-  const profileButton = findByTestAttr(wrapper, 'profile-button');
-  expect(profileButton.text()).toEqual('Unfollow');
-});
-
-test('shows spinner when there is no user prop', () => {
-  const wrapper = setup({ user: {} });
-  const spinner = findByTestAttr(wrapper, 'component-spinner');
-  expect(spinner.exists()).toBe(true);
-});
-
-describe('UpdateProfileModal interaction', () => {
-  let wrapper;
-  beforeEach(() => {
-    wrapper = setup({
-      user: {
-        type: 'current',
-        birthdayDate,
-        personalInfo: { profileDescription: 'description', gender: 'gender', home: 'home', work: 'work' },
-        birthdayDate,
-      },
+  test('shows user info components when props.user contains thas info', () => {
+    const wrapper = setup({
+      user: { personalInfo, birthdayDate },
     });
-    const profileButton = findByTestAttr(wrapper, 'profile-button');
-    profileButton.simulate('click');
+
+    const userInfoComponents = findByTestAttr(wrapper, 'user-info-component');
+    const description = findByTestAttr(wrapper, 'profile-description');
+    expect(userInfoComponents.length).toBe(4);
+    expect(description.exists()).toBe(true);
   });
 
-  afterEach(() => {
-    wrapper.unmount();
+  describe('profile button text', () => {
+    test("shows 'Update profile' when type is current", () => {
+      const wrapper = setup({ user: { type: 'current', birthdayDate } });
+      const profileButton = findByTestAttr(wrapper, 'profile-button');
+      expect(profileButton.text()).toEqual('Update profile');
+    });
+
+    test("shows 'Follow' when type is unfollowed", () => {
+      const wrapper = setup({ user: { type: 'unfollowed', birthdayDate } });
+      const profileButton = findByTestAttr(wrapper, 'profile-button');
+      expect(profileButton.text()).toEqual('Follow');
+    });
+
+    test("shows 'Unfollow' when type is followed", () => {
+      const wrapper = setup({ user: { type: 'followed', birthdayDate } });
+      const profileButton = findByTestAttr(wrapper, 'profile-button');
+      expect(profileButton.text()).toEqual('Unfollow');
+    });
   });
-  test("shows update profille modal on clicking button when user type is 'current'", () => {
-    const updateProfileModal = findByTestAttr(wrapper, 'component-update-profile-modal');
-    expect(updateProfileModal.exists()).toBe(true);
-  });
-  test('hides modal after clicking backdrop', () => {
-    const backdrop = findByTestAttr(wrapper, 'component-backdrop');
-    backdrop.simulate('click');
-    const updateProfileModal = findByTestAttr(wrapper, 'component-update-profile-modal');
-    expect(updateProfileModal.exists()).toBe(false);
-  });
-  test('display apropriate text if exists, in text inputs', () => {
-    const descriptionInput = formikFindByInputName(wrapper, 'profileDescription');
-    expect(descriptionInput.prop('value')).toEqual('description');
-    const workInput = formikFindByInputName(wrapper, 'work');
-    expect(workInput.prop('value')).toEqual('work');
-    const genderInput = formikFindByInputName(wrapper, 'gender');
-    expect(genderInput.prop('value')).toEqual('gender');
-    const homeInput = formikFindByInputName(wrapper, 'home');
-    expect(homeInput.prop('value')).toEqual('home');
+
+  test('shows spinner when there is no user prop', () => {
+    const wrapper = setup({ user: {} });
+    const spinner = findByTestAttr(wrapper, 'component-spinner');
+    expect(spinner.exists()).toBe(true);
   });
 });

@@ -1,77 +1,102 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import AddPostModule from './AddPostModule';
 import { storeFactory, findByTestAttr } from '../../../utilities/tests/testsHelperFunctions';
 import * as actions from '../../../actions/index';
+import { userData, currentUserNoPosts } from './../../../utilities/tests/reduxStoreObjects';
 
-let store;
+describe('<AddPostModule />', () => {
+  let store;
 
-describe('textarea', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    store = storeFactory();
-    wrapper = shallow(<AddPostModule store={store} />)
-      .dive()
-      .dive();
-  });
-  test('changes textarea value on typing', () => {
-    const textarea = wrapper.find('textarea');
-    textarea.simulate('change', { target: { value: 'text' } });
-    expect(wrapper.find('textarea').props().value).toEqual('text');
-  });
-});
-
-describe('spinner', () => {
-  let wrapper;
   const setup = (initialState) => {
     store = storeFactory(initialState);
-    return mount(<AddPostModule store={store} />);
+
+    return mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <AddPostModule />
+        </BrowserRouter>
+      </Provider>
+    );
   };
-  afterEach(() => {
-    wrapper.unmount();
-  });
-  test('shows spinner after dispatch setLoading(true)', () => {
-    wrapper = setup();
-    store.dispatch(actions.setIsNewPostLoading(true));
-    wrapper.setProps();
-    const spinner = findByTestAttr(wrapper, 'component-spinner');
-    expect(spinner.exists()).toBe(true);
-  });
-  test('hides spinner after dispatch setLoading(false)', () => {
-    wrapper = setup({ posts: { loading: true } });
-    store.dispatch(actions.setIsNewPostLoading(false));
-    wrapper.setProps();
-    const spinner = findByTestAttr(wrapper, 'component-spinner');
-    expect(spinner.exists()).toBe(false);
-  });
-});
 
-const createUseReducerMock = (image) => {
-  const mockUseReducer = jest.fn().mockReturnValue([{ text: 'text', image }, jest.fn()]);
-  React.useReducer = mockUseReducer;
-};
+  describe('textarea', () => {
+    test('changes textarea value on typing', () => {
+      const wrapper = setup();
+      const textarea = wrapper.find('textarea');
+      textarea.simulate('change', { target: { value: 'text' } });
+      expect(wrapper.find('textarea').props().value).toEqual('text');
+      wrapper.unmount();
+    });
+  });
 
-describe('displays image', () => {
-  let wrapper;
-  const setup = (images) => {
-    createUseReducerMock(images);
-    const store = storeFactory();
-    return mount(<AddPostModule store={store} />);
+  describe('showing spinner', () => {
+    let wrapper;
+
+    const submitPostForm = (wrapper) => {
+      const textarea = findByTestAttr(wrapper, 'add-post-module-textarea');
+      textarea.simulate('change', { target: { value: 'text' } });
+      const form = findByTestAttr(wrapper, 'add-post-module-form');
+      form.simulate('submit');
+    };
+
+    beforeEach(() => {
+      const initialState = {
+        ...userData,
+        posts: {
+          usersPosts: {
+            ...currentUserNoPosts,
+          },
+          isGetPostsLoading: false,
+        },
+      };
+
+      wrapper = setup(initialState);
+
+      submitPostForm(wrapper);
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+
+    test('shows spinner after submiting add post form', () => {
+      const spinner = findByTestAttr(wrapper, 'component-spinner');
+      expect(spinner.exists()).toBe(true);
+    });
+    test('hides spinner after dispatch setLoading(false)', () => {
+      store.dispatch(actions.setIsNewPostLoading(false));
+      wrapper.setProps();
+      const spinner = findByTestAttr(wrapper, 'component-spinner');
+      expect(spinner.exists()).toBe(false);
+    });
+  });
+
+  const createUseReducerMock = (image) => {
+    const mockUseReducer = () => [{ text: 'text', image, cursorPostion: 0 }, jest.fn()];
+    jest.spyOn(React, 'useReducer').mockImplementationOnce(mockUseReducer);
   };
+
   afterEach(() => {
-    wrapper.unmount();
-  });
-  test("shows image when state.images isn't an empty array", () => {
-    wrapper = setup({ url: 'img.png' });
-    const image = findByTestAttr(wrapper, 'image');
-    expect(image.exists()).toBe(true);
+    jest.restoreAllMocks();
   });
 
-  test('does not show image when state.images is empty array', () => {
-    wrapper = setup({});
-    const image = findByTestAttr(wrapper, 'image');
-    expect(image.exists()).toBe(false);
+  describe('displaying image', () => {
+    test("shows image when state.images isn't an empty array", () => {
+      createUseReducerMock({ url: 'img.png' });
+      const wrapper = setup();
+      const image = findByTestAttr(wrapper, 'image');
+      expect(image.exists()).toBe(true);
+    });
+
+    test('does not show image when state.images is empty array', () => {
+      createUseReducerMock({});
+      const wrapper = setup();
+      const image = findByTestAttr(wrapper, 'image');
+      expect(image.exists()).toBe(false);
+    });
   });
 });

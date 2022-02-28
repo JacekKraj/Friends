@@ -23,7 +23,14 @@ const FileInput = ({ onDropHandler, children }) => {
 
   return (
     <div className={classes.fileInputComponent}>
-      <input type='file' id='fileInput' className={classes.fileInput} accept={acceptedImagesTypes} onChange={handleDropFile} />
+      <input
+        type='file'
+        id='fileInput'
+        className={classes.fileInput}
+        accept={acceptedImagesTypes}
+        onChange={handleDropFile}
+        data-test='image-file-input'
+      />
       <label htmlFor='fileInput'>{children}</label>
     </div>
   );

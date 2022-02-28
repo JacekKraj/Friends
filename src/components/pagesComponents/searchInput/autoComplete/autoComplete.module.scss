@@ -7,7 +7,6 @@
   width: 100%;
   background-color: rgb(253, 253, 253);
   padding: 0.5em 0.7em;
-  display: none;
   max-height: 30vh;
   overflow: auto;
   border: 1px solid #ccc;
@@ -22,8 +21,4 @@
   @include laptop-sm {
     max-height: 45vh;
   }
-}
-
-.autoCompleteShow {
-  display: block;
 }

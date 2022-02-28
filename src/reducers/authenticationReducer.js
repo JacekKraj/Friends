@@ -1,7 +1,7 @@
 import * as actionTypes from './../actions/actionsTypes';
 
 const initialState = {
-  authenticated: false,
+  isAuthenticated: false,
   isLoading: false,
   fireUser: null,
 };
@@ -25,7 +25,7 @@ const authenticationReducer = (state = initialState, action) => {
     case actionTypes.LOG_OUT:
       return {
         ...state,
-        authenticated: false,
+        isAuthenticated: false,
         isLoading: false,
         fireUser: null,
       };
@@ -38,14 +38,14 @@ const authenticationReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        authenticated: true,
+        isAuthenticated: true,
         fireUser: action.fireUser,
       };
     case actionTypes.AUTHENTICATION_FAIL:
       return {
         ...state,
         isLoading: false,
-        authenticated: false,
+        isAuthenticated: false,
       };
     default:
       return state;

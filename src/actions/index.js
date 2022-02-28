@@ -16,7 +16,7 @@ export {
   addUserPost,
   createUserPost,
   setIsNewPostLoading,
-  getUserPosts,
+  downloadUserPosts,
   setIsGetPostsLoading,
   removePost,
   clearPosts,

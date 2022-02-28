@@ -1,5 +1,5 @@
 import * as actionTypes from './actionsTypes';
-import fire from './../firebaseConfig';
+import { fire } from './../firebaseConfig';
 
 import * as actions from './index';
 import { failToast } from './../utilities/toasts/toasts';

@@ -1,4 +1,4 @@
-import fire from './../firebaseConfig';
+import { fire } from './../firebaseConfig';
 import * as actionTypes from './actionsTypes';
 import { failToast, successToast } from './../utilities/toasts/toasts';
 import * as actions from './index';
@@ -54,7 +54,7 @@ export const followUser = (userToFollow) => {
 
     await dispatch(updateFollowedUsers(userToFollow, users));
 
-    dispatch(actions.getUserPosts(userToFollow, () => {}));
+    dispatch(actions.downloadUserPosts(userToFollow, () => {}));
   };
 };
 

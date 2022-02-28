@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Backdrop from '../../../../UI/backdrop/Backdrop';
 import classes from './updateProfileModal.module.scss';
 import SpinnerContainer from './../../../../../utilities/spinnerContainer/SpinnerContainer';
 import ProfileImageSection from './profileImageSection/ProfileImageSection';

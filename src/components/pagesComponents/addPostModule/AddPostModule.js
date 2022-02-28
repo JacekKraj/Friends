@@ -1,14 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { breakpoints } from './../../../utilities/breakpoints/breakpoints';
+import { useSelector } from 'react-redux';
 
+import { useActions } from '../../../utilities/hooks/useActions';
+import { breakpoints } from './../../../utilities/breakpoints/breakpoints';
 import EmojiPicker from './../../../utilities/emojiPicker/EmojiPicker';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoIcon from '@material-ui/icons/Photo';
 import classes from './addPostModule.module.scss';
 import Button from './../../UI/button/Button';
-import * as actions from './../../../actions/index';
 import FileInput from '../imageFileInput/ImageFileInput';
 import SpinnerContainer from './../../../utilities/spinnerContainer/SpinnerContainer';
 
@@ -71,38 +71,43 @@ export const useStyles = makeStyles(() => ({
   },
 }));
 
-const SET_IMAGE = 'SET_IMAGE';
-const SET_TEXT = 'SET_TEXT';
-const SET_CURSOR_POSITION = 'SET_CURSOR_POSITION';
+export const UnconnectedAddPostModule = () => {
+  const SET_IMAGE = 'SET_IMAGE';
+  const SET_TEXT = 'SET_TEXT';
+  const SET_CURSOR_POSITION = 'SET_CURSOR_POSITION';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case SET_IMAGE:
-      return {
-        ...state,
-        image: action.image,
-      };
-    case SET_TEXT:
-      return {
-        ...state,
-        text: action.text,
-      };
-    case SET_CURSOR_POSITION:
-      return {
-        ...state,
-        cursorPosition: action.cursorPosition,
-      };
-    default:
-      return state;
-  }
-};
-
-export const UnconnectedAddPostModule = ({ currentUserModifiedEmail, posts, onAddUserPost }) => {
-  const iconStyle = useStyles();
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case SET_IMAGE:
+        return {
+          ...state,
+          image: action.image,
+        };
+      case SET_TEXT:
+        return {
+          ...state,
+          text: action.text,
+        };
+      case SET_CURSOR_POSITION:
+        return {
+          ...state,
+          cursorPosition: action.cursorPosition,
+        };
+      default:
+        return state;
+    }
+  };
 
   const [state, dispatch] = React.useReducer(reducer, { image: { url: null }, text: '', cursorPosition: 0 });
 
   const textAreaRef = React.useRef();
+
+  const iconStyle = useStyles();
+
+  const { usersPosts, isNewPostLoading } = useSelector((state) => state.posts);
+  const { modifiedEmail } = useSelector((state) => state.userData.currentUser);
+
+  const { addUserPost } = useActions();
 
   React.useEffect(() => {
     textAreaRef.current.selectionEnd = state.cursorPosition;
@@ -150,7 +155,7 @@ export const UnconnectedAddPostModule = ({ currentUserModifiedEmail, posts, onAd
   };
 
   const countTotalPostsCreatedByUserAmount = () => {
-    const currentCreatedPostsAmount = posts.usersPosts[currentUserModifiedEmail].totalPostsCreated;
+    const currentCreatedPostsAmount = usersPosts[modifiedEmail].totalPostsCreated;
 
     const newCreatedPostsAmount = currentCreatedPostsAmount !== 0 ? currentCreatedPostsAmount + 1 : 1;
 
@@ -162,17 +167,18 @@ export const UnconnectedAddPostModule = ({ currentUserModifiedEmail, posts, onAd
 
     const totalPostsCreatedAmount = countTotalPostsCreatedByUserAmount();
 
-    onAddUserPost({ post, totalPostsCreatedAmount }, clearModuleAfterAddingPost);
+    addUserPost({ post, totalPostsCreatedAmount }, clearModuleAfterAddingPost);
   };
 
   return (
     <div className={classes.addPostModuleComponent} data-test='add-post-module-component'>
-      {posts.isNewPostLoading && <SpinnerContainer />}
+      {isNewPostLoading && <SpinnerContainer />}
       <form
         onSubmit={(event) => {
           event.preventDefault();
           submitPost();
         }}
+        data-test='add-post-module-form'
       >
         <textarea
           className={classes.textarea}
@@ -183,10 +189,11 @@ export const UnconnectedAddPostModule = ({ currentUserModifiedEmail, posts, onAd
             changeInputValue(e.target.value);
           }}
           placeholder='What are you thinking about?'
+          data-test='add-post-module-textarea'
         />
         {state.image.url && (
           <div className={classes.photoPreviewContainer}>
-            <ClearIcon className={iconStyle.removePhoto} onClick={removePhoto} />
+            <ClearIcon className={iconStyle.removePhoto} onClick={removePhoto} data-test='remove-image-btn' />
             <img src={state.image.url} className={classes.photoPreview} data-test='image' />
           </div>
         )}
@@ -207,17 +214,4 @@ export const UnconnectedAddPostModule = ({ currentUserModifiedEmail, posts, onAd
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-    posts: state.posts,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddUserPost: (postData, clearPost) => dispatch(actions.addUserPost(postData, clearPost)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedAddPostModule);
+export default UnconnectedAddPostModule;

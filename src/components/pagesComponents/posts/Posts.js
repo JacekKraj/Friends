@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './posts.module.scss';
 import Post from './post/Post';
 import Spinner from './../../UI/spinner/Spinner';
 
-const Posts = (props) => {
-  const { followedUsers, unfollowedUsers, currentUser, posts, isLoading } = props;
+const Posts = ({ posts }) => {
+  const { isGetPostsLoading } = useSelector((state) => state.posts);
+  const { followedUsers, unfollowedUsers, currentUser } = useSelector((state) => state.userData);
 
   const getRelevantAuthorData = (author) => {
     const usersToBrowseIn = [...followedUsers, ...unfollowedUsers, currentUser];
@@ -33,11 +34,11 @@ const Posts = (props) => {
     return <Post author={author} post={post} key={post.creationTime} />;
   });
 
-  const postsAreNotFound = !isLoading && !posts?.length;
+  const postsAreNotFound = !isGetPostsLoading && !posts?.length;
 
   return (
     <div className={classes.postsComponent}>
-      {isLoading ? <Spinner /> : buildPosts}
+      {isGetPostsLoading ? <Spinner /> : buildPosts}
       {postsAreNotFound && (
         <p className={classes.noPostsInfo} data-test='no-posts-info'>
           There are no posts to display.
@@ -47,13 +48,4 @@ const Posts = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.posts.isGetPostsLoading,
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-    currentUser: state.userData.currentUser,
-  };
-};
-
-export default connect(mapStateToProps)(Posts);
+export default Posts;

@@ -1,12 +1,10 @@
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
 import { connect } from 'react-redux';
+
 import Home from './../components/home/Home';
 import AuthenticationMainPage from '../components/authentication/authenticationMainPage/AuthenticationMainPage';
-
-const UserProfile = React.lazy(() => {
-  return import('./../components/userProfile/UserProfile');
-});
+import UserProfile from './../components/userProfile/UserProfile';
 
 const FriendsPage = React.lazy(() => {
   return import('./../components/friendsPage/FriendsPage');
@@ -46,7 +44,7 @@ const Routes = ({ isAuthenticated }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.auth.authenticated,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 
