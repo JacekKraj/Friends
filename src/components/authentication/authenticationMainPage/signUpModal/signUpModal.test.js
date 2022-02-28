@@ -1,7 +1,7 @@
 import React from 'react';
 import { formikFindByInputName, formikFindBySelectName, findByTestAttr } from './../../../../utilities/tests/testsHelperFunctions';
 import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
+import { act } from '@testing-library/react';
 
 import SignUpForm from './SignUpModal';
 import { storeFactory } from './../../../../utilities/tests/testsHelperFunctions';
@@ -9,18 +9,15 @@ import * as actions from './../../../../actions/index';
 
 describe('<SignUpModal />', () => {
   let store;
-  const setup = (initialState, defaultProps) => {
+  const setup = (initialState) => {
     store = storeFactory(initialState);
-    const props = {
-      ...defaultProps,
-      isShown: true,
-    };
-    return mount(<SignUpForm {...props} store={store} />);
+
+    return mount(<SignUpForm store={store} />);
   };
 
-  const changeInputValue = (name, value, input) => {
-    act(() => {
-      input.simulate('change', { target: { name: `${name}`, value: `${value}` } });
+  const changeInputValue = async (name, value, input) => {
+    await act(async () => {
+      await input.simulate('change', { target: { name: `${name}`, value: `${value}` } });
     });
   };
 
@@ -106,7 +103,7 @@ describe('<SignUpModal />', () => {
     describe('hiding spinner', () => {
       let wrapper;
       beforeEach(() => {
-        const initialState = { auth: { loading: true } };
+        const initialState = { auth: { isLoading: true } };
         wrapper = setup(initialState);
       });
       test('hides spinner on registerEnd', () => {

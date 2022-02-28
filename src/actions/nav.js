@@ -1,15 +1,15 @@
-import * as actionTypes from "./actionsTypes";
+import * as actionTypes from './actionsTypes';
 
-export const setShowNav = (show) => {
+export const setShowNav = (isShown) => {
   return {
     type: actionTypes.SET_SHOW_NAV,
-    show,
+    isShown,
   };
 };
 
-export const setShowDiscoverBar = (show) => {
+export const setShowDiscoverBar = (isShown) => {
   return {
     type: actionTypes.SET_SHOW_DISCOVER_BAR,
-    show,
+    isShown,
   };
 };

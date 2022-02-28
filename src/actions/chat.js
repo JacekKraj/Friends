@@ -1,5 +1,5 @@
 import * as actionTypes from './actionsTypes';
-import fire from './../firebaseConfig';
+import { fire } from './../firebaseConfig';
 import { failToast } from '../utilities/toasts/toasts';
 
 export const setChat = (chat) => {

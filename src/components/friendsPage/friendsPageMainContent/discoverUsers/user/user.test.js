@@ -13,7 +13,7 @@ const setup = (defaultProps) => {
   );
 };
 
-describe('dispatches actions on clicking buttons', () => {
+describe('<User />', () => {
   const mockUnfollowUser = jest.fn();
   const mockFollowUser = jest.fn();
   const setupProps = {

@@ -56,7 +56,7 @@ const SmallScreenNavBar = ({ onSetShowNav, showNav }) => {
 
 const mapStateToProps = (state) => {
   return {
-    showNav: state.nav.showNav,
+    showNav: state.nav.isShownNav,
   };
 };
 

@@ -20,14 +20,14 @@ const ProfileImageSection = ({ image, onSetUserImage }) => {
 
   return (
     <div className={classes.profileImageSec}>
-      <img className={classes.profileImage} src={newProfileImage.url || image} alt='user profile image' />
+      <img className={classes.profileImage} src={newProfileImage.url || image} alt='user profile image' data-test='profile-image' />
       <div className={classes.profileImageButtons}>
         <FileInput onDropHandler={onDropHandler}>
           <Button className={classes.button} isTransparent>
             Choose new image
           </Button>
         </FileInput>
-        <Button className={classes.button} isTransparent={false} onClick={updateImage}>
+        <Button className={classes.button} isTransparent={false} onClick={updateImage} testData='profile-image-update-button'>
           Update image
         </Button>
       </div>

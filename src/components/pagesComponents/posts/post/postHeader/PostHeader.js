@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { makeStyles } from '@material-ui/core/styles';
+import { useSelector } from 'react-redux';
 
 import { breakpoints } from './../../../../../utilities/breakpoints/breakpoints';
 import classes from './postHeader.module.scss';
@@ -43,8 +43,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PostHeader = ({ author, currUserModifiedEmail, post }) => {
+const PostHeader = ({ author, post }) => {
   const [isEditionPanelShown, setIsEditionPanelShown] = React.useState(false);
+
+  const { modifiedEmail } = useSelector((state) => state.userData.currentUser);
 
   const iconStyle = useStyles();
 
@@ -58,7 +60,7 @@ const PostHeader = ({ author, currUserModifiedEmail, post }) => {
     return creationTime;
   }, [post.creationTime]);
 
-  const isCurrentUserPost = currUserModifiedEmail === author.modifiedEmail;
+  const isCurrentUserPost = modifiedEmail === author.modifiedEmail;
 
   return (
     <div className={classes.postHeader}>
@@ -93,10 +95,4 @@ const PostHeader = ({ author, currUserModifiedEmail, post }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-  };
-};
-
-export default connect(mapStateToProps)(PostHeader);
+export default PostHeader;

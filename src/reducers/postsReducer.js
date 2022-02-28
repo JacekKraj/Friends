@@ -28,7 +28,7 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         isNewPostLoading: action.loading,
       };
-    case actionTypes.GET_USERS_POSTS:
+    case actionTypes.SET_USERS_POSTS:
       return {
         ...state,
         usersPosts: { ...state.usersPosts, ...action.posts },

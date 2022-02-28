@@ -55,7 +55,7 @@ const SmallScreenDiscoverBar = ({ showDiscoverBar, onSetShowDiscoverBar, childre
 
 const mapStateToProps = (state) => {
   return {
-    showDiscoverBar: state.nav.showDiscoverBar,
+    showDiscoverBar: state.nav.isShownDiscoverBar,
   };
 };
 

@@ -1,8 +1,8 @@
-import * as actionTypes from "../actions/actionsTypes";
+import * as actionTypes from '../actions/actionsTypes';
 
 const initialState = {
-  showNav: false,
-  showDiscoverBar: false,
+  isShownNav: false,
+  isShownDiscoverBar: false,
 };
 
 const navReducer = (state = initialState, action) => {
@@ -10,12 +10,12 @@ const navReducer = (state = initialState, action) => {
     case actionTypes.SET_SHOW_NAV:
       return {
         ...state,
-        showNav: action.show,
+        isShownNav: action.isShown,
       };
     case actionTypes.SET_SHOW_DISCOVER_BAR:
       return {
         ...state,
-        showDiscoverBar: action.show,
+        isShownDiscoverBar: action.isShown,
       };
     default:
       return state;

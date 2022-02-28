@@ -79,13 +79,14 @@ const PostEditionModal = ({ post, onUpdatePost, isLoading }) => {
   };
 
   return (
-    <div className={classes.postEditionModal} data-test='post-edition-modal-component'>
+    <div className={classes.postEditionModal} data-test='component-post-edition-modal'>
       {isLoading && <SpinnerContainer />}
       <form
         onSubmit={(e) => {
           e.preventDefault();
           submitChanges();
         }}
+        data-test='post-edition-form'
       >
         <textarea
           value={state.text}

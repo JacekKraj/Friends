@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import { connect } from 'react-redux';
 import classnames from 'classnames';
+import { useSelector } from 'react-redux';
 
 import classes from './../signUpModal/signUpModal.module.scss';
 import Button from './../../../UI/button/Button';
@@ -10,8 +10,10 @@ import MyFormikInput from './../../../../utilities/myFormikInput/MyFormikInput';
 import Input from './../../../UI/input/Input';
 import Spinner from './../../../UI/spinner/Spinner';
 
-const SignInModal = ({ modalProps, isLoading }) => {
-  const { submit } = modalProps;
+const SignInModal = () => {
+  const { isLoading } = useSelector((state) => state.auth);
+  const { props } = useSelector((state) => state.modals);
+  const { submit } = props;
 
   const signInForm = (
     <React.Fragment>
@@ -47,11 +49,4 @@ const SignInModal = ({ modalProps, isLoading }) => {
   return <div className={classnames(classes.modal, classes.modalVisible)}>{isLoading ? <Spinner /> : signInForm}</div>;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.auth.isLoading,
-    modalProps: state.modals.props,
-  };
-};
-
-export default connect(mapStateToProps)(SignInModal);
+export default SignInModal;

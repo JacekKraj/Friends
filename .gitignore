@@ -23,3 +23,16 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+/.github
+/functions
+database.rules.json
+firebase.json
+firestore-debug.log
+database-debug.log
+firestore.indexes.json
+firestore.rules
+pubsub-debug.log
+remoteconfig.template.json
+storage.rules
+ui-debug.log
+.firebaserc

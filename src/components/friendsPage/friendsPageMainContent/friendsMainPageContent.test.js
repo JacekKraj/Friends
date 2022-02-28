@@ -19,7 +19,7 @@ const setup = (initialState) => {
   );
 };
 
-describe('displays users and info', () => {
+describe('<FriendsPageMainContent />', () => {
   describe('displays users', () => {
     let wrapper;
     beforeEach(() => {
@@ -44,31 +44,18 @@ describe('displays users and info', () => {
       const user = findByTestAttr(wrapper, 'component-unfollowed-user');
       expect(user.exists()).toBe(true);
     });
-    test("displays second user in 'discover other users' section after dispatching unfollow action", (done) => {
-      const unfollowButton = findByTestAttr(wrapper, 'follow-button').last();
-      const unfollowUser = async () => {
-        try {
-          await unfollowButton.simulate('click');
-          // wrapper.setProps();
-          const unfollowedUsers = findByTestAttr(wrapper, 'component-unfollowed-user');
-          const followedUsers = findByTestAttr(wrapper, 'component-followed-user');
-          // console.log(unfollowedUsers.length, followedUsers.length);
-          expect(unfollowedUsers.length).toEqual('asd');
-          // expect(followedUsers.length).toEqual(0);
-          done();
-        } catch {
-          done();
-        }
+    test("displays second user in 'discover other users' section after dispatching unfollow action", () => {
+      const users = {
+        newFollowedEmails: [],
+        toReduce: 'followedUsers',
+        toIncrease: 'unfollowedUsers',
       };
-
-      unfollowUser();
-
-      // store.dispatch(actions.setFollowedUsers('testtest1com', users));
-      // wrapper.setProps();
-      // const unfollowedUsers = findByTestAttr(wrapper, 'component-unfollowed-user');
-      // const followedUsers = findByTestAttr(wrapper, 'component-followed-user');
-      // expect(unfollowedUsers.length).toEqual(2);
-      // expect(followedUsers.length).toEqual(0);
+      store.dispatch(actions.setFollowedUsers('testtest2com', users));
+      wrapper.setProps();
+      const unfollowedUsers = findByTestAttr(wrapper, 'component-unfollowed-user');
+      const followedUsers = findByTestAttr(wrapper, 'component-followed-user');
+      expect(unfollowedUsers.length).toEqual(2);
+      expect(followedUsers.length).toEqual(0);
     });
     test("displays second user in 'friends' section after dispatching follow action", () => {
       const users = {
@@ -76,7 +63,7 @@ describe('displays users and info', () => {
         toReduce: 'unfollowedUsers',
         toIncrease: 'followedUsers',
       };
-      store.dispatch(actions.setFollowedUsers('test2testcom', users));
+      store.dispatch(actions.setFollowedUsers('testtest2com', users));
       wrapper.setProps();
       const unfollowedUsers = findByTestAttr(wrapper, 'component-unfollowed-user');
       const followedUsers = findByTestAttr(wrapper, 'component-followed-user');

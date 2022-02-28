@@ -30,6 +30,8 @@ const AutoComplete = ({ input, followedUsers, unfollowedUsers }) => {
   };
 
   React.useEffect(() => {
+    if (!input.value) return;
+
     validateInputValue(input.value);
 
     const newSuggestions = getNewSuggestions(input.value);
@@ -37,11 +39,8 @@ const AutoComplete = ({ input, followedUsers, unfollowedUsers }) => {
     setSuggestions(newSuggestions);
   }, [input.value]);
 
-  return (
-    <div
-      className={classnames(classes.autoCompleteComponent, input.isFocused && input.value.trim() && classes.autoCompleteShow)}
-      data-test='auto-complete-component'
-    >
+  return input.isFocused && input.value.trim() ? (
+    <div className={classes.autoCompleteComponent} data-test='auto-complete-component'>
       {suggestions.length ? (
         suggestions.map((user) => {
           const searchedUser = { name: user.name, modifiedEmail: user.modifiedEmail, profileImage: user.profileImage };
@@ -51,7 +50,7 @@ const AutoComplete = ({ input, followedUsers, unfollowedUsers }) => {
         <NoUsersInfo>There are no matching users for this keyword.</NoUsersInfo>
       )}
     </div>
-  );
+  ) : null;
 };
 
 const mapStateToProps = (state) => {

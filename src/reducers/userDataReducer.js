@@ -69,7 +69,7 @@ const userDataReducer = (state = initialState, action) => {
       };
     case actionTypes.SET_FOLLOWED_USERS:
       const users = [...state[action.usersToReduce]];
-      const userIndex = users.findIndex((el) => el.modifiedEmail === action.user);
+      const userIndex = users.findIndex((user) => user.modifiedEmail === action.user);
       const user = users.splice(userIndex, 1);
       return {
         ...state,
