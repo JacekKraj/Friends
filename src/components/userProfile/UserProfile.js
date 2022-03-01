@@ -9,7 +9,7 @@ import WholePageWrapper from '../wrappers/wholePageWrapper/WholePageWrapper';
 import UserProfileDiscoverBar from './userProfileDiscoverBar/UserProfileDiscoverBar';
 
 const UserProfile = (props) => {
-  const { userData, currUserModifiedEmail } = props;
+  const { userData } = props;
   const { currentUser, unfollowedUsers, followedUsers } = userData;
 
   const [user, setUser] = React.useState({});
@@ -74,8 +74,9 @@ const UserProfile = (props) => {
   };
 
   React.useEffect(() => {
-    const userEmail = getUserEmialFromSearchParams();
+    if (!currentUser.modifiedEmail) return;
 
+    const userEmail = getUserEmialFromSearchParams();
     const user = getUser(userEmail);
 
     if (user.type === TYPE_NO_USER_FOUND) {
@@ -84,7 +85,7 @@ const UserProfile = (props) => {
     }
 
     setUser(user);
-  }, [currUserModifiedEmail, followedUsers.length, unfollowedUsers.length, currentUser.profileImage, JSON.stringify(currentUser.personalInfo)]);
+  }, [location.search, currentUser.modifiedEmail]);
 
   return (
     <WholePageWrapper>
