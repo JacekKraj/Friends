@@ -38,8 +38,6 @@ const Chat = (props) => {
       setInputValue('');
       sendMessage();
 
-      console.log(textedUser);
-
       if (!textedUser.chat?.notifications?.includes(currUserModifiedEmail)) {
         onAddNotification(textedUser.modifiedEmail);
       }
@@ -57,7 +55,7 @@ const Chat = (props) => {
 
   return (
     <MainContentWrapper>
-      <div className={classes.chatComponent}>
+      <div className={classes.chatComponent} data-test='component-chat'>
         <Header sectionName={textedUser.name} />
         <main>
           <MessagesArea messages={messages} isForeignUser={textedUser.isForeign} textedUserModifiedEmail={textedUser.modifiedEmail} />

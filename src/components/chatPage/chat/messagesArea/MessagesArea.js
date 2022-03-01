@@ -12,7 +12,7 @@ const MessagesArea = (props) => {
   const scrollBottomRef = React.useRef();
 
   React.useEffect(() => {
-    scrollBottomRef.current.scrollIntoView();
+    scrollBottomRef.current?.scrollIntoView();
   });
 
   return (
@@ -20,7 +20,7 @@ const MessagesArea = (props) => {
       <ul className={classes.messagesAreaComponent}>
         {messages ? (
           messages.map((message) => {
-            return <Message text={message.text} key={message.createdAt + message.text} isFriendMessage={currUserModifiedEmail !== message.from} />;
+            return <Message text={message.text} key={message.id} isFriendMessage={currUserModifiedEmail !== message.from} />;
           })
         ) : (
           <Spinner />
