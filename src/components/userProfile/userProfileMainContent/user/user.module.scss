@@ -5,16 +5,15 @@
   border-bottom: 1px solid #888;
   background-color: rgb(233, 233, 233);
   padding: 4% 5%;
-  min-height: 20vh;
+  min-height: 40vh;
 
   @include mobileVertical {
     padding: 4% 12% 2%;
-    min-height: 30vh;
   }
 
   @include mobileHorizontal {
     padding: 2% 22%;
-    min-height: 200px;
+    min-height: 250px;
   }
 
   @include tabletHorizontal {
@@ -23,7 +22,7 @@
 
   @include laptop-sm {
     padding: 3% 3% 2%;
-    min-height: 150px;
+    min-height: 275px;
   }
 }
 

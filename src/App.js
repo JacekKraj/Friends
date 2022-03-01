@@ -63,6 +63,7 @@ const App = () => {
           const verifiedUserData = await verifyUser(fireUserModifiedEmail);
           usersData = { ...usersData, [fireUserModifiedEmail]: verifiedUserData };
         }
+
         setLoading(false);
         hideModal();
         authenticationEnd(fireUser);
