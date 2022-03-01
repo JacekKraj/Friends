@@ -4,17 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { storeFactory, findByTestAttr } from '../../../utilities/tests/testsHelperFunctions';
 import UserProfileDiscoverBar from './UserProfileDiscoverBar';
-import { userData } from './../../../utilities/tests/reduxStoreObjects';
-
-const followedUserData = {
-  modifiedEmail: 'testtest1wppl',
-  name: 'test1',
-};
-
-const unfollowedUserData = {
-  modifiedEmail: 'testtest2wppl',
-  name: 'test2',
-};
+import { userData, followedUserData, unfollowedUserData } from './../../../utilities/tests/reduxStoreObjects';
 
 const setup = () => {
   const initialState = {

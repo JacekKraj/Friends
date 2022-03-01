@@ -23,6 +23,16 @@ export const userData = {
   },
 };
 
+export const followedUserData = {
+  modifiedEmail: 'testtest1wppl',
+  name: 'test1',
+};
+
+export const unfollowedUserData = {
+  modifiedEmail: 'testtest2wppl',
+  name: 'test2',
+};
+
 export const currentUserNoPosts = {
   jacekkrajewski12wppl: {
     posts: {},

@@ -28,6 +28,7 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
     if (!foundUser) {
       foundUser = { ...unfollowedUsers.filter((user) => user.modifiedEmail === userEmail)[0], isForeign: true };
     }
+
     return foundUser;
   };
 
@@ -62,7 +63,7 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
     const textedUserEmail = getTextedUserEmailFromSearchParams();
 
     setTextingUsers(textedUserEmail);
-  }, [currUserModifiedEmail]);
+  }, [currUserModifiedEmail, location.search]);
 
   React.useEffect(() => {
     if (chatNotifications?.includes(textedUser.modifiedEmail)) {

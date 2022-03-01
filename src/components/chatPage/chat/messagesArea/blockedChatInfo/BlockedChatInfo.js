@@ -5,7 +5,7 @@ import classes from './blockedChatInfo.module.scss';
 
 const BlockedChatInfo = ({ textedUserModifiedEmail }) => {
   return (
-    <div className={classes.blockedChatInfoComponenet}>
+    <div className={classes.blockedChatInfoComponenet} data-test='component-blocked-chat-info'>
       You need to{' '}
       <NavLink exact to={`/users?user=${textedUserModifiedEmail}`} className={classes.link}>
         follow
