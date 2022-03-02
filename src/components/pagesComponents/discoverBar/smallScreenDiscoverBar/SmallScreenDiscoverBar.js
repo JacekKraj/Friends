@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     height: 40,
     marginLeft: -5,
     marginRight: 5,
+    cursor: 'pointer',
     [mobileVertical]: {
       width: 42,
       height: 42,
