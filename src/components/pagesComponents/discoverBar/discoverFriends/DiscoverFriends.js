@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './discoverFriends.module.scss';
 import Friend from './friend/Friend';
 import SectionTitle from './../sectionTitile/SectionTitle';
 import NoUsersInfo from './../noUsersInfo/NoUsersInfo';
 
-const DiscoverFriends = (props) => {
-  const { location, users, followedUsers } = props;
+const DiscoverFriends = ({ location, users }) => {
+  const { followedUsers } = useSelector((state) => state.userData);
 
   const isHome = location === 'home';
 
@@ -26,10 +26,4 @@ const DiscoverFriends = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    followedUsers: state.userData.followedUsers,
-  };
-};
-
-export default connect(mapStateToProps)(DiscoverFriends);
+export default DiscoverFriends;

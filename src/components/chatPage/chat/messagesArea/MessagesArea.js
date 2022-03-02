@@ -1,13 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './messagesArea.module.scss';
 import Message from './message/Message';
 import Spinner from './../../../UI/spinner/Spinner';
 import BlockedChatInfo from './blockedChatInfo/BlockedChatInfo';
 
-const MessagesArea = (props) => {
-  const { messages, isForeignUser, textedUserModifiedEmail, currUserModifiedEmail } = props;
+const MessagesArea = ({ messages, isForeignUser, textedUserModifiedEmail }) => {
+  const { modifiedEmail } = useSelector((state) => state.userData.currentUser);
 
   const scrollBottomRef = React.useRef();
 
@@ -20,7 +20,7 @@ const MessagesArea = (props) => {
       <ul className={classes.messagesAreaComponent}>
         {messages ? (
           messages.map((message) => {
-            return <Message text={message.text} key={message.id} isFriendMessage={currUserModifiedEmail !== message.from} />;
+            return <Message text={message.text} key={message.id} isFriendMessage={modifiedEmail !== message.from} />;
           })
         ) : (
           <Spinner />
@@ -32,10 +32,4 @@ const MessagesArea = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-  };
-};
-
-export default connect(mapStateToProps)(MessagesArea);
+export default MessagesArea;

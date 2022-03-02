@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import { useActions } from '../../utilities/hooks/useActions';
 import ChatInstruction from './chatInstruction/ChatInstruction';
 import WholePageWrapper from '../wrappers/wholePageWrapper/WholePageWrapper';
 import SideNav from '../pagesComponents/sideNav/SideNav';
@@ -10,10 +11,11 @@ import Chat from './chat/Chat';
 import DiscoverChat from './../pagesComponents/discoverBar/discoverChat/DiscoverChat';
 import { sortUsersAlphabetically } from '../../utilities/helperFunctions/sortUsersAlphabetically';
 import Spinner from './../UI/spinner/Spinner';
-import * as actions from './../../actions/index';
 
-const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
-  const { followedUsers, unfollowedUsers, currentUser } = userData;
+const ChatPage = () => {
+  const { followedUsers, unfollowedUsers, currentUser } = useSelector((state) => state.userData);
+  const { notifications } = useSelector((state) => state.chat);
+  const { removeNotification } = useActions();
 
   const currUserModifiedEmail = currentUser.modifiedEmail;
 
@@ -66,10 +68,10 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
   }, [currUserModifiedEmail, location.search]);
 
   React.useEffect(() => {
-    if (chatNotifications?.includes(textedUser.modifiedEmail)) {
-      onRemoveNotification(textedUser.modifiedEmail);
+    if (notifications?.includes(textedUser.modifiedEmail)) {
+      removeNotification(textedUser.modifiedEmail);
     }
-  }, [textedUser.modifiedEmail, chatNotifications, currUserModifiedEmail]);
+  }, [textedUser.modifiedEmail, notifications, currUserModifiedEmail]);
 
   return (
     <WholePageWrapper>
@@ -89,17 +91,4 @@ const ChatPage = ({ userData, onRemoveNotification, chatNotifications }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    chatNotifications: state.chat.notifications,
-    userData: state.userData,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRemoveNotification: (userToRemove) => dispatch(actions.removeNotification(userToRemove)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
+export default ChatPage;

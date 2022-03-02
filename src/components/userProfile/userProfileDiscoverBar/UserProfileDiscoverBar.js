@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { sortUsersAlphabetically } from './../../../utilities/helperFunctions/sortUsersAlphabetically';
 import DiscoverFriends from './../../pagesComponents/discoverBar/discoverFriends/DiscoverFriends';
 
-const UserProfileDiscoverBar = ({ userData, followedUsersEmails }) => {
+const UserProfileDiscoverBar = ({ followedUsersEmails }) => {
+  const { userData } = useSelector((state) => state);
+
   const [followedUsers, setFollowedUsers] = React.useState([]);
 
   const isFollowedUser = (user) => {
@@ -30,10 +32,4 @@ const UserProfileDiscoverBar = ({ userData, followedUsersEmails }) => {
   return <DiscoverFriends location='profile' users={followedUsers} />;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userData: state.userData,
-  };
-};
-
-export default connect(mapStateToProps)(UserProfileDiscoverBar);
+export default UserProfileDiscoverBar;

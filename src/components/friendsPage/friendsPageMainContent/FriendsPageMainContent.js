@@ -1,11 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './friendsPageMainContent.module.scss';
 import DiscoverUsers from './discoverUsers/DiscoverUsers';
 import Header from './../../pagesComponents/header/Header';
 
-const FriendsPageMainContent = ({ followedUsers, unfollowedUsers }) => {
+const FriendsPageMainContent = () => {
+  const { followedUsers, unfollowedUsers } = useSelector((state) => state.userData);
+
   return (
     <div className={classes.friendsPageMainContentComponent}>
       <Header sectionName='Friends' searchIconHiddenClass={classes.searchIconHidden} />
@@ -17,11 +19,4 @@ const FriendsPageMainContent = ({ followedUsers, unfollowedUsers }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-  };
-};
-
-export default connect(mapStateToProps)(FriendsPageMainContent);
+export default FriendsPageMainContent;

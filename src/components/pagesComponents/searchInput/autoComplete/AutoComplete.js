@@ -1,12 +1,13 @@
 import React from 'react';
-import classnames from 'classnames';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './autoComplete.module.scss';
 import AutoCompleteOption from './autoCompleteOption/AutoCompleteOption';
 import NoUsersInfo from './../../discoverBar/noUsersInfo/NoUsersInfo';
 
-const AutoComplete = ({ input, followedUsers, unfollowedUsers }) => {
+const AutoComplete = ({ input }) => {
+  const { followedUsers, unfollowedUsers } = useSelector((state) => state.userData);
+
   const [suggestions, setSuggestions] = React.useState([]);
 
   const validateInputValue = (value) => {
@@ -53,11 +54,4 @@ const AutoComplete = ({ input, followedUsers, unfollowedUsers }) => {
   ) : null;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-  };
-};
-
-export default connect(mapStateToProps)(AutoComplete);
+export default AutoComplete;

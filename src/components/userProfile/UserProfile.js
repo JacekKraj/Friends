@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import UserProfileMainContent from './userProfileMainContent/UserProfileMainContent';
 import SideNav from './../pagesComponents/sideNav/SideNav';
@@ -8,8 +8,8 @@ import DiscoverBar from './../pagesComponents/discoverBar/DiscoverBar';
 import WholePageWrapper from '../wrappers/wholePageWrapper/WholePageWrapper';
 import UserProfileDiscoverBar from './userProfileDiscoverBar/UserProfileDiscoverBar';
 
-const UserProfile = (props) => {
-  const { userData } = props;
+const UserProfile = () => {
+  const { userData } = useSelector((state) => state);
   const { currentUser, unfollowedUsers, followedUsers } = userData;
 
   const [user, setUser] = React.useState({});
@@ -85,7 +85,7 @@ const UserProfile = (props) => {
     }
 
     setUser(user);
-  }, [location.search, currentUser.modifiedEmail]);
+  }, [location.search, currentUser]);
 
   return (
     <WholePageWrapper>
@@ -99,10 +99,4 @@ const UserProfile = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userData: state.userData,
-  };
-};
-
-export default connect(mapStateToProps)(UserProfile);
+export default UserProfile;

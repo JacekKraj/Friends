@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import MainContent from './mainContent/MainContent';
 import DiscoverBar from './../pagesComponents/discoverBar/DiscoverBar';
@@ -8,7 +8,9 @@ import DiscoverFriends from './../pagesComponents/discoverBar/discoverFriends/Di
 import DiscoverChat from './../pagesComponents/discoverBar/discoverChat/DiscoverChat';
 import WholePageWrapper from './../wrappers/wholePageWrapper/WholePageWrapper';
 
-const Home = ({ unfollowedUsers }) => {
+const Home = () => {
+  const { unfollowedUsers } = useSelector((state) => state.userData);
+
   return (
     <WholePageWrapper>
       <SideNav />
@@ -21,10 +23,4 @@ const Home = ({ unfollowedUsers }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    unfollowedUsers: state.userData.unfollowedUsers,
-  };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;

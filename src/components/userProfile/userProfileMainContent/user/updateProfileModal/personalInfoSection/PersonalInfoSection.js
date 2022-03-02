@@ -1,15 +1,18 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import lodash from 'lodash';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import { useActions } from '../../../../../../utilities/hooks/useActions';
 import classes from './personalInfoSection.module.scss';
 import Button from './../../../../../UI/button/Button';
 import MyFormikInput from '../../../../../../utilities/myFormikInput/MyFormikInput';
 import Input from '../../../../../UI/input/Input';
-import * as actions from './../../../../../../actions/index';
 
-const personalInfoSection = ({ user, onSetPersonalInfo }) => {
+const PersonalInfoSection = () => {
+  const { personalInfo } = useSelector((state) => state.userData.currentUser);
+  const { setPersonalInfo } = useActions();
+
   const trimPersonalInfo = (info) => {
     for (let [key, value] of Object.entries(info)) {
       info[key] = value.trim();
@@ -20,10 +23,10 @@ const personalInfoSection = ({ user, onSetPersonalInfo }) => {
     const newUpdatedInfo = { ...updatedInfo };
     trimPersonalInfo(newUpdatedInfo);
 
-    const isPersonalInfoChanged = !lodash.isEqual(newUpdatedInfo, user.personalInfo);
+    const isPersonalInfoChanged = !lodash.isEqual(newUpdatedInfo, personalInfo);
 
     if (isPersonalInfoChanged) {
-      onSetPersonalInfo(newUpdatedInfo);
+      setPersonalInfo(newUpdatedInfo);
     }
   };
 
@@ -31,10 +34,10 @@ const personalInfoSection = ({ user, onSetPersonalInfo }) => {
     <div className={classes.profileInfoSec}>
       <Formik
         initialValues={{
-          profileDescription: user.personalInfo?.profileDescription || '',
-          work: user.personalInfo?.work || '',
-          gender: user.personalInfo?.gender || '',
-          home: user.personalInfo?.home || '',
+          profileDescription: personalInfo?.profileDescription || '',
+          work: personalInfo?.work || '',
+          gender: personalInfo?.gender || '',
+          home: personalInfo?.home || '',
         }}
         onSubmit={submitPersonalInfoChanges}
         data-test='personal-info-section-form'
@@ -67,10 +70,4 @@ const personalInfoSection = ({ user, onSetPersonalInfo }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSetPersonalInfo: (info) => dispatch(actions.setPersonalInfo(info)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(personalInfoSection);
+export default PersonalInfoSection;

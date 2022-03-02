@@ -1,13 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
+import { useActions } from '../../../utilities/hooks/useActions';
 import { breakpoints } from './../../../utilities/breakpoints/breakpoints';
 import classes from './header.module.scss';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import * as actions from './../../../actions/index';
 
 const { mobileVertical, tabletVertical, tabletHorizontal, laptopSm } = breakpoints;
 
@@ -34,8 +33,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Header = (props) => {
-  const { menuIcon, onSetShowNav, sectionName, searchIconHiddenClass, onSetShowDiscoverBar } = props;
+const Header = ({ menuIcon, sectionName, searchIconHiddenClass }) => {
+  const { setShowNav, setShowDiscoverBar } = useActions();
 
   const iconStyle = useStyles();
 
@@ -45,7 +44,7 @@ const Header = (props) => {
         <div
           className={menuIcon}
           onClick={() => {
-            onSetShowNav(true);
+            setShowNav(true);
           }}
         >
           <MenuIcon className={iconStyle.icon} />
@@ -55,7 +54,7 @@ const Header = (props) => {
       <div
         className={classnames(classes.searchIcon, searchIconHiddenClass)}
         onClick={() => {
-          onSetShowDiscoverBar(true);
+          setShowDiscoverBar(true);
         }}
       >
         <SearchIcon className={iconStyle.icon} />
@@ -64,11 +63,4 @@ const Header = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
-    onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;
