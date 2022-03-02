@@ -1,16 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
+import { useActions } from '../../../utilities/hooks/useActions';
 import classes from './authenticationMainPage.module.scss';
 import friendsGraphics from './../../../assets/images/friends.png';
 import Logo from './../../UI/logo/Logo';
 import Button from './../../UI/button/Button';
 import { MODAL_TYPES } from './../../../modalMenager/ModalMenager';
 import { failToast } from './../../../utilities/toasts/toasts';
-import * as actions from './../../../actions/index';
 import { verifyUserAge } from './../../../utilities/helperFunctions/verifyUserAge';
 
-const AuthenticationMainPage = ({ onRegister, onAuthenticate, onShowModal }) => {
+const AuthenticationMainPage = () => {
+  const { register, authenticate, showModal } = useActions();
+
   const handleSubmitRegister = (values) => {
     if (values.password.length < 6) {
       failToast('Password must have at least 6 characters.');
@@ -53,21 +54,21 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate, onShowModal }) => 
       },
     };
 
-    onRegister(createdUserData);
+    register(createdUserData);
   };
 
   const handleSubmitAuthenticate = (values) => {
     if (values.email && values.password) {
-      onAuthenticate(values.email.trim(), values.password.trim());
+      authenticate(values.email.trim(), values.password.trim());
     }
   };
 
   const showSignUpModal = () => {
-    onShowModal(MODAL_TYPES.SIGN_UP, { submit: handleSubmitRegister });
+    showModal(MODAL_TYPES.SIGN_UP, { submit: handleSubmitRegister });
   };
 
   const showSignInModal = () => {
-    onShowModal(MODAL_TYPES.SIGN_IN, { submit: handleSubmitAuthenticate });
+    showModal(MODAL_TYPES.SIGN_IN, { submit: handleSubmitAuthenticate });
   };
 
   return (
@@ -96,12 +97,4 @@ const AuthenticationMainPage = ({ onRegister, onAuthenticate, onShowModal }) => 
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRegister: (createdUserData, hideModal) => dispatch(actions.register(createdUserData, hideModal)),
-    onAuthenticate: (email, password) => dispatch(actions.authenticate(email, password)),
-    onShowModal: (type, props) => dispatch(actions.showModal(type, props)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(AuthenticationMainPage);
+export default AuthenticationMainPage;

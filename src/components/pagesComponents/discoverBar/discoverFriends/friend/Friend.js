@@ -1,20 +1,21 @@
 import React from 'react';
 import classnames from 'classnames';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import * as actions from './../../../../../actions/index';
+import { useActions } from './../../../../../utilities/hooks/useActions';
 import classes from './friend.module.scss';
 import Button from './../../../../UI/button/Button';
 import User from './../../user/User';
 
-const Friend = (props) => {
-  const { isHome, onFollowUser, onUnfollowUser, currentUserModifiedEmail, isFollowedByCurrentUser, user } = props;
+const Friend = ({ isHome, isFollowedByCurrentUser, user }) => {
+  const { modifiedEmail } = useSelector((state) => state.userData.currentUser);
+  const { followUser, unfollowUser } = useActions();
 
   const [extraClass, setExtraClass] = React.useState('');
 
   const handleButtonClick = () => {
     isHome && setExtraClass(classes.hiddenUser);
-    const clickFunction = !isFollowedByCurrentUser ? onFollowUser : onUnfollowUser;
+    const clickFunction = !isFollowedByCurrentUser ? followUser : unfollowUser;
     clickFunction(user.modifiedEmail);
   };
 
@@ -24,7 +25,7 @@ const Friend = (props) => {
       data-test={`component-friend-${isFollowedByCurrentUser ? 'followed' : 'unfollowed'}`}
     >
       <User navigateTo={`/users?user=${user.modifiedEmail}`} user={user} />
-      {currentUserModifiedEmail !== user.modifiedEmail && (
+      {modifiedEmail !== user.modifiedEmail && (
         <Button className={classes.button} isTransparent={!isFollowedByCurrentUser} onClick={handleButtonClick}>
           {isFollowedByCurrentUser ? 'unfollow' : 'follow'}
         </Button>
@@ -33,18 +34,4 @@ const Friend = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-    currentUserFollowedUsersEmails: state.userData.currentUser.followedUsersEmails,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
-    onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Friend);
+export default Friend;

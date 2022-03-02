@@ -1,16 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import * as actions from './../../../../../actions/index';
+import { useActions } from './../../../../../utilities/hooks/useActions';
 import classes from './user.module.scss';
 import Button from './../../../../UI/button/Button';
 
-export const User = (props) => {
-  const { isToFollow, onFollowUser, onUnfollowUser, user } = props;
+export const User = ({ isToFollow, user }) => {
+  const { followUser, unfollowUser } = useActions();
 
   const handleClick = () => {
-    const onClickFunction = isToFollow ? onFollowUser : onUnfollowUser;
+    const onClickFunction = isToFollow ? followUser : unfollowUser;
     onClickFunction(user.modifiedEmail);
   };
 
@@ -27,18 +26,4 @@ export const User = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
-    onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
-  };
-};
-
-const mapStateToProps = (state) => {
-  return {
-    followedUsersEmails: state.userData.currentUser.followedUsersEmails,
-    currentUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default User;

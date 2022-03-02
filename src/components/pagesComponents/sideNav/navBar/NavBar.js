@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+import { useSelector } from 'react-redux';
 
+import { useActions } from './../../../../utilities/hooks/useActions';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import ChatIcon from '@material-ui/icons/Chat';
 import EmojiPeopleRoundedIcon from '@material-ui/icons/EmojiPeopleRounded';
 import classes from './navBar.module.scss';
 import NavItem from './navItem/NavItem';
-import * as actions from './../../../../actions/index';
 import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
 
 const { mobileVertical, tabletVertical, mobileHorizontal, laptopSm } = breakpoints;
@@ -38,8 +38,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const NavBar = ({ currentUser, lastChat, onLogout }) => {
-  const { profileImage, name, modifiedEmail } = currentUser;
+const NavBar = () => {
+  const { profileImage, name, modifiedEmail } = useSelector((state) => state.userData.currentUser);
+  const { lastChat } = useSelector((state) => state.chat);
+  const { logout } = useActions();
 
   const iconStyle = useStyles();
 
@@ -57,7 +59,7 @@ const NavBar = ({ currentUser, lastChat, onLogout }) => {
       <NavItem navigateTo={`/chat?to=${lastChat || 'new'}`} icon={<ChatIcon className={iconStyle.icon} />} label='Chat' />
       <NavItem
         navigateTo='/'
-        onClick={onLogout}
+        onClick={logout}
         icon={<ExitToAppIcon className={classnames(iconStyle.icon, classes.signoutIcon)} />}
         label='Sign out'
       />
@@ -65,17 +67,4 @@ const NavBar = ({ currentUser, lastChat, onLogout }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.userData.currentUser,
-    lastChat: state.chat.lastChat,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogout: () => dispatch(actions.logout()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;

@@ -1,18 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import firebase from 'firebase/app';
+import { useSelector } from 'react-redux';
 
+import { useActions } from './../../../utilities/hooks/useActions';
 import { firestore } from './../../../firebaseConfig';
 import classes from './chat.module.scss';
 import MainContentWrapper from './../../wrappers/mainContentWrapper/MainContentWrapper';
 import Header from './../../pagesComponents/header/Header';
 import BottomBar from './bottomBar/BottomBar';
 import MessagesArea from './messagesArea/MessagesArea';
-import * as actions from './../../../actions/index';
 
-const Chat = (props) => {
-  const { textedUser, chattingUsers, currUserModifiedEmail, onSetLastChat, onAddNotification } = props;
+const Chat = ({ textedUser, chattingUsers }) => {
+  const { modifiedEmail } = useSelector((state) => state.userData.currentUser);
+  const { setLastChat, addNotification } = useActions();
 
   const [inputValue, setInputValue] = React.useState('');
 
@@ -28,7 +29,7 @@ const Chat = (props) => {
     await messagesRef.add({
       text: inputValue.trim(),
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      from: currUserModifiedEmail,
+      from: modifiedEmail,
     });
   };
 
@@ -38,11 +39,11 @@ const Chat = (props) => {
       setInputValue('');
       sendMessage();
 
-      if (!textedUser.chat?.notifications?.includes(currUserModifiedEmail)) {
-        onAddNotification(textedUser.modifiedEmail);
+      if (!textedUser.chat?.notifications?.includes(modifiedEmail)) {
+        addNotification(textedUser.modifiedEmail);
       }
 
-      onSetLastChat(textedUser.modifiedEmail);
+      setLastChat(textedUser.modifiedEmail);
     },
     [inputValue]
   );
@@ -66,17 +67,4 @@ const Chat = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currUserModifiedEmail: state.userData.currentUser.modifiedEmail,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddNotification: (textedUser) => dispatch(actions.addNotification(textedUser)),
-    onSetLastChat: (lastChatEmail) => dispatch(actions.setLastChat(lastChatEmail)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default Chat;

@@ -1,26 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './updateProfileModal.module.scss';
 import SpinnerContainer from './../../../../../utilities/spinnerContainer/SpinnerContainer';
 import ProfileImageSection from './profileImageSection/ProfileImageSection';
 import PersonalInfoSection from './personalInfoSection/PersonalInfoSection';
 
-const UpdateProfileModal = ({ isLoading, currentUser }) => {
+const UpdateProfileModal = () => {
+  const { isUpdateProfileLoading } = useSelector((state) => state.userData);
+
   return (
     <div className={classes.updateProfileModalComponent} data-test='component-update-profile-modal'>
-      {isLoading && <SpinnerContainer />}
-      <ProfileImageSection image={currentUser.profileImage} />
-      <PersonalInfoSection user={currentUser} />
+      {isUpdateProfileLoading && <SpinnerContainer />}
+      <ProfileImageSection />
+      <PersonalInfoSection />
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.userData.isUpdateProfileLoading,
-    currentUser: state.userData.currentUser,
-  };
-};
-
-export default connect(mapStateToProps)(UpdateProfileModal);
+export default UpdateProfileModal;

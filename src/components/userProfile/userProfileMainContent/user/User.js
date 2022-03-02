@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { useActions } from '../../../../utilities/hooks/useActions';
 import ChatIcon from '@material-ui/icons/Chat';
 import WorkIcon from '@material-ui/icons/Work';
 import WcIcon from '@material-ui/icons/Wc';
@@ -12,7 +12,6 @@ import classes from './user.module.scss';
 import Button from '../../../UI/button/Button';
 import UserInfo from './userInfo/UserInfo';
 import Spinner from './../../../UI/spinner/Spinner';
-import * as actions from './../../../../actions/index';
 import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
 import { MODAL_TYPES } from '../../../../modalMenager/ModalMenager';
 
@@ -55,8 +54,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const User = (props) => {
-  const { user, onFollowUser, onUnfollowUser, onShowModal } = props;
+const User = ({ user }) => {
+  const { followUser, unfollowUser, showModal } = useActions();
   const { type, modifiedEmail, profileImage, personalInfo, name, birthdayDate } = user;
 
   const style = useStyles();
@@ -68,14 +67,14 @@ const User = (props) => {
         buttonProps = {
           transparent: true,
           text: 'Update profile',
-          handleClick: onShowModal.bind(null, MODAL_TYPES.UPDATE_PROFILE, {}),
+          handleClick: showModal.bind(null, MODAL_TYPES.UPDATE_PROFILE, {}),
         };
         break;
       case 'followed':
-        buttonProps = { transparent: false, text: 'Unfollow', handleClick: onUnfollowUser.bind(null, modifiedEmail) };
+        buttonProps = { transparent: false, text: 'Unfollow', handleClick: unfollowUser.bind(null, modifiedEmail) };
         break;
       default:
-        buttonProps = { transparent: true, text: 'Follow', handleClick: onFollowUser.bind(null, modifiedEmail) };
+        buttonProps = { transparent: true, text: 'Follow', handleClick: followUser.bind(null, modifiedEmail) };
         break;
     }
 
@@ -125,19 +124,4 @@ const User = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    followedUsersEmails: state.userData.currentUser.followedUsersEmails,
-    currentUserEmail: state.userData.currentUser.modifiedEmail,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onFollowUser: (userToFollow) => dispatch(actions.followUser(userToFollow)),
-    onUnfollowUser: (userToUnfollow) => dispatch(actions.unfollowUser(userToUnfollow)),
-    onShowModal: (type, props) => dispatch(actions.showModal(type, props)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default User;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import * as actions from './../actions';
+import { useActions } from '../utilities/hooks/useActions';
 import SignInModal from './../components/authentication/authenticationMainPage/signInModal/SignInModal';
 import SignUpModal from './../components/authentication/authenticationMainPage/signUpModal/SignUpModal';
 import PostEditionModal from '../components/pagesComponents/posts/post/postEditionModal/PostEditionModal';
@@ -22,7 +22,10 @@ const MODAL_COMPONENTS = {
   [MODAL_TYPES.UPDATE_PROFILE]: UpadateProfileModal,
 };
 
-const ModalMenager = ({ type, onHideModal }) => {
+const ModalMenager = () => {
+  const { type } = useSelector((state) => state.modals);
+  const { hideModal } = useActions();
+
   const renderModal = () => {
     if (!type) return <div></div>;
 
@@ -30,7 +33,7 @@ const ModalMenager = ({ type, onHideModal }) => {
 
     return (
       <React.Fragment>
-        <Backdrop onClick={onHideModal} />
+        <Backdrop onClick={hideModal} />
         <ModalComponent />
       </React.Fragment>
     );
@@ -39,16 +42,4 @@ const ModalMenager = ({ type, onHideModal }) => {
   return renderModal();
 };
 
-const mapStateToProps = (state) => {
-  return {
-    type: state.modals.type,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onHideModal: () => dispatch(actions.hideModal()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalMenager);
+export default ModalMenager;

@@ -1,13 +1,13 @@
 import React from 'react';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoIcon from '@material-ui/icons/Photo';
-import { connect } from 'react-redux';
 import { useStyles } from './../../../addPostModule/AddPostModule';
+import { useSelector } from 'react-redux';
 
+import { useActions } from '../../../../../utilities/hooks/useActions';
 import classes from './postEditionModal.module.scss';
 import Button from './../../../../UI/button/Button';
 import FileInput from '../../../imageFileInput/ImageFileInput';
-import * as actions from './../../../../../actions/index';
 import SpinnerContainer from './../../../../../utilities/spinnerContainer/SpinnerContainer';
 import EmojiPicker from './../../../../../utilities/emojiPicker/EmojiPicker';
 
@@ -39,12 +39,16 @@ const reducer = (state, action) => {
   }
 };
 
-const PostEditionModal = ({ post, onUpdatePost, isLoading }) => {
+const PostEditionModal = () => {
+  const { isUpdatePostLoading } = useSelector((state) => state.posts);
+  const { props } = useSelector((state) => state.modals);
+  const { updatePost } = useActions();
+
   const iconStyle = useStyles();
 
   const [state, dispatch] = React.useReducer(reducer, {
-    image: { url: post.url },
-    text: post.text,
+    image: { url: props.url },
+    text: props.text,
     textChanged: false,
     imageChanged: false,
     cursorPosition: 0,
@@ -57,30 +61,30 @@ const PostEditionModal = ({ post, onUpdatePost, isLoading }) => {
   }, [state.cursorPosition]);
 
   React.useEffect(() => {
-    textAreaRef.current.selectionStart = post.text.length;
-  }, [post.text.length]);
+    textAreaRef.current.selectionStart = props.text.length;
+  }, [props.text.length]);
 
   const setImage = (image) => {
-    dispatch({ type: SET_IMAGE, image, changed: post.url !== image.url });
+    dispatch({ type: SET_IMAGE, image, changed: props.url !== image.url });
   };
 
   const submitChanges = () => {
     const updatedPostData = {
-      post: { ...post, text: state.text, image: state.image, url: state.image.url },
-      previousUrl: post.url,
+      post: { ...props, text: state.text, image: state.image, url: state.image.url },
+      previousUrl: props.url,
     };
 
-    onUpdatePost(updatedPostData);
+    updatePost(updatedPostData);
   };
 
   const changeInputValue = (text) => {
-    const postWasChanged = !(post.text === text);
+    const postWasChanged = !(props.text === text);
     dispatch({ type: SET_TEXT, text: text, changed: postWasChanged });
   };
 
   return (
     <div className={classes.postEditionModal} data-test='component-post-edition-modal'>
-      {isLoading && <SpinnerContainer />}
+      {isUpdatePostLoading && <SpinnerContainer />}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -123,17 +127,4 @@ const PostEditionModal = ({ post, onUpdatePost, isLoading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.posts.isUpdatePostLoading,
-    post: state.modals.props,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onUpdatePost: (updatedPostData) => dispatch(actions.updatePost(updatedPostData)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostEditionModal);
+export default PostEditionModal;

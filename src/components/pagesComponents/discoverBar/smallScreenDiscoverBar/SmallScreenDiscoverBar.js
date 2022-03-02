@@ -1,12 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import { useActions } from '../../../../utilities/hooks/useActions';
 import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
 import CloseIcon from '@material-ui/icons/Close';
 import classes from './smallScreenDiscoverBar.module.scss';
 import Backdrop from './../../../UI/backdrop/Backdrop';
-import * as actions from './../../../../actions/index';
 import SearchInput from './../../searchInput/SearchInput';
 
 const { mobileVertical, tabletVertical, mobileHorizontal } = breakpoints;
@@ -36,15 +36,18 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SmallScreenDiscoverBar = ({ showDiscoverBar, onSetShowDiscoverBar, children }) => {
+const SmallScreenDiscoverBar = ({ children }) => {
+  const { isShownDiscoverBar } = useSelector((state) => state.nav);
+  const { setShowDiscoverBar } = useActions();
+
   const iconStyle = useStyles();
 
-  return showDiscoverBar ? (
+  return isShownDiscoverBar ? (
     <div data-test='small-screen-discover-bar-component'>
-      <Backdrop onClick={() => onSetShowDiscoverBar(false)} />
+      <Backdrop onClick={() => setShowDiscoverBar(false)} />
       <div className={classes.discoverBarComponent}>
         <div className={classes.header}>
-          <CloseIcon onClick={() => onSetShowDiscoverBar(false)} className={iconStyle.icon} />
+          <CloseIcon onClick={() => setShowDiscoverBar(false)} className={iconStyle.icon} />
           <SearchInput />
         </div>
         <div className={classes.discoverBarContent}>{children}</div>
@@ -53,16 +56,4 @@ const SmallScreenDiscoverBar = ({ showDiscoverBar, onSetShowDiscoverBar, childre
   ) : null;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    showDiscoverBar: state.nav.isShownDiscoverBar,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSetShowDiscoverBar: (show) => dispatch(actions.setShowDiscoverBar(show)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SmallScreenDiscoverBar);
+export default SmallScreenDiscoverBar;

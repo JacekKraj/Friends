@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import { findByTestAttr, storeFactory } from './../../../../utilities/tests/testsHelperFunctions';
 import DiscoverChat from './DiscoverChat';
@@ -8,9 +9,11 @@ import DiscoverChat from './DiscoverChat';
 const setup = (initialState) => {
   const store = storeFactory(initialState);
   return mount(
-    <BrowserRouter>
-      <DiscoverChat store={store} />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <DiscoverChat />
+      </BrowserRouter>
+    </Provider>
   );
 };
 

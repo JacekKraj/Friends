@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { theme, breakpoints } from './../../../../utilities/breakpoints/breakpoints';
+import { useActions } from '../../../../utilities/hooks/useActions';
+import { breakpoints } from './../../../../utilities/breakpoints/breakpoints';
 import CloseIcon from '@material-ui/icons/Close';
 import classes from './smallScreenNav.module.scss';
 import Backdrop from '../../../UI/backdrop/Backdrop';
 import NavBar from '../navBar/NavBar';
 import Logo from '../../../UI/logo/Logo';
-import * as actions from './../../../../actions/index';
 
 const { mobileVertical, tabletVertical, mobileHoriozntal } = breakpoints;
 
@@ -33,37 +33,28 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SmallScreenNavBar = ({ onSetShowNav, showNav }) => {
+const SmallScreenNavBar = () => {
+  const { isShownNav } = useSelector((state) => state.nav);
+  const { setShowNav } = useActions();
+
   const iconStyle = useStyles();
 
   const navBar = (
     <div data-test='small-screen-nav-bar-component'>
-      <Backdrop onClick={() => onSetShowNav(false)} />
+      <Backdrop onClick={() => setShowNav(false)} />
       <div className={classes.smallScreenNavComponent}>
         <div className={classes.logoContainer}>
           <NavLink to='/' exact>
             <Logo className={classes.logo} />
           </NavLink>
-          <CloseIcon className={iconStyle.icon} onClick={() => onSetShowNav(false)} />
+          <CloseIcon className={iconStyle.icon} onClick={() => setShowNav(false)} />
         </div>
         <NavBar />
       </div>
     </div>
   );
 
-  return showNav ? navBar : null;
+  return isShownNav ? navBar : null;
 };
 
-const mapStateToProps = (state) => {
-  return {
-    showNav: state.nav.isShownNav,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSetShowNav: (show) => dispatch(actions.setShowNav(show)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SmallScreenNavBar);
+export default SmallScreenNavBar;

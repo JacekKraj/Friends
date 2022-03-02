@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Home from './../components/home/Home';
 import AuthenticationMainPage from '../components/authentication/authenticationMainPage/AuthenticationMainPage';
@@ -22,7 +22,9 @@ const NoAccess = React.lazy(() => {
   return import('./../components/errorPage/noAccess/NoAccess');
 });
 
-const Routes = ({ isAuthenticated }) => {
+const Routes = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   return isAuthenticated ? (
     <Switch>
       <Route path='/' exact render={() => <Home />} />
@@ -42,10 +44,4 @@ const Routes = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.auth.isAuthenticated,
-  };
-};
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

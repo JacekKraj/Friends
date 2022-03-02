@@ -1,16 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import classes from './discoverChat.module.scss';
 import SectionTitle from './../sectionTitile/SectionTitle';
 import ChatUser from './chatUser/ChatUser';
 import NoUsersInfo from './../noUsersInfo/NoUsersInfo';
 
-const DiscoverChat = (props) => {
-  const { followedUsers, chatNotifications, unfollowedUsers, currentChat } = props;
+const DiscoverChat = ({ currentChat }) => {
+  const { followedUsers, unfollowedUsers } = useSelector((state) => state.userData);
+  const { notifications } = useSelector((state) => state.chat);
 
   const followedUsersChats = followedUsers.map((user) => {
-    const isNotification = chatNotifications?.includes(user.modifiedEmail);
+    const isNotification = notifications?.includes(user.modifiedEmail);
     const { name, modifiedEmail, profileImage } = user;
     return (
       <ChatUser
@@ -23,7 +24,7 @@ const DiscoverChat = (props) => {
   });
 
   const unfollowedUsersChats = unfollowedUsers.map((user) => {
-    if (chatNotifications?.includes(user.modifiedEmail)) {
+    if (notifications?.includes(user.modifiedEmail)) {
       const { name, modifiedEmail, profileImage } = user;
       return (
         <ChatUser
@@ -37,7 +38,7 @@ const DiscoverChat = (props) => {
     }
   });
 
-  const hasChatsToDisplay = followedUsers.length || chatNotifications.length;
+  const hasChatsToDisplay = followedUsers.length || notifications.length;
 
   return (
     <div className={classes.discoverChatComponent}>
@@ -56,12 +57,4 @@ const DiscoverChat = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    followedUsers: state.userData.followedUsers,
-    unfollowedUsers: state.userData.unfollowedUsers,
-    chatNotifications: state.chat.notifications,
-  };
-};
-
-export default connect(mapStateToProps)(DiscoverChat);
+export default DiscoverChat;
