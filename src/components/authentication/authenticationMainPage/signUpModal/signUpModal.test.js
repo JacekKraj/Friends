@@ -1,10 +1,11 @@
 import React from 'react';
-import { formikFindByInputName, formikFindBySelectName, findByTestAttr } from './../../../../utilities/tests/testsHelperFunctions';
+
 import { mount } from 'enzyme';
 import { act } from '@testing-library/react';
+import { Provider } from 'react-redux';
 
 import SignUpForm from './SignUpModal';
-import { storeFactory } from './../../../../utilities/tests/testsHelperFunctions';
+import { storeFactory, formikFindByInputName, formikFindBySelectName, findByTestAttr } from './../../../../utilities/tests/testsHelperFunctions';
 import * as actions from './../../../../actions/index';
 
 describe('<SignUpModal />', () => {
@@ -12,7 +13,11 @@ describe('<SignUpModal />', () => {
   const setup = (initialState) => {
     store = storeFactory(initialState);
 
-    return mount(<SignUpForm store={store} />);
+    return mount(
+      <Provider store={store}>
+        <SignUpForm />
+      </Provider>
+    );
   };
 
   const changeInputValue = async (name, value, input) => {

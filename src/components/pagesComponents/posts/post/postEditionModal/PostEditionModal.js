@@ -44,8 +44,6 @@ const PostEditionModal = () => {
   const { props } = useSelector((state) => state.modals);
   const { updatePost } = useActions();
 
-  console.log(props);
-
   const iconStyle = useStyles();
 
   const [state, dispatch] = React.useReducer(reducer, {

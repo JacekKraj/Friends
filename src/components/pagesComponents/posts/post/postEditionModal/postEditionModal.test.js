@@ -1,12 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 
 import PostEditionModal from './PostEditionModal';
 import { storeFactory, findByTestAttr } from './../../../../../utilities/tests/testsHelperFunctions';
 
 const setup = (initialState) => {
   const store = storeFactory(initialState);
-  return mount(<PostEditionModal store={store} />);
+  return mount(
+    <Provider store={store}>
+      <PostEditionModal store={store} />
+    </Provider>
+  );
 };
 
 const initialState = {

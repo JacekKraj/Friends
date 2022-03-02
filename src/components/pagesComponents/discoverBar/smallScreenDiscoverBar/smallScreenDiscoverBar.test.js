@@ -1,13 +1,16 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 
 import SmallScreenNav from './SmallScreenDiscoverBar';
 import { findByTestAttr, storeFactory } from '../../../../utilities/tests/testsHelperFunctions';
 
 const setup = (initialState) => {
   const store = storeFactory(initialState);
-  return shallow(<SmallScreenNav store={store} />)
-    .dive()
-    .dive();
+  return mount(
+    <Provider store={store}>
+      <SmallScreenNav />
+    </Provider>
+  );
 };
 
 describe('<SmallScreenDiscoverBar />', () => {

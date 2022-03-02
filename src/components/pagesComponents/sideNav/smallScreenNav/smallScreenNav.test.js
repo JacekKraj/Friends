@@ -1,17 +1,22 @@
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import SmallScreenNav from './SmallScreenNav';
 import { findByTestAttr, storeFactory } from '../../../../utilities/tests/testsHelperFunctions';
 
-let store;
 const setup = (initialState) => {
   const store = storeFactory(initialState);
-  return shallow(<SmallScreenNav store={store} />)
-    .dive()
-    .dive();
+  return mount(
+    <Provider store={store}>
+      <BrowserRouter>
+        <SmallScreenNav />
+      </BrowserRouter>
+    </Provider>
+  );
 };
 
-describe('Small Nav Bar visibility', () => {
+describe('<SmallScreenNavBar />', () => {
   test('nav bar is visible when show is true', () => {
     const wrapper = setup({
       nav: {
