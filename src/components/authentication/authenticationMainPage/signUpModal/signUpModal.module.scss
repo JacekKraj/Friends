@@ -6,26 +6,28 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 85%;
-  height: 90vh;
+  width: 80%;
+  height: 80vh;
   background-color: #fff;
   padding: 1.5em;
   overflow-y: auto;
-  display: none;
+  display: block;
+
+  @include tabletVertical {
+    width: 75%;
+    height: 75vh;
+    padding: 2em;
+  }
 
   @include mobileHorizontal {
-    width: 80%;
+    width: 75%;
     height: 80vh;
-    max-width: 800px;
+    max-width: 700px;
   }
 
   @include laptop-sm {
     padding: 1.7em;
   }
-}
-
-.modalVisible {
-  display: block;
 }
 
 .title {
@@ -55,6 +57,10 @@
 
   @include mobileHorizontal {
     margin-bottom: 2em;
+  }
+
+  @include tabletVertical {
+    margin-bottom: 2.5em;
   }
 }
 
@@ -153,11 +159,10 @@
   margin: 0 auto;
 
   @include tabletVertical {
-    margin: 0 auto;
+    max-width: 260px;
   }
 
   @include mobileHorizontal {
-    max-width: 240px;
     margin: 0;
   }
 }

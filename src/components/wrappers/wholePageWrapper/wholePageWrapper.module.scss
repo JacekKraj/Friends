@@ -14,8 +14,10 @@
   }
 
   @include custom(1300px) {
-    padding: 0 9.5rem;
-    display: Flex;
+    // max-width: 900px;
+    // margin: 0 auto;
+    padding: 0 10%;
+    // display: Flex;
     justify-content: center;
   }
 }

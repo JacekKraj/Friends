@@ -109,6 +109,10 @@
   flex-direction: row;
   justify-content: space-between;
 
+  @include tabletVertical {
+    margin: 2.5em 0 0;
+  }
+
   @include mobileHorizontal {
     align-items: unset;
     margin: 1.5em 0 0;
@@ -125,15 +129,14 @@
   margin: 0.6em 0;
   max-width: 200px;
 
-  @include tabletVertical {
-    max-width: 250px;
-    margin: 0;
-  }
-
   @include mobileVertical {
     width: 40%;
     padding: 0.4em 1em !important;
     font-size: 17px !important;
+  }
+
+  @include tabletVertical {
+    font-size: 24px !important;
   }
 
   @include laptop-sm {
@@ -145,10 +148,6 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
-
-  @include tabletVertical {
-    max-width: 520px;
-  }
 
   @include mobileHorizontal {
     flex-basis: 46%;
@@ -162,6 +161,10 @@
   display: block;
   margin: 0 auto;
   max-width: 360px;
+
+  @include tabletVertical {
+    max-width: 500px;
+  }
 
   @include mobileHorizontal {
     width: 80%;

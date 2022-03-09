@@ -35,10 +35,6 @@
   }
 }
 
-.hiddenUser {
-  animation: hideUser 0.15s both;
-}
-
 @keyframes hideUser {
   0% {
     transform: scale(1);
