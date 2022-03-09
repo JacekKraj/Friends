@@ -32,7 +32,7 @@
 }
 
 .profileImageButtons {
-  margin: 1.2em auto 1.7em;
+  margin: 1.5em auto 2em;
   max-width: 200px;
 
   @include mobileVertical {
@@ -55,7 +55,7 @@
   width: 100%;
   font-size: 15px;
   padding: 0.5em;
-  margin: 0.8em 0;
+  margin: 1em 0;
 
   @include mobileVertical {
     flex-basis: 47%;

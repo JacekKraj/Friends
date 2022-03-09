@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import classnames from 'classnames';
 import { useSelector } from 'react-redux';
 
 import classes from './signUpModal.module.scss';
@@ -61,7 +60,7 @@ export const SignUpModal = () => {
     </React.Fragment>
   );
 
-  return <div className={classnames(classes.modal, classes.modalVisible)}>{isLoading ? <Spinner /> : signUpForm}</div>;
+  return <div className={classes.modal}>{isLoading ? <Spinner /> : signUpForm}</div>;
 };
 
 export default SignUpModal;
