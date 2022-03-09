@@ -1,0 +1,31 @@
+@import './../../../scssUtilities';
+
+.friendsPageMainContentComponent {
+  max-height: 100vh;
+  overflow: auto;
+
+  @include laptop-sm {
+    flex-basis: 75%;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+  }
+}
+.searchIconHidden {
+  display: none;
+}
+
+.mainContent {
+  padding: 1.5em;
+
+  @include mobileVertical {
+    padding: 1.8em;
+  }
+
+  @include tabletVertical {
+    padding: 2em;
+  }
+
+  @include mobileHorizontal {
+    padding: 1.5em;
+  }
+}

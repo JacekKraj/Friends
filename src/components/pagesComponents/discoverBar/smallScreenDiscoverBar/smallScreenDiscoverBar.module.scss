@@ -1,0 +1,98 @@
+@import './../../../../scssUtilities';
+
+.discoverBarComponent {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 0%;
+  background-color: #fff;
+  z-index: 11;
+  animation: showModal 0.25s both;
+  padding: 1.3em 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  overflow-y: auto;
+
+  @include mobileHorizontal {
+    padding: 0.8em 0;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $gray-10;
+  padding: 0 1em 1em;
+
+  @include tabletVertical {
+    border-bottom: 2px solid $gray-10;
+  }
+
+  @include mobileHorizontal {
+    padding: 0 1.2em 0.8em;
+  }
+}
+
+.discoverBarContent {
+  padding: 1.3em 0.9em 0;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+
+  @include tabletVertical {
+    padding: 1.5em;
+  }
+
+  @include mobileHorizontal {
+    padding: 1.1em 1.2em 0 1.2em;
+  }
+}
+
+@keyframes showModal {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    max-width: 280px;
+    width: 75%;
+  }
+}
+
+@media (min-width: 400px) and (orientation: portrait) {
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 320px;
+    }
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 420px;
+    }
+  }
+}
+@media (min-width: 600px) and (orientation: landscape) {
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 400px;
+    }
+  }
+}

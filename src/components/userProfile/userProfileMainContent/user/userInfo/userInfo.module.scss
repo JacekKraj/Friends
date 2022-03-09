@@ -1,0 +1,29 @@
+@import './../../../../../scssUtilities';
+
+.userInfoComponent {
+  display: flex;
+  align-items: center;
+  margin: 0.2em 1.2em 0.2em 0;
+
+  @include tabletHorizontal {
+    margin: 1% 5% 1% 0;
+  }
+}
+
+.text {
+  margin-left: 0.3em;
+  font-size: 14px;
+  white-space: nowrap;
+
+  @include mobileVertical {
+    font-size: 15px;
+  }
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 16px;
+  }
+}

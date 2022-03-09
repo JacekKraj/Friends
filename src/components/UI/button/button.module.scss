@@ -1,0 +1,61 @@
+@import './../../../scssUtilities';
+
+.button {
+  color: white;
+  border: 2px solid $orange-20;
+  font-size: 18px;
+  padding: 0.6em 1em;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 30px;
+  transition: 0.19s;
+  cursor: pointer;
+  outline: none;
+  display: block;
+
+  @include mobileVertical {
+    font-size: 22px;
+  }
+
+  @include tabletVertical {
+    font-size: 28px;
+  }
+
+  @include laptop-sm {
+    font-size: 21px;
+  }
+
+  @include custom(1300px) {
+    font-size: 22px;
+  }
+}
+
+.buttonNormal:hover {
+  background-color: $orange-15;
+  border: 2px solid $orange-25;
+}
+.buttonTransparent:hover {
+  background-color: $orange-05;
+}
+
+.buttonNormal {
+  background-color: $orange-10;
+}
+
+.buttonTransparent {
+  background-color: transparent;
+  color: $orange-20;
+}
+
+.buttonDisabled {
+  cursor: not-allowed;
+  border-color: $gray-25;
+  color: $gray-25;
+  background-color: #eee;
+}
+
+.buttonDisabled:hover {
+  border-color: $gray-25;
+  color: $gray-25;
+  background-color: #eee;
+}

@@ -1,0 +1,93 @@
+@import './../../../../scssUtilities';
+
+.smallScreenNavComponent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 11;
+  overflow: auto;
+  width: 0%;
+  animation: showModal 0.25s both;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8em 8% 0.8em 6%;
+  border-bottom: 1px solid $gray-10;
+
+  @include tabletVertical {
+    border-bottom: 2px solid $gray-10;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.8em 6% 0.8em 5%;
+  }
+}
+
+.logo {
+  font-size: 23px;
+
+  @include mobileVertical {
+    font-size: 27px;
+  }
+
+  @include tabletVertical {
+    font-size: 34px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 24px;
+  }
+}
+
+@keyframes showModal {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 75%;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 500px) and (orientation: portrait) {
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      max-width: unset;
+      width: 320px;
+    }
+  }
+}
+
+@media (min-width: 768px) and (orientation: portrait) {
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 350px;
+    }
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  @keyframes showModal {
+    0% {
+      width: 0%;
+    }
+
+    100% {
+      width: 350px;
+    }
+  }
+}

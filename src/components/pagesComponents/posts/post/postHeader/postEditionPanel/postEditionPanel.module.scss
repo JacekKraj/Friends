@@ -1,0 +1,28 @@
+@import './../../../../../../scssUtilities';
+
+.postEditionPanelComponent {
+  position: absolute;
+  right: 0;
+  top: 1.7em;
+  border: 1px solid $gray-10;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 2px 8px 1px $gray-10;
+  box-shadow: 0px 2px 8px 1px $gray-10;
+  border-radius: 4px;
+  padding: 0.3em 0.8em;
+  min-width: 120px;
+  background-color: rgb(250, 250, 250);
+  z-index: 5;
+
+  @include tabletVertical {
+    min-width: 200px;
+  }
+
+  @include mobileHorizontal {
+    min-width: 150px;
+  }
+
+  @include laptop-sm {
+    top: 2em;
+  }
+}

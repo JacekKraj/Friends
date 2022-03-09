@@ -1,0 +1,77 @@
+@import './../../../scssUtilities';
+
+.chatInstructionComponent {
+  padding: 5vh 5%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include mobileVertical {
+    padding: 5vh 10%;
+  }
+
+  @include tabletVertical {
+    padding: 3em 4em;
+  }
+
+  @include mobileHorizontal {
+    padding: 30px 10%;
+  }
+}
+
+.chatInstructionComponent h3 {
+  font-size: 26px;
+  margin-bottom: 0.8em;
+  color: $gray-60;
+
+  @include mobileVertical {
+    font-size: 29px;
+  }
+
+  @include tabletVertical {
+    font-size: 34px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 29px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 31px;
+  }
+}
+
+.chatInstructionComponent p {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 1.5em;
+
+  @include mobileVertical {
+    font-size: 17px;
+  }
+
+  @include tabletVertical {
+    font-size: 19px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 17px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 19px;
+  }
+}
+
+.button {
+  font-size: 16px;
+
+  @include mobileVertical {
+    font-size: 18px;
+  }
+
+  @include tabletVertical {
+    font-size: 19px;
+  }
+}

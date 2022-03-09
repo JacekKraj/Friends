@@ -1,0 +1,27 @@
+@import './../../../../../../../scssUtilities';
+
+.postEditionPanelOptionComponent {
+  font-size: 14px;
+  padding: 0.5em 0;
+  cursor: pointer;
+  display: block;
+  border: none;
+  background-color: transparent;
+  outline: none;
+
+  @include mobileVertical {
+    font-size: 15px;
+  }
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include laptop-sm {
+    font-size: 18px;
+  }
+}
+
+.postEditionPanelOptionComponent:hover {
+  color: $gray-50;
+}

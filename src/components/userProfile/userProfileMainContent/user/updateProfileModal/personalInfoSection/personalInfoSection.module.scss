@@ -1,0 +1,84 @@
+@import './../../../../../../scssUtilities';
+
+.profileInfoSec {
+  width: 85%;
+  margin: 0 auto;
+  @include mobileHorizontal {
+    margin: unset;
+    width: 100%;
+    flex-basis: 50%;
+  }
+
+  @include tabletHorizontal {
+    flex-basis: 52%;
+  }
+
+  @include laptop-sm {
+    flex-basis: 50%;
+  }
+}
+
+.header {
+  font-size: 25px;
+  font-weight: bold;
+
+  @include mobileVertical {
+    font-size: 30px;
+  }
+
+  @include mobileHorizontal {
+    display: none;
+  }
+}
+
+.inputsContainer {
+  margin: 1em 0 1.5em;
+
+  @include mobileHorizontal {
+    margin: 0 0 1em;
+  }
+}
+
+.button {
+  width: 100%;
+  max-width: 200px;
+  font-size: 15px;
+  padding: 0.5em 0;
+  margin: 0.8em auto;
+
+  @include mobileVertical {
+    font-size: 16px;
+    width: 50%;
+    margin: 1em auto;
+  }
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include mobileHorizontal {
+    margin: 1em 0 1em auto;
+  }
+
+  @include tabletHorizontal {
+    max-width: 180px;
+  }
+
+  @include laptop-sm {
+    font-size: 18px;
+  }
+}
+
+.input {
+  margin: 0.3em 0;
+  width: 100%;
+  font-size: 16px;
+
+  @include tabletVertical {
+    font-size: 18px;
+  }
+
+  @include laptop-sm {
+    font-size: 18px;
+  }
+}

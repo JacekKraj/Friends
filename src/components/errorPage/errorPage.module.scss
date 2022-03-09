@@ -1,0 +1,49 @@
+@import './../../scssUtilities';
+
+.nofoundComponent {
+  padding: 2.25em 1.5em;
+  font-size: 18px;
+
+  @include tabletHorizontal {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    max-width: 700px;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+
+  @include laptop-sm {
+    max-width: 850px;
+    font-size: 20px;
+  }
+}
+
+.nofoundComponent h4 {
+  margin: 2em 0;
+}
+
+.nofoundComponent span {
+  color: #888;
+  font-weight: normal;
+}
+
+.imageContainer {
+  display: none;
+
+  @include tabletHorizontal {
+    display: block;
+    flex-basis: 40%;
+  }
+}
+
+.text {
+  @include tabletHorizontal {
+    flex-basis: 50%;
+    margin-right: 7%;
+  }
+}
+
+.imageContainer img {
+  width: 100%;
+}

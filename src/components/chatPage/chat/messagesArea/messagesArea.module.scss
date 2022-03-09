@@ -1,0 +1,28 @@
+@import './../../../../scssUtilities';
+
+.messagesAreaComponent {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0.4em 0.6em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  list-style-type: none;
+  position: relative;
+
+  @include mobileVertical {
+    padding: 0.4em 0.8em;
+  }
+
+  @include tabletVertical {
+    padding: 0.9em 1.5em;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.5em 0.7em;
+  }
+}
+
+.infoRef {
+  position: relative;
+}

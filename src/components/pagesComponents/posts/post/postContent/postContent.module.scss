@@ -1,0 +1,27 @@
+@import './../../../../../scssUtilities';
+
+.text {
+  font-size: 13px;
+  color: $gray-60;
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 14px;
+  }
+
+  @include laptop-sm {
+    font-size: 16px;
+  }
+}
+
+.postImage {
+  width: 100%;
+  margin-top: 0.65em;
+
+  @include laptop-sm {
+    margin-top: 0.7em;
+  }
+}

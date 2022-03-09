@@ -1,0 +1,50 @@
+@import './../../../../../scssUtilities';
+
+.navItemComponent {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0.6em;
+  border-radius: 30px;
+  cursor: pointer;
+
+  @include tabletVertical {
+    padding: 0.8em 0.45em;
+  }
+
+  @include laptop-sm {
+    padding: 0.55em 0.4em;
+  }
+}
+
+.navItemComponent:hover {
+  background-color: rgba(255, 165, 0, 0.2);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 100%;
+}
+
+.description {
+  margin-left: 0.6em;
+  font-size: 17px;
+  color: $gray-50;
+
+  @include mobileVertical {
+    font-size: 19px;
+  }
+
+  @include tabletVertical {
+    font-size: 29px;
+  }
+
+  @include laptop-sm {
+    margin-left: 0.4em;
+
+    font-size: 20px;
+  }
+}

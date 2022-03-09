@@ -1,0 +1,100 @@
+@import './../../../../scssUtilities';
+
+.bottomBarComponent {
+  display: flex;
+  background-color: rgb(245, 245, 245);
+  border-top: 2px solid #ccc;
+  padding: 0.5em 0.7em;
+
+  @include mobileVertical {
+    padding: 0.7em 0.8em;
+  }
+
+  @include tabletVertical {
+    padding: 1.1em 1.1em;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.6em 0.8em;
+  }
+}
+
+.controls {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.inputContainer {
+  background-color: white;
+  border-radius: 15px;
+  margin: 0 1em;
+  flex-grow: 1;
+  border: 2px solid #e08f03;
+
+  @include mobileHorizontal {
+    margin-right: 1.5em;
+  }
+}
+
+.inputContainer input {
+  display: block;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  outline: none;
+  padding: 0.2em 0.9em;
+  color: #666;
+  font-size: 15px;
+
+  @include mobileVertical {
+    padding: 0.3em 0.9em;
+    font-size: 17px;
+  }
+
+  @include tabletVertical {
+    padding: 0.4em 0.9em;
+    font-size: 20px;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.3em 0.9em;
+    font-size: 16px;
+  }
+}
+
+.inputDisabled {
+  cursor: not-allowed;
+  border-color: $gray-25;
+}
+
+.inputDisabled input {
+  cursor: not-allowed;
+}
+
+::placeholder {
+  color: #666;
+}
+
+.button {
+  font-size: 14px;
+  padding: 0.2em 1.3em;
+
+  @include mobileVertical {
+    font-size: 17px;
+  }
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 17px;
+  }
+}

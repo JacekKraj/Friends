@@ -1,0 +1,7 @@
+@import './../../../scssUtilities';
+
+.image {
+  @include laptop-sm {
+    flex-basis: 32%;
+  }
+}

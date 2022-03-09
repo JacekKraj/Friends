@@ -1,0 +1,21 @@
+@import './../../../scssUtilities';
+
+.bigScreenNavContainer {
+  display: none;
+
+  @include laptop-sm {
+    display: block;
+  }
+}
+
+.discoverBarComponent {
+  @include laptop-sm {
+    flex-basis: 25%;
+  }
+}
+
+.smallScreenNavContainer {
+  @include laptop-sm {
+    display: none;
+  }
+}

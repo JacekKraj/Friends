@@ -1,0 +1,63 @@
+@import './../../../../scssUtilities';
+
+.header {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: $gray-50;
+
+  @include tabletVertical {
+    font-size: 24px;
+  }
+
+  @include laptop-sm {
+    font-size: 22px;
+  }
+}
+
+.users {
+  margin: 6% 0;
+  min-height: 200px;
+
+  @include mobileVertical {
+    margin: 1.5em 0;
+  }
+
+  @include tabletVertical {
+    margin: 1.7em 0;
+  }
+
+  @include mobileHorizontal {
+    margin: 1.5em 0;
+  }
+}
+
+.arrow {
+  font-weight: bold;
+  color: #f59c03;
+  font-size: 30px;
+}
+
+.arrowsHidden {
+  opacity: 0;
+}
+
+.info {
+  color: $gray-60;
+
+  @include mobileVertical {
+    font-size: 17px;
+  }
+
+  @include tabletVertical {
+    font-size: 22px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 18px;
+  }
+
+  @include laptop-sm {
+    font-size: 17px;
+  }
+}

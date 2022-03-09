@@ -1,0 +1,46 @@
+@import './../../../../../scssUtilities';
+
+.messageComponent {
+  padding: 0.5em;
+  background-color: #f59c03;
+  border-radius: 15px;
+  font-size: 16px;
+  color: white;
+  max-width: 85%;
+  margin: 0.3em 0;
+
+  @include mobileVertical {
+    padding: 0.6em;
+    font-size: 17px;
+    max-width: 60%;
+  }
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.55em;
+    max-width: 75%;
+    margin: 0.25em 0;
+  }
+
+  @include tabletHorizontal {
+    max-width: 62%;
+  }
+
+  @include laptop-sm {
+    max-width: 72%;
+    font-size: 15px;
+  }
+
+  @include laptop-lg {
+    max-width: 68%;
+  }
+}
+
+.answer {
+  align-self: flex-end;
+  background-color: rgb(240, 240, 240);
+  color: #db8d07;
+}

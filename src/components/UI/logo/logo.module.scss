@@ -1,0 +1,27 @@
+@import './../../../scssUtilities';
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 43%;
+  background-color: $orange-10;
+  color: white;
+  font-weight: bold;
+  width: 1.65em;
+  height: 1.65em;
+  font-size: 29px;
+
+  @include tabletVertical {
+    font-size: 42px;
+  }
+
+  @include laptop-sm {
+    font-size: 30px;
+  }
+}
+
+.logo p {
+  margin-left: -5%;
+  font-family: 'Gloria Hallelujah';
+}

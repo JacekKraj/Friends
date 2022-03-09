@@ -1,0 +1,21 @@
+@import './../../../scssUtilities';
+
+.bigScreenNavContainer {
+  display: none;
+
+  @include laptop-sm {
+    display: block;
+    flex-basis: 25%;
+  }
+
+  @include custom(1320px) {
+    flex-basis: 20%;
+    max-width: 350px;
+  }
+}
+
+.smallScrenNavContainer {
+  @include laptop-sm {
+    display: none;
+  }
+}

@@ -1,0 +1,81 @@
+@import './../../../../../scssUtilities';
+
+.postHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8em;
+}
+
+.postHeader a {
+  flex-grow: 1;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 0.45em;
+  background-color: $gray-20;
+  overflow: hidden;
+
+  @include mobileVertical {
+    width: 35px;
+    height: 35px;
+  }
+
+  @include tabletVertical {
+    width: 50px;
+    height: 50px;
+  }
+
+  @include laptop-sm {
+    width: 37px;
+    height: 37px;
+  }
+}
+
+.authorName {
+  color: $gray-60;
+  margin-bottom: 0.08em;
+  font-size: 14px;
+  cursor: pointer;
+  font-size: bold;
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include laptop-sm {
+    font-size: 16px;
+  }
+}
+
+.author:hover .authorName {
+  text-decoration: underline;
+}
+
+.postCreationTime {
+  font-size: 9px;
+  color: #777;
+
+  @include mobileVertical {
+    font-size: 10px;
+  }
+
+  @include tabletVertical {
+    font-size: 13px;
+  }
+
+  @include laptop-sm {
+    font-size: 10px;
+  }
+}
+
+.postEditionPanelContainer {
+  position: relative;
+}

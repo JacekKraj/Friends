@@ -1,0 +1,28 @@
+@import './../../../scssUtilities';
+
+.input {
+  border: none;
+  outline: none;
+  padding: 0.5em;
+  border-bottom: 2px solid $orange-20;
+  font-size: 18px;
+  background-color: transparent;
+  color: $orange-20;
+
+  @include tabletVertical {
+    font-size: 22px;
+  }
+}
+
+::placeholder {
+  color: $orange-20;
+}
+
+.input:focus {
+  border-color: $orange-10;
+  color: $orange-10;
+}
+
+.input:focus::placeholder {
+  color: $orange-10;
+}

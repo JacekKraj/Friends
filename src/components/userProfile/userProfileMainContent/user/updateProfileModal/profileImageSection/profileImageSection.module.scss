@@ -1,0 +1,72 @@
+@import './../../../../../../scssUtilities';
+
+.profileImageSec {
+  @include mobileHorizontal {
+    flex-basis: 38%;
+  }
+
+  @include tabletHorizontal {
+    flex-basis: 35%;
+  }
+}
+
+.profileImage {
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  min-height: 120px;
+  margin: 0 auto;
+  background-color: $gray-20;
+  -webkit-box-shadow: 0px 0px 5px 1px $gray-10;
+  box-shadow: 0px 0px 5px 1px $gray-10;
+
+  @include tabletVertical {
+    width: 65%;
+    max-width: 3000px;
+    min-height: 180px;
+  }
+
+  @include tabletHorizontal {
+    min-height: 200px;
+  }
+}
+
+.profileImageButtons {
+  margin: 1.5em auto 2em;
+  max-width: 200px;
+
+  @include mobileVertical {
+    display: flex;
+    justify-content: space-between;
+    max-width: 350px;
+  }
+
+  @include tabletVertical {
+    max-width: 450px;
+  }
+
+  @include mobileHorizontal {
+    margin: 0.9em 0 0em;
+    max-width: unset;
+  }
+}
+
+.button {
+  width: 100%;
+  font-size: 15px;
+  padding: 0.5em;
+  margin: 1em 0;
+
+  @include mobileVertical {
+    flex-basis: 47%;
+    font-size: 16px;
+  }
+
+  @include tabletVertical {
+    font-size: 20px;
+  }
+
+  @include laptop-sm {
+    font-size: 18px;
+  }
+}

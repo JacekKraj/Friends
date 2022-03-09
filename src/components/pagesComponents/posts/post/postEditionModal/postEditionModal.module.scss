@@ -1,0 +1,125 @@
+@import './../../../../../scssUtilities';
+
+.postEditionModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(245, 245, 245);
+  padding: 1em 1em;
+  z-index: 11;
+  width: 80%;
+  -webkit-box-shadow: 0px 0px 4px 2px $gray-25;
+  box-shadow: 0px 0px 4px 2px $gray-25;
+  border-radius: 3px;
+
+  @include mobileVertical {
+    width: 400px;
+  }
+
+  @include tabletVertical {
+    width: 500px;
+  }
+
+  @include mobileHorizontal {
+    width: 65%;
+    max-width: 530px;
+  }
+}
+
+.textArea {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  border: 2px solid $gray-10;
+  color: #777;
+  resize: none;
+  margin-bottom: 1em;
+  background-color: #fff;
+  min-height: 10vh;
+
+  @include tabletVertical {
+    min-height: 7vh;
+    font-size: 18px;
+  }
+
+  @include mobileHorizontal {
+    padding: 0.4em;
+    font-size: 14px;
+  }
+
+  @include tabletHorizontal {
+    font-size: 15px;
+  }
+}
+
+.imageContainer {
+  width: 100%;
+  max-height: 60vh;
+  min-height: 40vh;
+  overflow-y: auto;
+  position: relative;
+  margin-bottom: 1vh;
+
+  @include mobileHorizontal {
+    max-height: 50vh;
+    margin-bottom: 2%;
+  }
+
+  @include tabletHorizontal {
+    margin-bottom: 0.5em;
+  }
+}
+
+.image {
+  width: 100%;
+}
+
+.imageBg {
+  width: 100%;
+  min-height: 40vh;
+  background-color: rgba(253, 253, 253, 1);
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid $gray-10;
+  border-radius: 5px;
+  padding: 0.3em;
+  background-color: rgb(253, 253, 253);
+
+  @include tabletVertical {
+    padding: 0.4em;
+  }
+
+  @include mobileHorizontal {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @include tabletHorizontal {
+    padding: 0.4em;
+  }
+}
+
+.button {
+  font-size: 14px;
+  padding: 0.1em 1em;
+
+  @include tabletVertical {
+    font-size: 17px;
+  }
+
+  @include tabletHorizontal {
+    padding: 0.3em 1em;
+  }
+}
+
+.iconsContainer {
+  display: flex;
+  margin-bottom: -5px;
+}

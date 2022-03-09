@@ -1,0 +1,139 @@
+@import './../../../../scssUtilities';
+
+.userInfoComponent {
+  position: relative;
+  border-bottom: 1px solid #888;
+  background-color: rgb(233, 233, 233);
+  padding: 4% 5%;
+  min-height: 40vh;
+
+  @include mobileVertical {
+    padding: 4% 12% 2%;
+  }
+
+  @include mobileHorizontal {
+    padding: 2% 22%;
+    min-height: 250px;
+  }
+
+  @include tabletHorizontal {
+    padding: 2.5% 25% 1.5%;
+  }
+
+  @include laptop-sm {
+    padding: 3% 3% 2%;
+    min-height: 275px;
+  }
+}
+
+.infoTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1%;
+}
+
+.image {
+  width: 120px;
+  border: 3px solid #fff;
+  background-color: $gray-20;
+  border-radius: 5px;
+  min-height: 120px;
+
+  @include mobileVertical {
+    width: 140px;
+  }
+
+  @include tabletVertical {
+    width: 160px;
+  }
+
+  @include mobileHorizontal {
+    width: 110px;
+  }
+
+  @include tabletHorizontal {
+    width: 140px;
+    min-height: 140px;
+  }
+}
+
+.button {
+  align-self: flex-start;
+  font-size: 15px;
+
+  @include tabletVertical {
+    font-size: 24px;
+  }
+}
+
+.name {
+  color: $gray-60;
+  font-size: 19px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+
+  @include mobileVertical {
+    font-size: 26px;
+  }
+
+  @include tabletVertical {
+    font-size: 30px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 23px;
+  }
+
+  @include laptop-sm {
+    font-size: 20px;
+  }
+}
+
+.description {
+  font-size: 14px;
+  color: $gray-50;
+  margin: 1.1em 0 1em;
+
+  @include mobileVertical {
+    font-size: 16px;
+  }
+
+  @include tabletVertical {
+    font-size: 23px;
+  }
+
+  @include mobileHorizontal {
+    font-size: 15px;
+  }
+}
+
+.moreInfoContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+.chatLink {
+  padding: 0.39em;
+  background-color: #ffa500;
+  display: inline-flex;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  border: 2px solid #e08f03;
+  transition: 0.19s;
+
+  @include tabletVertical {
+    padding: 0.7em;
+    margin-right: 0.6em;
+  }
+}
+
+.chatLink:hover {
+  background-color: #f59c03;
+  border: 2px solid #ce8405;
+}

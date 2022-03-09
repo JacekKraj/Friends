@@ -1,0 +1,7 @@
+@import './../../../scssUtilities';
+
+.userProfileMainContentComponent {
+  @include laptop-sm {
+    flex-basis: 50%;
+  }
+}
