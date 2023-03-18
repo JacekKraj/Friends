@@ -1,4 +1,6 @@
 .bigScreenNavComponent {
+  display:flex;
+  flex-direction: column;
   padding: 8% 5%;
   height: 100vh;
   overflow: auto;

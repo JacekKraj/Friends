@@ -47,6 +47,7 @@ const NavBar = () => {
 
   return (
     <div className={classes.navBarComponent}>
+        <div>
       <div className={classes.user}>
         <div className={classes.profileImageContainer}>
           <img className={classes.profileImage} src={profileImage} alt='User profile image' />
@@ -63,6 +64,8 @@ const NavBar = () => {
         icon={<ExitToAppIcon className={classnames(iconStyle.icon, classes.signoutIcon)} />}
         label='Sign out'
       />
+        </div>
+      <p className={classes.copyright}>&copy;Jacek Krajewski 2023</p>
     </div>
   );
 };

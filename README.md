@@ -7,3 +7,5 @@ real time and many more.
 This repo does not contain Firebase API key, so this page won't be fully working when using 'npm start'. Instead to see page working check the live server:
 
 https://friends-e6525.web.app
+
+©Jacek Krajewski 2023
